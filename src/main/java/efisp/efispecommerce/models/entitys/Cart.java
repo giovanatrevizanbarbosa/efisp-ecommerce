@@ -5,19 +5,19 @@ import java.util.Map;
 
 public class Cart {
     //identifier
-    private final User owner;
+    private final int ownerId;
     //Map<ProductId, Item>
     private final Map<Integer, Item> items;
     private double totalPrice;
 
-    public Cart(User owner) {
-        this.owner = owner;
+    public Cart(int ownerId) {
+        this.ownerId = ownerId;
         items = new HashMap<>();
         totalPrice = 0;
     }
 
-    public User getOwner() {
-        return owner;
+    public int getOwner() {
+        return ownerId;
     }
 
     public Map<Integer, Item> getItems() {
@@ -28,9 +28,12 @@ public class Cart {
         return totalPrice;
     }
 
-    public void insertItem(Item item) {
-        items.put(item.getProduct().getId(), item);
-        totalPrice += item.getProduct().getPrice() * item.getQuantity();
+    public Boolean insertItem(Item item) {
+        if (items.put(item.getProduct().getId(), item) != null){
+            totalPrice += item.getProduct().getPrice() * item.getQuantity();
+            return true;
+        }
+        return false;
     }
 
     public Item removeItem(int productId) {
