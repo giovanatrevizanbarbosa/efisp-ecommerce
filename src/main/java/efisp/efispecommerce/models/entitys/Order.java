@@ -25,7 +25,8 @@ public class Order {
     }
 
     public void setCart(Cart cart) {
-        this.cart = cart;
+        if (cart != null)
+            this.cart = cart;
     }
 
     public PaymentMethod getPaymentMethod() {
@@ -33,7 +34,8 @@ public class Order {
     }
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+        if (paymentMethod != null)
+            this.paymentMethod = paymentMethod;
     }
 
     public Address getAddress() {
@@ -41,6 +43,7 @@ public class Order {
     }
 
     public void setAddress(Address address) {
-        this.address = address;
+        if (address != null)
+            this.address = address;
     }
 }

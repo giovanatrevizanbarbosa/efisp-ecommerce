@@ -13,6 +13,7 @@ public class Administrator extends User {
     }
 
     public void setTitle(Title title) {
-        this.title = title;
+        if (title != null)
+            this.title = title;
     }
 }
