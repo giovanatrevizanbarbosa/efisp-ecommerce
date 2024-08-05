@@ -19,6 +19,7 @@ public class Title {
     }
 
     public void setPermissionLevel(int permissionLevel) {
-        this.permissionLevel = permissionLevel;
+        if (permissionLevel > 0 && permissionLevel < 10)
+            this.permissionLevel = permissionLevel;
     }
 }
