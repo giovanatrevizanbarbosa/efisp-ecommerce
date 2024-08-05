@@ -1,20 +1,22 @@
 package efisp.efispecommerce.models.entitys;
 
 public class Rating {
-    private final User owner;
+    //identifier
+    private final String userEmail;
+    //identifier
     private final int productId;
     private final String comment;
     private final int rating;
 
-    public Rating(User owner, int productId, String comment, int rating) {
-        this.owner = owner;
+    public Rating(String userEmail, int productId, String comment, int rating) {
+        this.userEmail = userEmail;
         this.productId = productId;
         this.comment = comment;
         this.rating = rating;
     }
 
-    public User getOwner() {
-        return owner;
+    public String getOwnerEmail() {
+        return userEmail;
     }
 
     public int getProductId() {

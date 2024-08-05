@@ -1,8 +1,5 @@
 package efisp.efispecommerce.models.entitys;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Product {
     private final int id;
     //id as identifier allows multiple products with same name, but different price, brand and description.
