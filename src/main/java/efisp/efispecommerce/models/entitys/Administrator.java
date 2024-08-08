@@ -3,8 +3,8 @@ package efisp.efispecommerce.models.entitys;
 public class Administrator extends User {
     private Title title;
 
-    public Administrator(String name, String email, String password, Title title){
-        super(name, email, password);
+    public Administrator(int id, String name, String email, String password, Title title){
+        super(id, name, email, password);
         this.title = title;
     }
 
