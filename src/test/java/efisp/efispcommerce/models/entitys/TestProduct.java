@@ -42,7 +42,7 @@ public class TestProduct {
     public void TestProductGetPrice() {
         Initialize();
 
-        double expected = 1200;
+        double expected = 800;
         double actual = product.getPrice();
 
         assertEquals(expected, actual);
@@ -62,7 +62,7 @@ public class TestProduct {
     public void TestProductGetDescription() {
         Initialize();
 
-        String expected = "Hardware";
+        String expected = "GPU";
         String actual = product.getDescription();
 
         assertEquals(expected, actual);

@@ -13,7 +13,7 @@ public class TestCart {
     Cart cart;
 
     public void Initialize(){
-        cart = new Cart("caua@gmail.com");
+        cart = new Cart(1, "caua@gmail.com");
 
         Brand brandA = new Brand("Nvidia");
         Department departmentA = new Department("Hardware", "Hardware department");
@@ -27,6 +27,16 @@ public class TestCart {
         itemB = new Item(productB, 1);
 
         cart.insertItem(itemA);
+    }
+
+    @Test
+    public void TestCartGetId(){
+        Initialize();
+
+        var expected = 1;
+        var actual = cart.getId();
+
+        assertEquals(expected,actual);
     }
 
     @Test
