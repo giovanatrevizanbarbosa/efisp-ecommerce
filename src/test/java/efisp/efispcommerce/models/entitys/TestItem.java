@@ -15,7 +15,7 @@ public class TestItem {
     public void Initialize() {
         Brand brand = new Brand("Nvidia");
         Department department = new Department("Hardware", "Hardware department");
-        Product product = new Product(1, "GeForce GTX1660", 800, brand, "GPU", department);
+        Product product = new Product(1, "GeForce GTX1660", 800, brand, "GPU", department, 10);
         item = new Item(product, 1);
     }
 

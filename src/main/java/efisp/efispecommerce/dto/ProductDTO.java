@@ -1,8 +1,10 @@
-package efisp.efispecommerce.models.entitys;
+package efisp.efispecommerce.dto;
 
-public class Product {
+import efisp.efispecommerce.models.entitys.Brand;
+import efisp.efispecommerce.models.entitys.Department;
+
+public class ProductDTO {
     private final int id;
-    //id as identifier allows multiple products with same name, but different price, brand and description.
     private final String name;
     private final double price;
     private final Brand brand;
@@ -10,14 +12,18 @@ public class Product {
     private final Department department;
     private final int stock;
 
-    public Product(int id, String name, double price, Brand brand, String description, Department department, int stock) {
+    public ProductDTO(int id, String name, double price, Brand brand, String description, Department department, int stock) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.description = description;
         this.department = department;
-        this.stock = stock;
+        if(stock < 0){
+            throw new IllegalArgumentException("Stock cannot be negative");
+        }else{
+            this.stock = stock;
+        }
     }
 
     public int getId() {
@@ -32,10 +38,6 @@ public class Product {
         return price;
     }
 
-    public Brand getBrand() {
-        return brand;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -46,5 +48,9 @@ public class Product {
 
     public int getStock() {
         return stock;
+    }
+
+    public Brand getBrand() {
+        return brand;
     }
 }
