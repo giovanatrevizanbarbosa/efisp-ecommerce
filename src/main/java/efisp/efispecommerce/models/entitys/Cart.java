@@ -4,16 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cart {
+    private final int id;
     //identifier
     private final String ownerEmail;
     //Map<ProductId, Item>
     private final Map<Integer, Item> items;
     private double totalPrice;
 
-    public Cart(String ownerEmail) {
+    public Cart(int id, String ownerEmail) {
+        this.id = id;
         this.ownerEmail = ownerEmail;
         items = new HashMap<>();
         totalPrice = 0;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getOwnerEmail() {

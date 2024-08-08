@@ -3,17 +3,23 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
 public class Order {
+    private final int id;
     //identifier
     private final User user;
     private Cart cart;
     private PaymentMethod paymentMethod;
     private Address address;
 
-    public Order(User user, Cart cart, PaymentMethod method, Address address) {
+    public Order(int id, User user, Cart cart, PaymentMethod method, Address address) {
+        this.id = id;
         this.user = user;
         this.cart = cart;
         this.paymentMethod = method;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public User getUser() {
