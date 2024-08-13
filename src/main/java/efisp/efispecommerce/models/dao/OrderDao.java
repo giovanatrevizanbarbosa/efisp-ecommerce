@@ -25,13 +25,13 @@ public class OrderDao implements Dao<Order> {
 
     @Override
     public boolean add(Order order) {
-        Order order1 = new Order(order.getUser(), order.getCart(), order.getPaymentMethod(), order.getAddress());
+        Order order1 = new Order(1, order.getUser(), order.getCart(), order.getPaymentMethod(), order.getAddress());
         return orders.put((long) orders.size(), order1) == null;
     }
 
     @Override
     public boolean update(long id, Order order) {
-        Order order1 = new Order(order.getUser(), order.getCart(), order.getPaymentMethod(), order.getAddress());
+        Order order1 = new Order(1, order.getUser(), order.getCart(), order.getPaymentMethod(), order.getAddress());
         return orders.replace(id, order1) != null;
 
     }
@@ -46,7 +46,7 @@ public class OrderDao implements Dao<Order> {
         Order orderFinded = orders.get(id);
 
         if (orderFinded != null) {
-            return new Order(orderFinded.getUser(), orderFinded.getCart(), orderFinded.getPaymentMethod(), orderFinded.getAddress());
+            return new Order(1, orderFinded.getUser(), orderFinded.getCart(), orderFinded.getPaymentMethod(), orderFinded.getAddress());
         }
 
         throw new RuntimeException("Order not found");
@@ -55,7 +55,7 @@ public class OrderDao implements Dao<Order> {
     @Override
     public List<Order> getAll() {
         List<Order> ordersList = new LinkedList<>();
-        orders.values().forEach(order -> ordersList.add(new Order(order.getUser(), order.getCart(), order.getPaymentMethod(), order.getAddress())));
+        orders.values().forEach(order -> ordersList.add(new Order(1, order.getUser(), order.getCart(), order.getPaymentMethod(), order.getAddress())));
         return ordersList;
     }
 }

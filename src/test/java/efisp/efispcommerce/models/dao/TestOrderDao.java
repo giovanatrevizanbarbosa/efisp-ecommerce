@@ -17,7 +17,7 @@ public class TestOrderDao {
     public void TestOrderDaoAdd() {
         Dao<Order> orderDao = OrderDao.getInstance();
 
-        Order order = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order = new Order(1, new User(1, "João", "email.com", "123456"), new Cart(1, "email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
 
         boolean expected = true;
         boolean actual = orderDao.add(order);
@@ -29,7 +29,7 @@ public class TestOrderDao {
     public void TestOrderDaoGetById() {
         Dao<Order> orderDao = OrderDao.getInstance();
 
-        Order order = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order = new Order(new User(1, "João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
 
         orderDao.add(order);
 
@@ -42,8 +42,8 @@ public class TestOrderDao {
     public void TestOrderDaoGetAll() {
         Dao<Order> orderDao = OrderDao.getInstance();
 
-        Order order = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
-        Order order2 = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order = new Order(new User(1, "João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order2 = new Order(new User(1, "João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
 
         orderDao.add(order);
         orderDao.add(order2);
@@ -58,7 +58,7 @@ public class TestOrderDao {
     public void TestOrderDaoDelete() {
         Dao<Order> orderDao = OrderDao.getInstance();
 
-        Order order = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order = new Order(new User(1, "João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
 
         orderDao.add(order);
 
@@ -72,11 +72,11 @@ public class TestOrderDao {
     public void TestOrderDaoUpdate() {
         Dao<Order> orderDao = OrderDao.getInstance();
 
-        Order order = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order = new Order(new User(1, "João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
 
         orderDao.add(order);
 
-        Order order2 = new Order(new User("João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
+        Order order2 = new Order(new User(1, "João", "email.com", "123456"), new Cart("email.com"), PaymentMethod.Pix, new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200"));
 
         boolean expected = true;
         boolean actual = orderDao.update(0, order2);
