@@ -13,20 +13,30 @@ public class TestCart {
     Cart cart;
 
     public void Initialize(){
-        cart = new Cart("caua@gmail.com");
+        cart = new Cart(1, "caua@gmail.com");
 
         Brand brandA = new Brand("Nvidia");
         Department departmentA = new Department("Hardware", "Hardware department");
-        Product productA = new Product(1, "GeForce GTX1660", 800, brandA, "GPU", departmentA);
+        Product productA = new Product(1, "GeForce GTX1660", 800, brandA, "GPU", departmentA, 10);
         itemA = new Item(productA, 1);
 
         Brand brandB = new Brand("Intel");
         Department departmentB = new Department("Hardware", "Hardware department");
-        Product productB = new Product(2, "i5 11300H", 1200, brandB, "CPU", departmentB);
+        Product productB = new Product(2, "i5 11300H", 1200, brandB, "CPU", departmentB, 10);
 
         itemB = new Item(productB, 1);
 
         cart.insertItem(itemA);
+    }
+
+    @Test
+    public void TestCartGetId(){
+        Initialize();
+
+        var expected = 1;
+        var actual = cart.getId();
+
+        assertEquals(expected,actual);
     }
 
     @Test

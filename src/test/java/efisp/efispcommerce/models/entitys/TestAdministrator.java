@@ -12,7 +12,17 @@ public class TestAdministrator {
 
     public void Initialize(){
         admTitle = new Title("CEO", 10);
-        administrator = new Administrator("Cauã", "caua@gmail.com", "Password123", admTitle);
+        administrator = new Administrator(1, "Cauã", "caua@gmail.com", "Password123", admTitle);
+    }
+
+    @Test
+    public void TestAdministratorGetId(){
+        Initialize();
+
+        var expected = 1;
+        var actual = administrator.getId();
+
+        assertEquals(expected,actual);
     }
 
     @Test

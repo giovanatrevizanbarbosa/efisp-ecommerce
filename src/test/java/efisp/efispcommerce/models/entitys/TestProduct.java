@@ -15,7 +15,7 @@ public class TestProduct {
     public void Initialize() {
         brand = new Brand("Nvidia");
         department = new Department("Hardware", "Hardware department");
-        product = new Product(1, "GeForce GTX1660", 800, brand, "GPU", department);
+        product = new Product(1, "GeForce GTX1660", 800, brand, "GPU", department, 10);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestProduct {
     public void TestProductGetPrice() {
         Initialize();
 
-        double expected = 1200;
+        double expected = 800;
         double actual = product.getPrice();
 
         assertEquals(expected, actual);
@@ -62,7 +62,7 @@ public class TestProduct {
     public void TestProductGetDescription() {
         Initialize();
 
-        String expected = "Hardware";
+        String expected = "GPU";
         String actual = product.getDescription();
 
         assertEquals(expected, actual);
