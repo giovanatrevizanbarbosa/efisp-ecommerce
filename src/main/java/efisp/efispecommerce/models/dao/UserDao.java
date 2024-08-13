@@ -26,13 +26,13 @@ public class UserDao implements Dao<User>{
 
     @Override
     public boolean add(User user) {
-        User user1 = new User(user.getName(), user.getEmail(), user.getPassword());
-        return users.put((long) users.size(), user1) == null;
+        User user1 = new User(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+        return users.put((long) user.getId(), user1) == null;
     }
 
     @Override
     public boolean update(long id, User user) {
-        User user1 = new User(user.getName(), user.getEmail(), user.getPassword());
+        User user1 = new User(user.getId(), user.getName(), user.getEmail(), user.getPassword());
         return users.replace(id, user1) != null;
 
     }
@@ -47,7 +47,7 @@ public class UserDao implements Dao<User>{
         User userFinded = users.get(id);
 
         if (userFinded != null) {
-            return new User(userFinded.getName(), userFinded.getEmail(), userFinded.getPassword());
+            return new User(userFinded.getId(), userFinded.getName(), userFinded.getEmail(), userFinded.getPassword());
         }
 
         throw new RuntimeException("User not found");
@@ -56,7 +56,7 @@ public class UserDao implements Dao<User>{
     @Override
     public List<User> getAll() {
         List<User> usersList = new LinkedList<>();
-        users.values().forEach(user -> usersList.add(new User(user.getName(), user.getEmail(), user.getPassword())));
+        users.values().forEach(user -> usersList.add(new User(user.getId(), user.getName(), user.getEmail(), user.getPassword())));
         return usersList;
     }
 }
