@@ -26,7 +26,7 @@ public class CartDao implements Dao<Cart> {
 
     @Override
     public boolean add(Cart cart) {
-        Cart cart1 = new Cart(cart.getOwnerEmail());
+        Cart cart1 = new Cart(1, cart.getOwnerEmail());
         for (Item item : cart.getItems().values()) {
             cart1.insertItem(new Item(item.getProduct(), item.getQuantity()));
         }
@@ -36,7 +36,7 @@ public class CartDao implements Dao<Cart> {
 
     @Override
     public boolean update(long id, Cart cart) {
-        Cart cart1 = new Cart(cart.getOwnerEmail());
+        Cart cart1 = new Cart(1, cart.getOwnerEmail());
         for (Item item : cart.getItems().values()) {
             cart1.insertItem(new Item(item.getProduct(), item.getQuantity()));
         }
@@ -54,7 +54,7 @@ public class CartDao implements Dao<Cart> {
         Cart cartFinded = carts.get(id);
 
         if (cartFinded != null) {
-            Cart cart1 = new Cart(cartFinded.getOwnerEmail());
+            Cart cart1 = new Cart(1, cartFinded.getOwnerEmail());
             for (Item item : cartFinded.getItems().values()) {
                 cart1.insertItem(new Item(item.getProduct(), item.getQuantity()));
             }
@@ -70,7 +70,7 @@ public class CartDao implements Dao<Cart> {
         List<Cart> cartsList = new LinkedList<>();
 
         carts.values().forEach(cart -> {
-            Cart cart1 = new Cart(cart.getOwnerEmail());
+            Cart cart1 = new Cart(1, cart.getOwnerEmail());
             for (Item item : cart.getItems().values()) {
                 cart1.insertItem(new Item(item.getProduct(), item.getQuantity()));
             }

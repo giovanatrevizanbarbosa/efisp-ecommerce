@@ -13,7 +13,7 @@ public class TestCartDao {
     public void TestCartDaoAdd() {
         Dao<Cart> cartDao = CartDao.getInstance();
 
-        Cart cart = new Cart("email.com");
+        Cart cart = new Cart(1, "email.com");
 
         boolean expected = true;
         boolean actual = cartDao.add(cart);
@@ -25,7 +25,7 @@ public class TestCartDao {
     public void TestCartDaoGetById() {
         Dao<Cart> cartDao = CartDao.getInstance();
 
-        Cart cart = new Cart("email.com");
+        Cart cart = new Cart(1, "email.com");
 
         cartDao.add(cart);
 
@@ -38,8 +38,8 @@ public class TestCartDao {
     public void TestCartDaoGetAll() {
         Dao<Cart> cartDao = CartDao.getInstance();
 
-        Cart cart = new Cart("email.com");
-        Cart cart2 = new Cart("email.com");
+        Cart cart = new Cart(1, "email.com");
+        Cart cart2 = new Cart(2, "email.com");
 
         cartDao.add(cart);
         cartDao.add(cart2);
@@ -54,7 +54,7 @@ public class TestCartDao {
     public void TestCartDaoDelete() {
         Dao<Cart> cartDao = CartDao.getInstance();
 
-        Cart cart = new Cart("email.com");
+        Cart cart = new Cart(1, "email.com");
         cartDao.add(cart);
 
         boolean expected = true;
@@ -67,7 +67,7 @@ public class TestCartDao {
     public void TestCartDaoUpdate() {
         Dao<Cart> cartDao = CartDao.getInstance();
 
-        Cart cart = new Cart("email.com");
+        Cart cart = new Cart(1, "email.com");
         cartDao.add(cart);
 
         boolean expected = true;
