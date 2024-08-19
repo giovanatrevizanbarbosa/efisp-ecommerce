@@ -25,6 +25,7 @@ public class TestUserDao {
         Initialize();
 
         User user = new User(
+                1,
                 "João",
                 "joao@gmail.com",
                 "123456"
@@ -49,6 +50,7 @@ public class TestUserDao {
         Initialize();
 
         User user = new User(
+                1,
                 "João",
                 "joao@gmail.com",
                 "123456"
@@ -65,6 +67,7 @@ public class TestUserDao {
         Initialize();
 
         User user = new User(
+                1,
                 "João",
                 "joao@gmail.com",
                 "123456"
@@ -73,6 +76,7 @@ public class TestUserDao {
         userDao.add(user);
 
         User user1 = new User(
+                1,
                 "João",
                 "joa2@gmail.com",
                 "123456");
@@ -89,6 +93,7 @@ public class TestUserDao {
         Initialize();
 
         User user = new User(
+                1,
                 "João",
                 "joao@gmail.com",
                 "123456"
@@ -115,6 +120,7 @@ public class TestUserDao {
         Initialize();
 
         User user = new User(
+                1,
                 "João",
                 "joao@gmail.com",
                 "123456"

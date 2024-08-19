@@ -16,7 +16,7 @@ public class TestProductDao {
     public void TestProductDaoAdd() {
         Dao<Product> productDao = ProductDao.getInstance();
 
-        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
         boolean expected = true;
         boolean actual = productDao.add(product);
@@ -28,7 +28,7 @@ public class TestProductDao {
     public void TestProductDaoGetById() {
         Dao<Product> productDao = ProductDao.getInstance();
 
-        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
         productDao.add(product);
 
@@ -41,8 +41,8 @@ public class TestProductDao {
     public void TestProductDaoGetAll() {
         Dao<Product> productDao = ProductDao.getInstance();
 
-        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
-        Product product2 = new Product(2, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
+        Product product2 = new Product(2, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
 
         productDao.add(product);
@@ -58,7 +58,7 @@ public class TestProductDao {
     public void TestProductDaoDelete() {
         Dao<Product> productDao = ProductDao.getInstance();
 
-        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"),5);
 
         productDao.add(product);
 
@@ -74,11 +74,11 @@ public class TestProductDao {
     public void TestProductDaoUpdate() {
         Dao<Product> productDao = ProductDao.getInstance();
 
-        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
         productDao.add(product);
 
-        Product product2 = new Product(1, "GeForce RTX 3080", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product2 = new Product(1, "GeForce RTX 3080", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
         productDao.update(1, product2);
 
@@ -91,11 +91,11 @@ public class TestProductDao {
     public void TestProductDaoUpdateNotFound() {
         Dao<Product> productDao = ProductDao.getInstance();
 
-        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product = new Product(1, "GeForce GTX1660", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
         productDao.add(product);
 
-        Product product2 = new Product(2, "GeForce RTX 3080", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"));
+        Product product2 = new Product(2, "GeForce RTX 3080", 800, new Brand("Nvidia"), "GPU", new Department("Hardware", "Hardware department"), 5);
 
         boolean actual = productDao.update(2, product2);
 

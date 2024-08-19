@@ -2,17 +2,15 @@ package efisp.efispecommerce.models.dao;
 
 import efisp.efispecommerce.models.entitys.Product;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ProductDao implements Dao<Product>{
 
     private static ProductDao instance;
-    private final List<Product> products;
+    private final Map<Long, Product> products;
 
     private ProductDao() {
-        products = new LinkedList<>();
+        products = new HashMap<>();
     }
 
     public static Dao<Product> getInstance() {
@@ -24,35 +22,27 @@ public class ProductDao implements Dao<Product>{
 
     @Override
     public boolean add(Product product) {
-        Product product1 = new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment());
-        return products.add(product1);
+        Product product1 = new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment(), 2);
+        return products.put((long) product.getId(), product1) == null;
     }
 
     @Override
     public boolean update(long id, Product product) {
-        Product product1 = new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment());
-
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == id) {
-                products.set(i, product1);
-                return true;
-            }
-        }
-
-        return false;
+        Product product1 = new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment(), 2);
+        return products.replace(id, product1) != null;
     }
 
     @Override
     public boolean delete(long id) {
-        return products.remove((int) id) != null;
+        return products.remove(id) != null;
     }
 
     @Override
     public Product getById(long id) {
-        for (Product product : products) {
-            if (product.getId() == id) {
-                return new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment());
-            }
+        Product productFinded = products.get(id);
+
+        if (productFinded != null) {
+            return new Product(productFinded.getId(), productFinded.getName(), productFinded.getPrice(), productFinded.getBrand(), productFinded.getDescription(), productFinded.getDepartment(), 2);
         }
 
         throw new RuntimeException("Product not found");
@@ -60,7 +50,9 @@ public class ProductDao implements Dao<Product>{
 
     @Override
     public List<Product> getAll() {
-        return new ArrayList<>(products);
+        List<Product> productsList = new LinkedList<>();
+        products.values().forEach(product -> productsList.add(new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment(), 2)));
+        return productsList;
     }
 
 
