@@ -21,7 +21,8 @@ public class TestOrderDTO {
     @BeforeEach
     public void setUp() {
         user = new User(1, "Giovana", "gi.trevizan.barbosa@gmail.com", "senha1234");
-        cart = new Cart(2, "gi.trevizan.barbosa@gmail.com");
+        cart = new Cart(1, "gi.trevizan.barbosa@gmail.com");
+
         paymentMethod = PaymentMethod.CreditCard;
         address = new Address("123 Main St", "Springfield", "IL", "62701", "USA");
 
