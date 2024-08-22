@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Brand {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Brand implements Writable {
     //identifier
     private final String name;
 
@@ -10,5 +12,10 @@ public class Brand {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ name };
     }
 }

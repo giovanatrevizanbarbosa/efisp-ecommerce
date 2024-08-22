@@ -16,4 +16,12 @@ public class Administrator extends User {
         if (title != null)
             this.title = title;
     }
+
+    @Override
+    public String[] toCSV() {
+        var csv = super.toCSV();
+        csv[4] = title.getName();
+
+        return csv;
+    }
 }

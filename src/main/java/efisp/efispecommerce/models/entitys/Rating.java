@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Rating {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Rating implements Writable {
     //identifier
     private final String userEmail;
     //identifier
@@ -29,5 +31,10 @@ public class Rating {
 
     public int getRating() {
         return rating;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ userEmail, String.valueOf(productId), comment, String.valueOf(rating)};
     }
 }
