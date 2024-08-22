@@ -1,4 +1,4 @@
-package efisp.efispecommerce.models.dao;
+package efisp.efispecommerce.models.dao.dataInterface;
 
 import com.opencsv.CSVWriter;
 
@@ -28,6 +28,25 @@ public class DataWriter {
             csvWriter.flush();
         } catch (Exception e) {
             throw new RuntimeException("Error writing to CSV file: " + e.getMessage());
+        }
+    }
+
+    public void writeAllCsv(Writable[] writables) {
+        if (writables != null) {
+            for (Writable writable : writables) {
+                writeCsv(writable);
+            }
+        }
+
+        throw new NullPointerException("Array is null");
+    }
+
+    public void overwriteAllCsv(Writable[] writables) {
+        try {
+            Files.deleteIfExists(Path.of(Paths.get("./").toAbsolutePath().getParent() + "/resources/dataset/users.csv"));
+            writeAllCsv(writables);
+        } catch (Exception e) {
+            throw new RuntimeException("Error overwriting CSV file: " + e.getMessage());
         }
     }
 

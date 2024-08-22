@@ -1,5 +1,7 @@
 package efisp.efispecommerce.models.dao;
 
+import efisp.efispecommerce.models.dao.dataInterface.DataReader;
+import efisp.efispecommerce.models.dao.dataInterface.DataWriter;
 import efisp.efispecommerce.models.entitys.User;
 
 import java.util.HashMap;
@@ -10,10 +12,12 @@ import java.util.Map;
 public class UserDao implements Dao<User>{
 
     private static UserDao instance;
-    private final Map<Long, User> users;
+    private DataWriter dataWriter;
+    private DataReader dataReader;
 
     private UserDao() {
-        users = new HashMap<>();
+        dataWriter = new DataWriter("users");
+        dataReader = new DataReader("users");
     }
 
 
@@ -26,28 +30,53 @@ public class UserDao implements Dao<User>{
 
     @Override
     public boolean add(User user) {
-        User user1 = new User(user.getId(), user.getName(), user.getEmail(), user.getPassword());
-        return users.put((long) user.getId(), user1) == null;
+        if (user != null)
+            return dataWriter.writeCsv(user);
+
+        throw new NullPointerException("User is null");
     }
 
     @Override
     public boolean update(long id, User user) {
-        User user1 = new User(user.getId(), user.getName(), user.getEmail(), user.getPassword());
-        return users.replace(id, user1) != null;
+        List<String[]> list = dataReader.readCsv();
+        User[] users = new User[list.size()];
 
+        for (int i = 0; i < list.size(); i++) {
+            String[] userString = list.get(i);
+            if (Long.parseLong(userString[0]) == id) {
+                users[i] = new User(Integer.parseInt(userString[0]), user.getName(), user.getEmail(), user.getPassword());
+            } else {
+                users[i] = new User(Integer.parseInt(userString[0]), userString[1], userString[2], userString[3]);
+            }
+        }
+
+        return dataWriter.writeAllCsv(users);
     }
 
     @Override
     public boolean delete(long id) {
-        return users.remove(id) != null;
+        List<String[]> list = dataReader.readCsv();
+        User[] users = new User[list.size() - 1];
+        int j = 0;
+
+        for (String[] user : list) {
+            if (Long.parseLong(user[0]) != id) {
+                users[j] = new User(Integer.parseInt(user[0]), user[1], user[2], user[3]);
+                j++;
+            }
+        }
+
+        return dataWriter.writeAllCsv(users);
     }
 
     @Override
     public User getById(long id) {
-        User userFinded = users.get(id);
+        List<String[]> list = dataReader.readCsv();
 
-        if (userFinded != null) {
-            return new User(userFinded.getId(), userFinded.getName(), userFinded.getEmail(), userFinded.getPassword());
+        for (String[] user : list) {
+            if (Long.parseLong(user[0]) == id) {
+                return new User(Integer.parseInt(user[0]), user[1], user[2], user[3]);
+            }
         }
 
         throw new RuntimeException("User not found");
@@ -55,8 +84,17 @@ public class UserDao implements Dao<User>{
 
     @Override
     public List<User> getAll() {
-        List<User> usersList = new LinkedList<>();
-        users.values().forEach(user -> usersList.add(new User(user.getId(), user.getName(), user.getEmail(), user.getPassword())));
-        return usersList;
+        List<String[]> list = dataReader.readCsv();
+        List<User> users = new LinkedList<>();
+
+        for (String[] user : list) {
+            if (user[0].equals("id")) {
+                continue;
+            }
+
+            users.add(new User(Integer.parseInt(user[0]), user[1], user[2], user[3]));
+        }
+
+        return users;
     }
 }
