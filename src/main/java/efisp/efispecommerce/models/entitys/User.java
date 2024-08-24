@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class User {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class User implements Writable {
     private final int id;
     private final String name;
     //identifier
@@ -28,5 +30,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{String.valueOf(id), name, email, password};
     }
 }
