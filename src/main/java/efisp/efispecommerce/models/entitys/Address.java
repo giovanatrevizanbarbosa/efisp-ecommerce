@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Address {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Address implements Writable {
     private final String street;
     private final String number;
     private final String city;
@@ -34,5 +36,10 @@ public class Address {
 
     public String getZip() {
         return zip;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ street, number, city, state, zip };
     }
 }

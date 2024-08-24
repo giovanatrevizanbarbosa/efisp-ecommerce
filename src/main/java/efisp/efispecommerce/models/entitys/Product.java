@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Product {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Product implements Writable {
     private final int id;
     //id as identifier allows multiple products with same name, but different price, brand and description.
     private final String name;
@@ -46,5 +48,10 @@ public class Product {
 
     public int getStock() {
         return stock;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{String.valueOf(id), name, String.valueOf(price), brand.getName(), description, department.getName(), String.valueOf(stock) };
     }
 }

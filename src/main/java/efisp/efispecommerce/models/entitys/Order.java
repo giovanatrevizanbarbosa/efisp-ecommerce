@@ -1,8 +1,9 @@
 package efisp.efispecommerce.models.entitys;
 
+import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
-public class Order {
+public class Order implements Writable {
     private final int id;
     //identifier
     private final User user;
@@ -51,5 +52,10 @@ public class Order {
     public void setAddress(Address address) {
         if (address != null)
             this.address = address;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ String.valueOf(id), String.valueOf(user.getId()), String.valueOf(cart.getId()), paymentMethod.name(), address.getZip() + address.getNumber() };
     }
 }

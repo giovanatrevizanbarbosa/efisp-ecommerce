@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Department {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Department implements Writable {
     //identifier
     private final String name;
     private final String description;
@@ -16,5 +18,10 @@ public class Department {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ name, description };
     }
 }

@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Title {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Title implements Writable {
     //identifier
     private final String name;
     private int permissionLevel;
@@ -21,5 +23,10 @@ public class Title {
     public void setPermissionLevel(int permissionLevel) {
         if (permissionLevel > 0 && permissionLevel < 10)
             this.permissionLevel = permissionLevel;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ name, String.valueOf(permissionLevel) };
     }
 }

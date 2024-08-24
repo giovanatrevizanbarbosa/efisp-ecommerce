@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.entitys;
 
-public class Item {
+import efisp.efispecommerce.models.dao.Writable;
+
+public class Item implements Writable {
     //identifier
     private final Product product;
     private int quantity;
@@ -21,5 +23,10 @@ public class Item {
     public void setQuantity(int quantity) {
         if (quantity > 0)
             this.quantity = quantity;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ String.valueOf(product.getId()), String.valueOf(quantity) };
     }
 }

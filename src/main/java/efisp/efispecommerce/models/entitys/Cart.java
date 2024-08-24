@@ -1,9 +1,11 @@
 package efisp.efispecommerce.models.entitys;
 
+import efisp.efispecommerce.models.dao.Writable;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cart {
+public class Cart implements Writable {
     private final int id;
     //identifier
     private final String ownerEmail;
@@ -47,5 +49,10 @@ public class Cart {
         totalPrice -= item.getProduct().getPrice() * item.getQuantity();
 
         return item;
+    }
+
+    @Override
+    public String[] toCSV() {
+        return new String[]{ String.valueOf(id), ownerEmail, String.valueOf(totalPrice) };
     }
 }
