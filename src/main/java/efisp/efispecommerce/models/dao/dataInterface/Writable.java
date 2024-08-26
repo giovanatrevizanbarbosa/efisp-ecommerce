@@ -1,6 +1,8 @@
 package efisp.efispecommerce.models.dao.dataInterface;
 
-public interface Writable {
+public interface Writable<T> {
 
-    String[] toCSV();
+    CSV toCSV();
+
+    T fromCSV(CSV csv);
 }

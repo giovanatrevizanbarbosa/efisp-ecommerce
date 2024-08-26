@@ -1,6 +1,6 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.dao.dataInterface.Writable;
 
 public class User implements Writable {
     private final int id;
