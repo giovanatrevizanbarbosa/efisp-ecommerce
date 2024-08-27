@@ -1,8 +1,9 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
-public class Department implements Writable {
+public class Department extends Writable {
     //identifier
     private final String name;
     private final String description;
@@ -21,7 +22,10 @@ public class Department implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ name, description };
+    public Csv toCSV() {
+        return new Csv(
+            new String[]{"id", "name", "description"},
+                new String[]{getId().toString(), name, description}
+        );
     }
 }

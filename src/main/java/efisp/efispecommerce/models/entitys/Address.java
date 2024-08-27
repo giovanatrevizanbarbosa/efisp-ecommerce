@@ -1,8 +1,9 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
-public class Address implements Writable {
+public class Address extends Writable {
     private final String street;
     private final String number;
     private final String city;
@@ -39,7 +40,10 @@ public class Address implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ street, number, city, state, zip };
+    public Csv toCSV() {
+        return new Csv(
+            new String[]{"id", "street", "number", "city", "state", "zip"},
+                new String[]{getId().toString(), street, number, city, state, zip}
+        );
     }
 }

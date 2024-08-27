@@ -1,10 +1,10 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
-public class Order implements Writable {
-    private final int id;
+public class Order extends Writable {
     //identifier
     private final User user;
     private Cart cart;
@@ -12,16 +12,13 @@ public class Order implements Writable {
     private Address address;
 
     public Order(int id, User user, Cart cart, PaymentMethod method, Address address) {
-        this.id = id;
+        setId((long) id);
         this.user = user;
         this.cart = cart;
         this.paymentMethod = method;
         this.address = address;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public User getUser() {
         return user;
@@ -55,7 +52,10 @@ public class Order implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ String.valueOf(id), String.valueOf(user.getId()), String.valueOf(cart.getId()), paymentMethod.name(), address.getZip() + address.getNumber() };
+    public Csv toCSV() {
+        return new Csv(
+                new String[]{"id", "userEmail", "cartId", "paymentMethod", "addressId"},
+                new String[]{getId().toString(), user.getEmail(), String.valueOf(cart.getId()), paymentMethod.toString(), address.getId().toString()}
+        );
     }
 }

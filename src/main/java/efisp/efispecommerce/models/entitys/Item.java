@@ -1,8 +1,9 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
-public class Item implements Writable {
+public class Item extends Writable {
     //identifier
     private final Product product;
     private int quantity;
@@ -26,7 +27,10 @@ public class Item implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ String.valueOf(product.getId()), String.valueOf(quantity) };
+    public Csv toCSV() {
+        return new Csv(
+                new String[]{"id", "productId", "quantity"},
+                new String[]{getId().toString(), product.getId().toString(), String.valueOf(quantity)}
+        );
     }
 }

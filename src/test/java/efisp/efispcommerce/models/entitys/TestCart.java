@@ -97,7 +97,7 @@ public class TestCart {
         expected.put(2, itemB);
 
         cart.insertItem(itemB);
-        cart.removeItem(itemA.getProduct().getId());
+        cart.removeItem(itemA.getProduct().getId().intValue());
 
         Map<Integer, Item> actual = cart.getItems();
 

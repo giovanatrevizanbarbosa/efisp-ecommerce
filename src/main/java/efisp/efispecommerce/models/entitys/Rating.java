@@ -1,8 +1,9 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
-public class Rating implements Writable {
+public class Rating extends Writable {
     //identifier
     private final String userEmail;
     //identifier
@@ -34,7 +35,7 @@ public class Rating implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ userEmail, String.valueOf(productId), comment, String.valueOf(rating)};
+    public Csv toCSV() {
+        return new Csv(new String[]{"id", "userEmail", "productId", "comment", "rating"}, new String[]{getId().toString(), userEmail, String.valueOf(productId), comment, String.valueOf(rating)});
     }
 }

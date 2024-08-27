@@ -23,7 +23,7 @@ public class TestProduct {
         Initialize();
 
         int expected = 1;
-        int actual = product.getId();
+        int actual = Math.toIntExact(product.getId());
 
         assertEquals(expected, actual);
     }
