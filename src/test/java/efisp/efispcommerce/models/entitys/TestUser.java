@@ -9,7 +9,7 @@ public class TestUser {
     User user;
 
     public void Initialize() {
-        user = new User(1, "Cauã", "caua@gmail.com", "Password123");
+        user = new User(1L, "Cauã", "caua@gmail.com", "Password123");
     }
 
     @Test

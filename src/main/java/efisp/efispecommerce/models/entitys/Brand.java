@@ -6,7 +6,8 @@ import efisp.efispecommerce.models.repository.csv.Csv;
 public class Brand extends Writable {
     private final String name;
 
-    public Brand(String name) {
+    public Brand(Long id, String name) {
+        super(id);
         this.name = name;
     }
 

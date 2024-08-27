@@ -12,8 +12,8 @@ public class Product extends Writable {
     private final Department department;
     private final int stock;
 
-    public Product(int id, String name, double price, Brand brand, String description, Department department, int stock) {
-        setId((long) id);
+    public Product(Long id, String name, double price, Brand brand, String description, Department department, int stock) {
+        super(id);
         this.name = name;
         this.price = price;
         this.brand = brand;

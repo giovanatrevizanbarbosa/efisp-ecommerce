@@ -8,10 +8,10 @@ public class Address extends Writable {
     private final String number;
     private final String city;
     private final String state;
-    //identifier
     private final String zip;
 
-    public Address(String street, String number, String city, String state, String zip) {
+    public Address(Long id, String street, String number, String city, String state, String zip) {
+        super(id);
         this.street = street;
         this.number = number;
         this.city = city;
@@ -43,7 +43,7 @@ public class Address extends Writable {
     public Csv toCSV() {
         return new Csv(
             new String[]{"id", "street", "number", "city", "state", "zip"},
-                new String[]{getId().toString(), street, number, city, state, zip}
+            new String[]{getId().toString(), street, number, city, state, zip}
         );
     }
 }

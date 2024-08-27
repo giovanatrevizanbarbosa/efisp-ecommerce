@@ -24,14 +24,14 @@ public class TestCartDTO {
         ownerEmail = "gi.trevizan.barbosa@gmail.com";
         items = new HashMap<>();
 
-        Brand brand = new Brand("Dell");
-        Department department = new Department("Electronics", "Electronics department");
+        Brand brand = new Brand(1L, "Dell");
+        Department department = new Department(3L, "Electronics", "Electronics department");
 
-        Product product1 = new Product(1, "Laptop", 1000.0, brand, "High-performance laptop", department, 5);
-        Product product2 = new Product(2, "Smartphone", 500.0, brand, "Latest smartphone", department, 10);
+        Product product1 = new Product(1L, "Laptop", 1000.0, brand, "High-performance laptop", department, 5);
+        Product product2 = new Product(2L, "Smartphone", 500.0, brand, "Latest smartphone", department, 10);
 
-        items.put(1, new Item(product1, 2));
-        items.put(2, new Item(product2, 1));
+        items.put(1, new Item(1L, product1, 2));
+        items.put(2, new Item(2L, product2, 1));
 
         cartDTO = new CartDTO(ownerEmail, items);
     }

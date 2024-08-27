@@ -8,7 +8,8 @@ public class Title extends Writable {
     private final String name;
     private int permissionLevel;
 
-    public Title(String name, int permissionLevel) {
+    public Title(Long id, String name, int permissionLevel) {
+        super(id);
         this.name = name;
         this.permissionLevel = permissionLevel;
     }

@@ -19,8 +19,8 @@ public class TestUserRepo {
     public void TestUserDaoAdd() {
         Initialize();
 
-        User user = new User(1, "Cauã", "caua@email.com", "Password123");
-        User user2 = new User(2, "João", "joaoa@email.com", "Password123");
+        User user = new User(1L, "Cauã", "caua@email.com", "Password123");
+        User user2 = new User(2L, "João", "joaoa@email.com", "Password123");
 
         var bool = userIRepository.add(user);
         var bool2 = userIRepository.add(user2);
@@ -36,8 +36,8 @@ public class TestUserRepo {
     public void TestUserDaoGetById() {
         Initialize();
 
-        User user = new User(10, "Cauã", "caua@email.com", "Password123");
-        User user2 = new User(22, "João", "jaoao@gmail.com", "Password123");
+        User user = new User(10L, "Cauã", "caua@email.com", "Password123");
+        User user2 = new User(22L, "João", "jaoao@gmail.com", "Password123");
 
         userIRepository.add(user);
         userIRepository.add(user2);
@@ -51,8 +51,8 @@ public class TestUserRepo {
     public void TestUserDaoGetAll() {
         Initialize();
 
-        User user = new User(1, "Cauã", "caua.email.com", "Password123");
-        User user2 = new User(2, "João", "joao.email.com", "Password123");
+        User user = new User(1L, "Cauã", "caua.email.com", "Password123");
+        User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
         userIRepository.add(user);
         userIRepository.add(user2);
@@ -69,8 +69,8 @@ public class TestUserRepo {
     public void TestUserDaoDelete() {
         Initialize();
 
-        User user = new User(1, "Cauã", "caua.email.com", "Password123");
-        User user2 = new User(2, "João", "joao.email.com", "Password123");
+        User user = new User(1L, "Cauã", "caua.email.com", "Password123");
+        User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
         userIRepository.add(user);
         userIRepository.add(user2);
@@ -91,13 +91,13 @@ public class TestUserRepo {
     public void TestUserDaoUpdate() {
         Initialize();
 
-        User user = new User(1, "Cauã", "caua.email.com", "Password123");
-        User user2 = new User(2, "João", "joao.email.com", "Password123");
+        User user = new User(1L, "Cauã", "caua.email.com", "Password123");
+        User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
         userIRepository.add(user);
         userIRepository.add(user2);
 
-        User user3 = new User(5, "Giovana", "giovana.email.com", "Password1234");
+        User user3 = new User(5L, "Giovana", "giovana.email.com", "Password1234");
 
         var bool = userIRepository.update(1, user3);
 

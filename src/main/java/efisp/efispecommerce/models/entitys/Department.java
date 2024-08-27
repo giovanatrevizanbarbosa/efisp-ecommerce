@@ -8,7 +8,8 @@ public class Department extends Writable {
     private final String name;
     private final String description;
 
-    public Department(String name, String description) {
+    public Department(Long id, String name, String description) {
+        super(id);
         this.name = name;
         this.description = description;
     }

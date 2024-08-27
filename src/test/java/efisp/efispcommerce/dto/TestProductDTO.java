@@ -17,8 +17,8 @@ public class TestProductDTO {
 
     @BeforeEach
     public void setUp() {
-        brand = new Brand("Dell");
-        department = new Department("Hardware", "Hardware department");
+        brand = new Brand(1L,"Dell");
+        department = new Department(1L, "Hardware", "Hardware department");
         productDTO = new ProductDTO(1, "Notebook Inspiron 15",
                 4500, brand, "Notebook Intel Core i7 12a geração",
                 department, 10);
@@ -100,8 +100,8 @@ public class TestProductDTO {
     @Test
     public void constructorThrowsExceptionWhenStockIsNegative() {
         // Given
-        Brand brand = new Brand("Dell");
-        Department department = new Department("Hardware", "Hardware department");
+        Brand brand = new Brand(1L, "Dell");
+        Department department = new Department(1L, "Hardware", "Hardware department");
         // When & Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new ProductDTO(1, "Notebook Inspiron 15", 4500, brand

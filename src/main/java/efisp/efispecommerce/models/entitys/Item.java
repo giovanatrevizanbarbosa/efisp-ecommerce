@@ -8,7 +8,8 @@ public class Item extends Writable {
     private final Product product;
     private int quantity;
 
-    public Item(Product product, int quantity) {
+    public Item(Long id, Product product, int quantity) {
+        super(id);
         this.product = product;
         this.quantity = quantity;
     }

@@ -9,8 +9,8 @@ public class User extends Writable {
     private final String email;
     private final String password;
 
-    public User(int id, String name, String email, String password) {
-        setId((long) id);
+    public User(Long id, String name, String email, String password) {
+        super(id);
         this.name = name;
         this.email = email;
         this.password = password;

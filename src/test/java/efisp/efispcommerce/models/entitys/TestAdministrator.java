@@ -11,8 +11,8 @@ public class TestAdministrator {
     Administrator administrator;
 
     public void Initialize(){
-        admTitle = new Title("CEO", 10);
-        administrator = new Administrator(1, "Cauã", "caua@gmail.com", "Password123", admTitle);
+        admTitle = new Title(1L,"CEO", 10);
+        administrator = new Administrator(1L, "Cauã", "caua@gmail.com", "Password123", admTitle);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TestAdministrator {
     public void TestAdministratorSetTitle() {
         Initialize();
 
-        Title expected = new Title("Employee", 5);
+        Title expected = new Title(1L,"Employee", 5);
         administrator.setTitle(expected);
         Title actual = administrator.getTitle();
 

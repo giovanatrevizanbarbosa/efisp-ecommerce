@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Administrator extends User {
     private Title title;
 
-    public Administrator(int id, String name, String email, String password, Title title){
+    public Administrator(Long id, String name, String email, String password, Title title){
         super(id, name, email, password);
         this.title = title;
     }
@@ -25,7 +25,7 @@ public class Administrator extends User {
     public Csv toCSV() {
         var csv = super.toCSV();
         var csvData = Arrays.copyOf(csv.getData(), csv.getData().length + 1);
-        csvData[csv.getData().length] = title.getName();
+        csvData[csv.getData().length] = title.getId().toString();
         csv.setData(csvData);
 
         return csv;

@@ -13,8 +13,8 @@ public class Cart extends Writable {
     private final Map<Integer, Item> items;
     private double totalPrice;
 
-    public Cart(int id, String ownerEmail) {
-        setId((long) id);
+    public Cart(Long id, String ownerEmail) {
+        super(id);
         this.ownerEmail = ownerEmail;
         items = new HashMap<>();
         totalPrice = 0;

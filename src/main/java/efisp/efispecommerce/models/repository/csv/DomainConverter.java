@@ -26,49 +26,45 @@ public class DomainConverter {
 
     private static User getUserFromCsv(Csv csv){
         String[] data = csv.getData();
-        return new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+        return new User(Long.parseLong(data[0]), data[1], data[2], data[3]);
     }
 
     private static Administrator getAdministratorFromCsv(Csv csv){
+        CsvReaderWriter<Title> titleCsvReaderWriter = new CsvReaderWriter<>(Title.class.getSimpleName());
+        List<Title> titles = titleCsvReaderWriter.read();
+
+        Title title = titles.stream().filter(t -> t.getId() == Long.parseLong(csv.getData()[4])).findFirst().orElse(null);
+
         String[] data = csv.getData();
-        return new Administrator(Integer.parseInt(data[0]), data[1], data[2], data[3], new Title(data[4], Integer.parseInt(data[5])));
+        return new Administrator(Long.parseLong(data[0]), data[1], data[2], data[3], title);
     }
 
     private static Title getTitleFromCsv(Csv csv){
         String[] data = csv.getData();
-        return new Title(data[1], Integer.parseInt(data[2]));
+        return new Title(Long.parseLong(data[0]), data[1], Integer.parseInt(data[2]));
     }
 
     public static Address getAddressFromCsv(Csv csv){
         String[] data = csv.getData();
-        var address = new Address(data[1], data[2], data[3], data[4], data[5]);
-        address.setId(Long.parseLong(data[0]));
-
-        return address;
+        return new Address(Long.parseLong(data[0]), data[1], data[2], data[3], data[4], data[5]);
     }
 
     public static Brand getBrandFromCsv(Csv csv){
         String[] data = csv.getData();
-        var brand = new Brand(data[1]);
-        brand.setId(Long.parseLong(data[0]));
 
-        return brand;
+        return new Brand(Long.parseLong(data[0]),data[1]);
     }
 
     public static Department getDepartmentFromCsv(Csv csv){
         String[] data = csv.getData();
-        var department = new Department(data[1], data[2]);
-        department.setId(Long.parseLong(data[0]));
 
-        return department;
+        return new Department(Long.parseLong(data[0]), data[1], data[2]);
     }
 
     public static Rating getRatingFromCsv(Csv csv){
         String[] data = csv.getData();
-        var rating = new Rating(data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]));
-        rating.setId(Long.parseLong(data[0]));
 
-        return rating;
+        return new Rating(Long.parseLong(data[0]), data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]));
     }
 
     public static Item getItemFromCsv(Csv csv) {
@@ -78,9 +74,9 @@ public class DomainConverter {
 
         String[] data = csv.getData();
 
-        Product product = products.stream().filter(p -> p.getId() == Long.parseLong(data[2])).findFirst().orElse(null);
+        Product product = products.stream().filter(p -> p.getId() == Long.parseLong(data[1])).findFirst().orElse(null);
 
-        return new Item(product, Integer.parseInt(data[3]));
+        return new Item(Long.parseLong(data[0]), product, Integer.parseInt(data[2]));
     }
 
     public static Product getProductFromCsv(Csv csv){
@@ -95,11 +91,11 @@ public class DomainConverter {
         Brand brand = brands.stream().filter(b -> b.getId() == Long.parseLong(data[3])).findFirst().orElse(null);
         Department department = departments.stream().filter(d -> d.getId() == Long.parseLong(data[5])).findFirst().orElse(null);
 
-        return new Product(Integer.parseInt(data[0]), data[1], Double.parseDouble(data[2]), brand, data[4], department, Integer.parseInt(data[6]));
+        return new Product(Long.parseLong(data[0]), data[1], Double.parseDouble(data[2]), brand, data[4], department, Integer.parseInt(data[6]));
     }
 
     public static Cart getCartFromCsv(Csv csv){
         String[] data = csv.getData();
-        return new Cart(Integer.parseInt(data[0]), data[1]);
+        return new Cart(Long.parseLong(data[0]), data[1]);
     }
 }

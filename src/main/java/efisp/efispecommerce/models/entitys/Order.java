@@ -11,8 +11,8 @@ public class Order extends Writable {
     private PaymentMethod paymentMethod;
     private Address address;
 
-    public Order(int id, User user, Cart cart, PaymentMethod method, Address address) {
-        setId((long) id);
+    public Order(Long id, User user, Cart cart, PaymentMethod method, Address address) {
+        super(id);
         this.user = user;
         this.cart = cart;
         this.paymentMethod = method;
