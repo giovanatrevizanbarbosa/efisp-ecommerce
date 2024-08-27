@@ -27,6 +27,7 @@ public class TestUserRepo {
         var expected = userIRepository.getAll();
 
         assertTrue(bool);
+        assertTrue(bool2);
         assertEquals(expected.getFirst().getId(), user.getId());
 
     }
