@@ -1,10 +1,11 @@
-package efisp.efispcommerce.dto;
+package efisp.efispcommerce.models.service;
 
 import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.models.entitys.Brand;
 import efisp.efispecommerce.models.entitys.Department;
 import efisp.efispecommerce.models.entitys.Item;
 import efisp.efispecommerce.models.entitys.Product;
+import efisp.efispecommerce.models.service.CartService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,14 +14,15 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestCartDTO {
-
+public class TestCartService {
+    private CartService cartService;
     private CartDTO cartDTO;
     private String ownerEmail;
     private Map<Integer, Item> items;
 
     @BeforeEach
     public void setUp() {
+        cartService = new CartService();
         ownerEmail = "gi.trevizan.barbosa@gmail.com";
         items = new HashMap<>();
 
@@ -37,32 +39,12 @@ public class TestCartDTO {
     }
 
     @Test
-    public void getOwnerEmailReturnsCorrectEmail() {
+    public void addCart() {
         // Given
-        String expectedEmail = ownerEmail;
+        boolean expected = true;
         // When
-        String actualEmail = cartDTO.getOwnerEmail();
+        boolean actual = cartService.addCart(cartDTO);
         // Then
-        assertEquals(expectedEmail, actualEmail);
-    }
-
-    @Test
-    public void getItemsReturnsCorrectItems() {
-        // Given
-        Map<Integer, Item> expectedItems = items;
-        // When
-        Map<Integer, Item> actualItems = cartDTO.getItems();
-        // Then
-        assertEquals(expectedItems, actualItems);
-    }
-
-    @Test
-    public void getTotalPriceReturnsDefaultPrice() {
-        // Given
-        double expectedPrice = 0.0;
-        // When
-        double actualPrice = cartDTO.getTotalPrice();
-        // Then
-        assertEquals(expectedPrice, actualPrice);
+        assertEquals(expected, actual);
     }
 }

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUserDTO {
-    private final UserDTO userDTO = new UserDTO("gi.trevizan.barbosa@gmail.com", "senha1234");
+    private final UserDTO userDTO = new UserDTO(1, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "senha1234");
     @Test
-    public void testGivenGetEmailWhenGiovanaThenGiovana() {
+    public void getUserDTOEmailReturnsCorrectEmail() {
         String expected = "gi.trevizan.barbosa@gmail.com";
         String actual = userDTO.getEmail();
 
@@ -16,7 +16,7 @@ public class TestUserDTO {
     }
 
     @Test
-    public void testGivenGetPasswordWhenSenha1234ThenSenha1234() {
+    public void getUserDTOPasswordReturnsCorrectPassword() {
         String expected = "senha1234";
         String actual = userDTO.getPassword();
 

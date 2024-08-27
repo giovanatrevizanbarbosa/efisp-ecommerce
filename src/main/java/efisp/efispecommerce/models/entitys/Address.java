@@ -4,13 +4,13 @@ import efisp.efispecommerce.models.dao.Writable;
 
 public class Address implements Writable {
     private final String street;
-    private final String number;
+    private final Integer number;
     private final String city;
     private final String state;
     //identifier
     private final String zip;
 
-    public Address(String street, String number, String city, String state, String zip) {
+    public Address(String street, Integer number, String city, String state, String zip) {
         this.street = street;
         this.number = number;
         this.city = city;
@@ -22,7 +22,7 @@ public class Address implements Writable {
         return street;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
