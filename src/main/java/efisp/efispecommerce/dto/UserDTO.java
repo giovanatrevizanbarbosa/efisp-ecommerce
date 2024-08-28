@@ -1,7 +1,5 @@
 package efisp.efispecommerce.dto;
 
-import efisp.efispecommerce.models.entitys.User;
-
 public class UserDTO {
     private Long id;
     private String name;
