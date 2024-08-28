@@ -18,7 +18,7 @@ public class TestOrder {
     public void Initialize() {
         user = new User(1L, "Cauã", "caua@gmail.com", "Password123");
         cart = new Cart(1L, "caua@gmail.com");
-        address = new Address(1L, "Rua Yoki", "700", "Araraquara", "SP", "14800200");
+        address = new Address(1L, "Rua Yoki", 700, "Araraquara", "SP", "14800200");
         order = new Order(1L, user, cart, PaymentMethod.CreditCard, address);
     }
 
@@ -108,7 +108,7 @@ public class TestOrder {
     public void TestOrderSetAddress() {
         Initialize();
 
-        Address expected = new Address(1L,"Rua Pipoca", "500", "Araraquara", "SP", "14800200");
+        Address expected = new Address(1L,"Rua Pipoca", 500, "Araraquara", "SP", "14800200");
         order.setAddress(expected);
         Address actual = order.getAddress();
 

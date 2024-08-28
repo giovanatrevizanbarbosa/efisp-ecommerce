@@ -16,10 +16,10 @@ public class TestOrderService {
     private OrderDTO orderDTO;
     @BeforeEach
     public void setUp() {
-        orderDTO = new OrderDTO(1,
-                new User(1, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456"),
-                new Cart(1, "gi.treviza.barbosa@gmail.com"), PaymentMethod.Pix,
-                new Address("Rua 1", 120, "Araraquara", "São Paulo", "14800737"));
+        orderDTO = new OrderDTO(1L,
+                new User(1L, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456"),
+                new Cart(1L, "gi.treviza.barbosa@gmail.com"), PaymentMethod.Pix,
+                new Address(1L,"Rua 1", 120, "Araraquara", "São Paulo", "14800737"));
 
         orderService = new OrderService();
     }

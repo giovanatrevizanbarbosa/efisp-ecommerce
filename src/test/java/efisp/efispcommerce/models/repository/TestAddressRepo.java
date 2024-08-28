@@ -1,4 +1,4 @@
-package efisp.efispcommerce.models.dao;
+package efisp.efispcommerce.models.repository;
 
 import efisp.efispecommerce.models.entitys.Address;
 import efisp.efispecommerce.models.repository.IRepository;
@@ -20,8 +20,8 @@ public class TestAddressRepo {
     public void TestAddressRepoAdd() {
         Initialize();
 
-        Address address = new Address(1L,"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
-        Address address2 = new Address(1L,"Rua 2", "456", "Cidade 2", "Estado 2", "87654321");
+        Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address2 = new Address(1L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
         var bool = addressIRepository.add(address);
         var bool2 = addressIRepository.add(address2);
@@ -37,8 +37,8 @@ public class TestAddressRepo {
     public void TestAddressRepoGetById() {
         Initialize();
 
-        Address address = new Address(1L,"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
-        Address address2 = new Address(1L,"Rua 2", "456", "Cidade 2", "Estado 2", "87654321");
+        Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address2 = new Address(1L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
         addressIRepository.add(address);
         addressIRepository.add(address2);
