@@ -25,8 +25,7 @@ public class TestOrderDTO {
 
         paymentMethod = PaymentMethod.CreditCard;
         address = new Address(1L,"123 Main St", "Springfield", "IL", "62701", "USA");
-
-        orderDTO = new OrderDTO(user, cart, paymentMethod, address);
+        orderDTO = new OrderDTO(1, user, cart, paymentMethod, address);
     }
 
     @Test

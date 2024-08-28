@@ -33,7 +33,7 @@ public class TestCartDTO {
         items.put(1, new Item(1L, product1, 2));
         items.put(2, new Item(2L, product2, 1));
 
-        cartDTO = new CartDTO(ownerEmail, items);
+        cartDTO = new CartDTO(1, ownerEmail, items);
     }
 
     @Test

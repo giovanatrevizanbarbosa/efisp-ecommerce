@@ -5,7 +5,7 @@ import efisp.efispecommerce.models.repository.csv.Csv;
 
 public class Address extends Writable {
     private final String street;
-    private final String number;
+    private final Integer number;
     private final String city;
     private final String state;
     private final String zip;
@@ -23,7 +23,7 @@ public class Address extends Writable {
         return street;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
