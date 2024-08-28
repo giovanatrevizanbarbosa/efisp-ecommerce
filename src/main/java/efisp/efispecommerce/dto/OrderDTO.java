@@ -6,13 +6,13 @@ import efisp.efispecommerce.models.entitys.User;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
 public class OrderDTO {
-    private final long id;
+    private final Long id;
     private final User user;
     private final Cart cart;
     private final PaymentMethod paymentMethod;
     private final Address address;
 
-    public OrderDTO(long id, User user, Cart cart, PaymentMethod paymentMethod, Address address) {
+    public OrderDTO(Long id, User user, Cart cart, PaymentMethod paymentMethod, Address address) {
         this.id = id;
         this.user = user;
         this.cart = cart;
@@ -20,7 +20,7 @@ public class OrderDTO {
         this.address = address;
     }
 
-    public long getId() { return id; }
+    public Long getId() { return id; }
 
     public User getUser() {
         return user;
