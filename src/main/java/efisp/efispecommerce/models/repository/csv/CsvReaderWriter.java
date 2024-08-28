@@ -3,6 +3,7 @@ package efisp.efispecommerce.models.repository.csv;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import efisp.efispecommerce.models.repository.Util;
 import efisp.efispecommerce.models.repository.Writable;
 
 import java.io.IOException;
@@ -11,8 +12,6 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class CsvReaderWriter<T> {
 
     public CsvReaderWriter(String clazzName) throws InvalidPathException{
         this.clazzName = clazzName;
-        path = Path.of(Paths.get("./").toAbsolutePath().getParent() + "/resources/dataset/" + getDatasetName(clazzName));
+        path = Path.of(Util.RESOURCES_PATH.value() + "/" + getDatasetName(clazzName));
         buildWriter();
         buildReader();
     }
