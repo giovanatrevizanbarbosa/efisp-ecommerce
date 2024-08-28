@@ -3,6 +3,7 @@ package efisp.efispcommerce.models.repository;
 import efisp.efispecommerce.models.repository.IRepository;
 import efisp.efispecommerce.models.repository.Repository;
 import efisp.efispecommerce.models.entitys.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,14 +12,13 @@ public class TestUserRepo {
 
     IRepository<User> userIRepository;
 
+    @BeforeEach
     public void Initialize(){
         userIRepository = new Repository<>(User.class);
     }
 
     @Test
     public void TestUserDaoAdd() {
-        Initialize();
-
         User user = new User(1L, "Cauã", "caua@email.com", "Password123");
         User user2 = new User(2L, "João", "joaoa@email.com", "Password123");
 
@@ -34,8 +34,6 @@ public class TestUserRepo {
 
     @Test
     public void TestUserDaoGetById() {
-        Initialize();
-
         User user = new User(10L, "Cauã", "caua@email.com", "Password123");
         User user2 = new User(22L, "João", "jaoao@gmail.com", "Password123");
 
@@ -49,8 +47,6 @@ public class TestUserRepo {
 
     @Test
     public void TestUserDaoGetAll() {
-        Initialize();
-
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
@@ -67,8 +63,6 @@ public class TestUserRepo {
 
     @Test
     public void TestUserDaoDelete() {
-        Initialize();
-
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
@@ -89,8 +83,6 @@ public class TestUserRepo {
 
     @Test
     public void TestUserDaoUpdate() {
-        Initialize();
-
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
