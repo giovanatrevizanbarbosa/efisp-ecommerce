@@ -11,9 +11,14 @@ public class TestPath {
     public void testPath(){
         String path = Util.RESOURCES_PATH.value();
         String expected = "/efisp-ecommerce/resources/database";
+        String orElse = "\\efisp-ecommerce\\resources\\database";
 
         path = path.substring(path.length() - expected.length());
 
-        assertEquals(expected, path);
+        try{
+            assertEquals(expected, path);
+        } catch (AssertionError e){
+            assertEquals(orElse, path);
+        }
     }
 }
