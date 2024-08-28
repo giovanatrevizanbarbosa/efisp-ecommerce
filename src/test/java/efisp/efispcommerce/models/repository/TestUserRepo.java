@@ -1,4 +1,4 @@
-package efisp.efispcommerce.models.dao;
+package efisp.efispcommerce.models.repository;
 
 import efisp.efispecommerce.models.repository.IRepository;
 import efisp.efispecommerce.models.repository.Repository;

@@ -5,21 +5,21 @@ import efisp.efispecommerce.models.entitys.Item;
 import java.util.Map;
 
 public class CartDTO {
-    private final int id;
+    private final long id;
     private final String ownerEmail;
     //Map<ProductId, Item>
-    private final Map<Integer, Item> items;
+    private final Map<Long, Item> items;
     private final double totalPrice;
 
 
-    public CartDTO(Integer id, String ownerEmail, Map<Integer, Item> items) {
+    public CartDTO(Long id, String ownerEmail, Map<Long, Item> items) {
         this.id = id;
         this.ownerEmail = ownerEmail;
         this.items = items;
         this.totalPrice = 0;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -27,7 +27,7 @@ public class CartDTO {
         return ownerEmail;
     }
 
-    public Map<Integer, Item> getItems() {
+    public Map<Long, Item> getItems() {
         return items;
     }
 

@@ -27,9 +27,9 @@ public class TestProductDTO {
     @Test
     public void getIdReturnsCorrectId() {
         // Given
-        int expected = 1;
+        long expected = 1L;
         // When
-        int actual = productDTO.getId();
+        long actual = productDTO.getId();
         // Then
         assertEquals(expected, actual);
     }
