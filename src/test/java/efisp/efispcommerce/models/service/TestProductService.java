@@ -14,9 +14,9 @@ public class TestProductService {
     private ProductService productService;
     @BeforeEach
     public void setUp() {
-        Brand brand = new Brand("Red Dragon");
-        Department department = new Department("Hardware", "Hardware department");
-        productDTO = new ProductDTO(1, "Teclado Mecânico", 600.00, brand
+        Brand brand = new Brand(1L, "Red Dragon");
+        Department department = new Department(1L,"Hardware", "Hardware department");
+        productDTO = new ProductDTO(1L, "Teclado Mecânico", 600.00, brand
                 , "Teclado com teclas suaves", department, 15);
         productService = new ProductService();
     }

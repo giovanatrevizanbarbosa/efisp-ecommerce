@@ -17,7 +17,7 @@ public class TestCartDTO {
 
     private CartDTO cartDTO;
     private String ownerEmail;
-    private Map<Integer, Item> items;
+    private Map<Long, Item> items;
 
     @BeforeEach
     public void setUp() {
@@ -30,10 +30,10 @@ public class TestCartDTO {
         Product product1 = new Product(1L, "Laptop", 1000.0, brand, "High-performance laptop", department, 5);
         Product product2 = new Product(2L, "Smartphone", 500.0, brand, "Latest smartphone", department, 10);
 
-        items.put(1, new Item(1L, product1, 2));
-        items.put(2, new Item(2L, product2, 1));
+        items.put(1L, new Item(1L, product1, 2));
+        items.put(2L, new Item(2L, product2, 1));
 
-        cartDTO = new CartDTO(1, ownerEmail, items);
+        cartDTO = new CartDTO(1L, ownerEmail, items);
     }
 
     @Test
@@ -49,9 +49,9 @@ public class TestCartDTO {
     @Test
     public void getItemsReturnsCorrectItems() {
         // Given
-        Map<Integer, Item> expectedItems = items;
+        Map<Long, Item> expectedItems = items;
         // When
-        Map<Integer, Item> actualItems = cartDTO.getItems();
+        Map<Long, Item> actualItems = cartDTO.getItems();
         // Then
         assertEquals(expectedItems, actualItems);
     }
