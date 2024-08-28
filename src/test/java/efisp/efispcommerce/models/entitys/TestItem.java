@@ -13,10 +13,10 @@ public class TestItem {
     Item item;
 
     public void Initialize() {
-        Brand brand = new Brand("Nvidia");
-        Department department = new Department("Hardware", "Hardware department");
-        product = new Product(1, "GeForce GTX1660", 800, brand, "GPU", department, 10);
-        item = new Item(product, 1);
+        Brand brand = new Brand(1L, "Nvidia");
+        Department department = new Department(1L, "Hardware", "Hardware department");
+        product = new Product(1L, "GeForce GTX1660", 800, brand, "GPU", department, 10);
+        item = new Item(1L, product, 1);
     }
 
     @Test

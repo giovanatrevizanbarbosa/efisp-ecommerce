@@ -1,12 +1,13 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
-public class Brand implements Writable {
-    //identifier
+public class Brand extends Writable {
     private final String name;
 
-    public Brand(String name) {
+    public Brand(Long id, String name) {
+        super(id);
         this.name = name;
     }
 
@@ -15,7 +16,10 @@ public class Brand implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ name };
+    public Csv toCSV() {
+        return new Csv(
+            new String[]{"id", "name"},
+                new String[]{getId().toString(), name}
+        );
     }
 }

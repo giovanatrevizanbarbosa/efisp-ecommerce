@@ -9,7 +9,7 @@ public class TestDepartment {
     Department department;
 
     public void Initialize() {
-        department = new Department("Hardware", "Hardwares department");
+        department = new Department(1L, "Hardware", "Hardwares department");
     }
 
     @Test

@@ -8,7 +8,7 @@ public class TestAddress {
     Address address;
 
     public void Initialize(){
-        address = new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200");
+        address = new Address(1L, "Rua Yoki", "700", "Araraquara", "SP", "14800200");
     }
 
     @Test

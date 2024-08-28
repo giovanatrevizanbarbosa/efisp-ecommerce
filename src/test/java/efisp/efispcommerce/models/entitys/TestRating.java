@@ -9,7 +9,7 @@ public class TestRating {
     Rating rating;
 
     public void Initialize() {
-        rating = new Rating("caua@gmail.com", 1, "Excellent quality", 5);
+        rating = new Rating(1L, "caua@gmail.com", 1, "Excellent quality", 5);
     }
 
     @Test

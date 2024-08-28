@@ -9,7 +9,7 @@ public class TestTitle {
     Title title;
 
     public void Initialize() {
-        title = new Title("CEO", 10);
+        title = new Title(1L, "CEO", 10);
     }
 
     @Test

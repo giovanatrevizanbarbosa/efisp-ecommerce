@@ -1,25 +1,21 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
+import efisp.efispecommerce.models.repository.Writable;
 
-public class User implements Writable {
-    private final int id;
+public class User extends Writable {
     private final String name;
     //identifier
     private final String email;
     private final String password;
 
-    public User(int id, String name, String email, String password) {
-        this.id = id;
+    public User(Long id, String name, String email, String password) {
+        super(id);
         this.name = name;
         this.email = email;
         this.password = password;
     }
-
-    public int getId() {
-        return id;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -33,7 +29,7 @@ public class User implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{String.valueOf(id), name, email, password};
+    public Csv toCSV() {
+        return new Csv(new String[]{"id", "name", "email", "password"}, new String[]{String.valueOf(getId()), name, email, password});
     }
 }

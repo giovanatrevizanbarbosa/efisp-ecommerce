@@ -1,13 +1,15 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
-public class Title implements Writable {
+public class Title extends Writable {
     //identifier
     private final String name;
     private int permissionLevel;
 
-    public Title(String name, int permissionLevel) {
+    public Title(Long id, String name, int permissionLevel) {
+        super(id);
         this.name = name;
         this.permissionLevel = permissionLevel;
     }
@@ -26,7 +28,7 @@ public class Title implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ name, String.valueOf(permissionLevel) };
+    public Csv toCSV() {
+        return new Csv(new String[]{"id", "name", "permissionLevel"}, new String[]{getId().toString(), name, String.valueOf(permissionLevel)});
     }
 }

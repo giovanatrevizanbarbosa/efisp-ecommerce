@@ -13,9 +13,9 @@ public class TestProduct {
     Product product;
 
     public void Initialize() {
-        brand = new Brand("Nvidia");
-        department = new Department("Hardware", "Hardware department");
-        product = new Product(1, "GeForce GTX1660", 800, brand, "GPU", department, 10);
+        brand = new Brand(1L, "Nvidia");
+        department = new Department(1L, "Hardware", "Hardware department");
+        product = new Product(1L, "GeForce GTX1660", 800, brand, "GPU", department, 10);
     }
 
     @Test
@@ -23,7 +23,7 @@ public class TestProduct {
         Initialize();
 
         int expected = 1;
-        int actual = product.getId();
+        int actual = Math.toIntExact(product.getId());
 
         assertEquals(expected, actual);
     }

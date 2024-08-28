@@ -9,7 +9,7 @@ public class TestBrand {
     Brand brand;
 
     public void Initialize(){
-        brand = new Brand("Nvidia");
+        brand = new Brand(1L, "Nvidia");
     }
 
     @Test

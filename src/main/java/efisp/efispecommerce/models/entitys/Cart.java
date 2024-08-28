@@ -1,28 +1,25 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.repository.csv.Csv;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cart implements Writable {
-    private final int id;
+public class Cart extends Writable {
     //identifier
     private final String ownerEmail;
     //Map<ProductId, Item>
     private final Map<Integer, Item> items;
     private double totalPrice;
 
-    public Cart(int id, String ownerEmail) {
-        this.id = id;
+    public Cart(Long id, String ownerEmail) {
+        super(id);
         this.ownerEmail = ownerEmail;
         items = new HashMap<>();
         totalPrice = 0;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getOwnerEmail() {
         return ownerEmail;
@@ -37,7 +34,7 @@ public class Cart implements Writable {
     }
 
     public Boolean insertItem(Item item) {
-        if (items.put(item.getProduct().getId(), item) == null){
+        if (items.put(Integer.parseInt(item.getProduct().getId().toString()), item) == null){
             totalPrice += item.getProduct().getPrice() * item.getQuantity();
             return true;
         }
@@ -52,7 +49,10 @@ public class Cart implements Writable {
     }
 
     @Override
-    public String[] toCSV() {
-        return new String[]{ String.valueOf(id), ownerEmail, String.valueOf(totalPrice) };
+    public Csv toCSV() {
+        return new Csv(
+                new String[]{"id", "ownerEmail", "totalPrice"},
+                new String[]{getId().toString(), ownerEmail, String.valueOf(totalPrice)}
+        );
     }
 }

@@ -16,10 +16,10 @@ public class TestOrder {
     Order order;
 
     public void Initialize() {
-        user = new User(1, "Cauã", "caua@gmail.com", "Password123");
-        cart = new Cart(1, "caua@gmail.com");
-        address = new Address("Rua Yoki", "700", "Araraquara", "SP", "14800200");
-        order = new Order(1, user, cart, PaymentMethod.CreditCard, address);
+        user = new User(1L, "Cauã", "caua@gmail.com", "Password123");
+        cart = new Cart(1L, "caua@gmail.com");
+        address = new Address(1L, "Rua Yoki", "700", "Araraquara", "SP", "14800200");
+        order = new Order(1L, user, cart, PaymentMethod.CreditCard, address);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestOrder {
     public void TestOrderSetCart() {
         Initialize();
 
-        Cart expected = new Cart(1, "igor@gmail.com");
+        Cart expected = new Cart(1L, "igor@gmail.com");
         order.setCart(expected);
         Cart actual = order.getCart();
 
@@ -108,7 +108,7 @@ public class TestOrder {
     public void TestOrderSetAddress() {
         Initialize();
 
-        Address expected = new Address("Rua Pipoca", "500", "Araraquara", "SP", "14800200");
+        Address expected = new Address(1L,"Rua Pipoca", "500", "Araraquara", "SP", "14800200");
         order.setAddress(expected);
         Address actual = order.getAddress();
 

@@ -1,9 +1,13 @@
 package efisp.efispecommerce.models.entitys;
 
+import efisp.efispecommerce.models.repository.csv.Csv;
+
+import java.util.Arrays;
+
 public class Administrator extends User {
     private Title title;
 
-    public Administrator(int id, String name, String email, String password, Title title){
+    public Administrator(Long id, String name, String email, String password, Title title){
         super(id, name, email, password);
         this.title = title;
     }
@@ -18,9 +22,11 @@ public class Administrator extends User {
     }
 
     @Override
-    public String[] toCSV() {
+    public Csv toCSV() {
         var csv = super.toCSV();
-        csv[4] = title.getName();
+        var csvData = Arrays.copyOf(csv.getData(), csv.getData().length + 1);
+        csvData[csv.getData().length] = title.getId().toString();
+        csv.setData(csvData);
 
         return csv;
     }
