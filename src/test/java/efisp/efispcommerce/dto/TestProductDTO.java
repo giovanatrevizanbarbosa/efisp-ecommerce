@@ -19,7 +19,7 @@ public class TestProductDTO {
     public void setUp() {
         brand = new Brand(1L,"Dell");
         department = new Department(1L, "Hardware", "Hardware department");
-        productDTO = new ProductDTO(1, "Notebook Inspiron 15",
+        productDTO = new ProductDTO(1L, "Notebook Inspiron 15",
                 4500, brand, "Notebook Intel Core i7 12a geração",
                 department, 10);
     }
@@ -27,9 +27,9 @@ public class TestProductDTO {
     @Test
     public void getIdReturnsCorrectId() {
         // Given
-        long expected = 1L;
+        Long expected = 1L;
         // When
-        long actual = productDTO.getId();
+        Long actual = productDTO.getId();
         // Then
         assertEquals(expected, actual);
     }
@@ -104,7 +104,7 @@ public class TestProductDTO {
         Department department = new Department(1L, "Hardware", "Hardware department");
         // When & Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new ProductDTO(1, "Notebook Inspiron 15", 4500, brand
+            new ProductDTO(1L, "Notebook Inspiron 15", 4500, brand
                     , "Notebook Intel Core i7 12a geração", department, -1);
         });
 
