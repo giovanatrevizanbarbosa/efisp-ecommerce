@@ -8,7 +8,7 @@ public class TestAddress {
     Address address;
 
     public void Initialize(){
-        address = new Address(1L, "Rua Yoki", "700", "Araraquara", "SP", "14800200");
+        address = new Address(1L, "Rua Yoki", 700, "Araraquara", "SP", "14800200");
     }
 
     @Test
@@ -25,8 +25,8 @@ public class TestAddress {
     public void TestAddressGetNumber() {
         Initialize();
 
-        String expected = "700";
-        String actual = address.getNumber();
+        int expected = 700;
+        int actual = address.getNumber();
 
         assertEquals(expected, actual);
     }
