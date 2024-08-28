@@ -5,7 +5,7 @@ import efisp.efispecommerce.models.entitys.Item;
 import java.util.Map;
 
 public class CartDTO {
-    private final long id;
+    private final Long id;
     private final String ownerEmail;
     //Map<ProductId, Item>
     private final Map<Long, Item> items;

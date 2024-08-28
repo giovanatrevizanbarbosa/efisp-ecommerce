@@ -12,7 +12,7 @@ public class TestUserService {
     private UserService userService;
     @BeforeEach
     public void setUp() {
-        userDTO = new UserDTO(1, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456");
+        userDTO = new UserDTO(1L, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456");
         userService = new UserService();
     }
 
