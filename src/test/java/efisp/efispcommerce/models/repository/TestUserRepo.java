@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestUserRepo {
+public class TestUserRepo implements TestRepo {
 
     IRepository<User> userIRepository;
 
@@ -17,8 +17,9 @@ public class TestUserRepo {
         userIRepository = new Repository<>(User.class);
     }
 
+    @Override
     @Test
-    public void TestUserDaoAdd() {
+    public void add() {
         User user = new User(1L, "Cauã", "caua@email.com", "Password123");
         User user2 = new User(2L, "João", "joaoa@email.com", "Password123");
 
@@ -29,11 +30,11 @@ public class TestUserRepo {
         assertTrue(bool);
         assertTrue(bool2);
         assertEquals(expected.getFirst().getId(), user.getId());
-
     }
 
+    @Override
     @Test
-    public void TestUserDaoGetById() {
+    public void getById() {
         User user = new User(10L, "Cauã", "caua@email.com", "Password123");
         User user2 = new User(22L, "João", "jaoao@gmail.com", "Password123");
 
@@ -45,8 +46,9 @@ public class TestUserRepo {
         assertEquals(user.getId(), actual.getId());
     }
 
+    @Override
     @Test
-    public void TestUserDaoGetAll() {
+    public void getAll() {
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
@@ -61,28 +63,9 @@ public class TestUserRepo {
         assertEquals(user2, userIRepository.getAll().getLast());
     }
 
+    @Override
     @Test
-    public void TestUserDaoDelete() {
-        User user = new User(1L, "Cauã", "caua.email.com", "Password123");
-        User user2 = new User(2L, "João", "joao.email.com", "Password123");
-
-        userIRepository.add(user);
-        userIRepository.add(user2);
-
-        var bool = userIRepository.delete(1);
-
-        var expected = 1;
-        var actual = userIRepository.getAll().size();
-
-        var userRecived = userIRepository.getById(2);
-
-        assertEquals(user2, userRecived);
-        assertTrue(bool);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void TestUserDaoUpdate() {
+    public void update() {
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
@@ -102,5 +85,24 @@ public class TestUserRepo {
         assertEquals(user3, actual);
     }
 
+    @Override
+    @Test
+    public void delete() {
+        User user = new User(1L, "Cauã", "caua.email.com", "Password123");
+        User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
+        userIRepository.add(user);
+        userIRepository.add(user2);
+
+        var bool = userIRepository.delete(1);
+
+        var expected = 1;
+        var actual = userIRepository.getAll().size();
+
+        var userRecived = userIRepository.getById(2);
+
+        assertEquals(user2, userRecived);
+        assertTrue(bool);
+        assertEquals(expected, actual);
+    }
 }

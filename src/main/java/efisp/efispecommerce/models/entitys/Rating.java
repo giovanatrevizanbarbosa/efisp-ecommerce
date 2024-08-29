@@ -7,11 +7,11 @@ public class Rating extends Writable {
     //identifier
     private final String userEmail;
     //identifier
-    private final int productId;
+    private final Long productId;
     private final String comment;
     private final int rating;
 
-    public Rating(Long id, String userEmail, int productId, String comment, int rating) {
+    public Rating(Long id, String userEmail, Long productId, String comment, int rating) {
         super(id);
         this.userEmail = userEmail;
         this.productId = productId;
@@ -23,7 +23,7 @@ public class Rating extends Writable {
         return userEmail;
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 

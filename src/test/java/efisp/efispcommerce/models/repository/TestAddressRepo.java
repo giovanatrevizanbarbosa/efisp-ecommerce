@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestAddressRepo {
+public class TestAddressRepo implements TestRepo{
 
     IRepository<Address> addressIRepository;
 
@@ -17,35 +17,33 @@ public class TestAddressRepo {
         addressIRepository = new Repository<>(Address.class);
     }
 
+    @Override
     @Test
-    public void TestAddressRepoAdd() {
+    public void add() {
         Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
         Address address2 = new Address(2L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
-        var bool = addressIRepository.add(address);
-        var bool2 = addressIRepository.add(address2);
-        var expected = addressIRepository.getAll();
-
-        assertTrue(bool);
-        assertTrue(bool2);
-        assertEquals(expected.getFirst().getId(), address.getId());
+        assertTrue(addressIRepository.add(address));
+        assertTrue(addressIRepository.add(address2));
+        assertEquals(addressIRepository.getAll().getFirst().getId(), address.getId());
     }
 
-
+    @Override
     @Test
-    public void TestAddressRepoGetById() {
+    public void getById() {
         Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
         Address address2 = new Address(2L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
         addressIRepository.add(address);
         addressIRepository.add(address2);
 
-        var actual = addressIRepository.getById(1);
-        assertEquals(address.getId(), actual.getId());
+        var actual = addressIRepository.getById(2);
+        assertEquals(address2.getId(), actual.getId());
     }
 
+    @Override
     @Test
-    public void TestAddressRepoGetAll() {
+    public void getAll() {
         Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
         Address address2 = new Address(2L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
@@ -59,8 +57,9 @@ public class TestAddressRepo {
         assertEquals(address, addressIRepository.getAll().getFirst());
     }
 
+    @Override
     @Test
-    public void TestAddressRepoUpdate() {
+    public void update() {
         Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
         Address address2 = new Address(2L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
@@ -69,18 +68,14 @@ public class TestAddressRepo {
 
         Address address3 = new Address(3L,"Rua 3", 789, "Cidade 3", "Estado 3", "87654321");
 
-        var bool = addressIRepository.update(1L, address3);
-        var expected = addressIRepository.getById(3L);
-        var expected2 = addressIRepository.getById(1L);
-
-        assertTrue(bool);
-        assertNull(expected2);
-        assertEquals(expected, address3);
+        assertTrue(addressIRepository.update(1L, address3));
+        assertNull(addressIRepository.getById(1L));
+        assertEquals(addressIRepository.getById(3L), address3);
     }
 
-
+    @Override
     @Test
-    public void TestAddressRepoDelete() {
+    public void delete() {
         Address address = new Address(1L,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
         Address address2 = new Address(2L,"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
@@ -88,8 +83,8 @@ public class TestAddressRepo {
         addressIRepository.add(address2);
 
         assertTrue(addressIRepository.delete(1L));
-        assertEquals(address2, addressIRepository.getById(2L));
-        assertEquals(1, addressIRepository.getAll().size());
+        assertEquals(addressIRepository.getById(2L), address2);
+        assertEquals(addressIRepository.getAll().size(), 1);
     }
 
 }

@@ -18,13 +18,13 @@ public class TestCart {
         Brand brandA = new Brand(1L, "Nvidia");
         Department departmentA = new Department(1L, "Hardware", "Hardware department");
         Product productA = new Product(1L, "GeForce GTX1660", 800, brandA, "GPU", departmentA, 10);
-        itemA = new Item(1L, productA, 1);
+        itemA = new Item(1L, 1L, productA, 1);
 
         Brand brandB = new Brand(2L,"Intel");
         Department departmentB = new Department(2L, "Hardware", "Hardware department");
         Product productB = new Product(2L, "i5 11300H", 1200, brandB, "CPU", departmentB, 10);
 
-        itemB = new Item(2L, productB, 1);
+        itemB = new Item(2L, 1L, productB, 1);
 
         cart.insertItem(itemA);
     }

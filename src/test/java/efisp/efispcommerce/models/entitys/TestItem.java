@@ -16,7 +16,7 @@ public class TestItem {
         Brand brand = new Brand(1L, "Nvidia");
         Department department = new Department(1L, "Hardware", "Hardware department");
         product = new Product(1L, "GeForce GTX1660", 800, brand, "GPU", department, 10);
-        item = new Item(1L, product, 1);
+        item = new Item(1L, 1L, product, 1);
     }
 
     @Test
