@@ -1,6 +1,7 @@
 package efisp.efispcommerce.models.entitys;
 
 import efisp.efispecommerce.models.entitys.Rating;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,14 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestRating {
     Rating rating;
 
+    @BeforeEach
     public void Initialize() {
         rating = new Rating(1L, "caua@gmail.com", 1L, "Excellent quality", 5);
     }
 
     @Test
     public void TestRatingGetOwnerEmail() {
-        Initialize();
-
         String expected = "caua@gmail.com";
         String actual = rating.getOwnerEmail();
 
@@ -24,8 +24,6 @@ public class TestRating {
 
     @Test
     public void TestRatingGetProductId() {
-        Initialize();
-
         long expected = 1;
         long actual = rating.getProductId();
 
@@ -34,8 +32,6 @@ public class TestRating {
 
     @Test
     public void TestRatingGetComment() {
-        Initialize();
-
         String expected = "Excellent quality";
         String actual = rating.getComment();
 
@@ -44,8 +40,6 @@ public class TestRating {
 
     @Test
     public void TestRatingGetRating() {
-        Initialize();
-
         int expected = 5;
         int actual = rating.getRating();
 

@@ -1,6 +1,7 @@
 package efisp.efispcommerce.models.entitys;
 
 import efisp.efispecommerce.models.entitys.Title;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,14 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestTitle {
     Title title;
 
+    @BeforeEach
     public void Initialize() {
         title = new Title(1L, "CEO", 10);
     }
 
     @Test
     public void TestTitleGetName() {
-        Initialize();
-
         String expected = "CEO";
         String actual = title.getName();
 
@@ -24,8 +24,6 @@ public class TestTitle {
 
     @Test
     public void TestTitleGetPermissionLevel() {
-        Initialize();
-
         int expected = 10;
         int actual = title.getPermissionLevel();
 
@@ -34,8 +32,6 @@ public class TestTitle {
 
     @Test
     public void TestTitleSetPermissionLevel() {
-        Initialize();
-
         int expected = 5;
         title.setPermissionLevel(5);
         int actual = title.getPermissionLevel();
@@ -45,8 +41,6 @@ public class TestTitle {
 
     @Test
     public void TestTitleSetPermissionLevelNotBelowOne() {
-        Initialize();
-
         int expected = 10;
         title.setPermissionLevel(0);
         int actual = title.getPermissionLevel();
@@ -56,8 +50,6 @@ public class TestTitle {
 
     @Test
     public void TestTitleSetPermissionLevelNotAboveTen() {
-        Initialize();
-
         int expected = 10;
         title.setPermissionLevel(11);
         int actual = title.getPermissionLevel();

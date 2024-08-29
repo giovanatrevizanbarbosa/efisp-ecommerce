@@ -1,20 +1,20 @@
 package efisp.efispcommerce.models.entitys;
 
 import efisp.efispecommerce.models.entitys.Address;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestAddress {
     Address address;
 
+    @BeforeEach
     public void Initialize(){
         address = new Address(1L, "Rua Yoki", 700, "Araraquara", "SP", "14800200");
     }
 
     @Test
     public void TestAddressGetStreet() {
-        Initialize();
-
         String expected = "Rua Yoki";
         String actual = address.getStreet();
 
@@ -23,8 +23,6 @@ public class TestAddress {
 
     @Test
     public void TestAddressGetNumber() {
-        Initialize();
-
         int expected = 700;
         int actual = address.getNumber();
 
@@ -33,8 +31,6 @@ public class TestAddress {
 
     @Test
     public void TestAddressGetCity() {
-        Initialize();
-
         String expected = "Araraquara";
         String actual = address.getCity();
 
@@ -43,8 +39,6 @@ public class TestAddress {
 
     @Test
     public void TestAddressGetState() {
-        Initialize();
-
         String expected = "SP";
         String actual = address.getState();
 
@@ -53,8 +47,6 @@ public class TestAddress {
 
     @Test
     public void TestAddressGetZip() {
-        Initialize();
-
         String expected = "14800200";
         String actual = address.getZip();
 
