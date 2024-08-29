@@ -11,15 +11,16 @@ public class Cart extends Writable {
     private final String ownerEmail;
     //Map<ProductId, Item>
     private final Map<Integer, Item> items;
+    private int itemsQuantity;
     private double totalPrice;
 
     public Cart(Long id, String ownerEmail) {
         super(id);
         this.ownerEmail = ownerEmail;
         items = new HashMap<>();
+        itemsQuantity = 0;
         totalPrice = 0;
     }
-
 
     public String getOwnerEmail() {
         return ownerEmail;
@@ -36,6 +37,7 @@ public class Cart extends Writable {
     public Boolean insertItem(Item item) {
         if (items.put(Integer.parseInt(item.getProduct().getId().toString()), item) == null){
             totalPrice += item.getProduct().getPrice() * item.getQuantity();
+            itemsQuantity += item.getQuantity();
             return true;
         }
         return false;
@@ -44,9 +46,12 @@ public class Cart extends Writable {
     public Item removeItem(int productId) {
         Item item = items.remove(productId);
         totalPrice -= item.getProduct().getPrice() * item.getQuantity();
+        itemsQuantity -= item.getQuantity();
 
         return item;
     }
+
+    public int getItemsQuantity() { return itemsQuantity; }
 
     @Override
     public Csv toCSV() {
