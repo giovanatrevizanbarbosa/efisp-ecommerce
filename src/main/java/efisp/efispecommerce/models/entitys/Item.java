@@ -36,7 +36,7 @@ public class Item extends Writable {
     @Override
     public Csv toCSV() {
         return new Csv(
-                new String[]{"id", "productId", "quantity"},
+                new String[]{"id", "cardId" ,"productId", "quantity"},
                 new String[]{getId().toString(), cartId.toString(), product.getId().toString(), String.valueOf(quantity)}
         );
     }

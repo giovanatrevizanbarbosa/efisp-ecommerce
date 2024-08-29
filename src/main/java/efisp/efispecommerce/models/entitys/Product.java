@@ -50,7 +50,7 @@ public class Product extends Writable {
     public Csv toCSV() {
         return new Csv(
             new String[]{"id", "name", "price", "brand", "description", "department", "stock"},
-            new String[]{String.valueOf(getId()), name, String.valueOf(price), brand.getName(), description, department.getName(), String.valueOf(stock)}
+            new String[]{getId().toString(), name, String.valueOf(price), brand.getId().toString(), description, department.getId().toString(), String.valueOf(stock)}
         );
     }
 }

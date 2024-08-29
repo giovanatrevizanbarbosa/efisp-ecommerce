@@ -26,6 +26,18 @@ public class TestProductRepo implements TestRepo{
         departmentIRepository.add(new Department(2L, "Eletrônicos", "Eletrônicos"));
     }
 
+    @Test
+    public void testBrandAndDepartment(){
+        productIRepository.add(new Product(1L, "Samsung", 25.50, brandIRepository.getById(1L), "Samsung Galaxy S20", departmentIRepository.getById(1L), 1));
+        productIRepository.add(new Product(2L, "Apple", 50.00, brandIRepository.getById(2L), "Iphone 12", departmentIRepository.getById(2L), 2));
+
+        assertEquals("Samsung", productIRepository.getById(1L).getBrand().getName());
+        assertEquals("Informática", productIRepository.getById(1L).getDepartment().getName());
+
+        assertEquals("Apple", productIRepository.getById(2L).getBrand().getName());
+        assertEquals("Eletrônicos", productIRepository.getById(2L).getDepartment().getName());
+    }
+
     @Override
     @Test
     public void add() {
