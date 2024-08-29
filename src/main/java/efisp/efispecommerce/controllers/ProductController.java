@@ -4,7 +4,7 @@ import efisp.efispecommerce.dto.ProductDTO;
 import efisp.efispecommerce.models.service.ProductService;
 
 public class ProductController {
-    private ProductService service;
+    private final ProductService service;
 
     public ProductController() {
         service = new ProductService();

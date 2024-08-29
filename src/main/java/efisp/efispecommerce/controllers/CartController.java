@@ -4,7 +4,7 @@ import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.models.service.CartService;
 
 public class CartController {
-    private CartService service;
+    private final CartService service;
 
     public CartController() {
          service = new CartService();

@@ -1,11 +1,8 @@
 package efisp.efispcommerce.controllers;
 
-import efisp.efispecommerce.controllers.OrderController;
 import efisp.efispecommerce.controllers.ProductController;
-import efisp.efispecommerce.dto.OrderDTO;
 import efisp.efispecommerce.dto.ProductDTO;
 import efisp.efispecommerce.models.entitys.*;
-import efisp.efispecommerce.models.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

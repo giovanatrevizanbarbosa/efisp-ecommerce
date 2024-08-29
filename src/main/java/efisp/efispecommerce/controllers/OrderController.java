@@ -4,7 +4,7 @@ import efisp.efispecommerce.dto.OrderDTO;
 import efisp.efispecommerce.models.service.OrderService;
 
 public class OrderController {
-    private OrderService service;
+    private final OrderService service;
 
     public OrderController() {
         service = new OrderService();
