@@ -57,6 +57,23 @@ public class TestCart {
     }
 
     @Test
+    public void TestCartGetItemsQuantityIncreaseAndDecrease() {
+        var expected = 1;
+        var actual = cart.getItemsQuantity();
+        assertEquals(expected, actual);
+
+        cart.insertItem(itemB);
+        expected = 2;
+        actual = cart.getItemsQuantity();
+        assertEquals(expected, actual);
+
+        cart.removeItem(Integer.parseInt(itemA.getId().toString()));
+        expected = 1;
+        actual = cart.getItemsQuantity();
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void TestCartGetTotalPrice() {
         double expected = 800;
         double actual = cart.getTotalPrice();
