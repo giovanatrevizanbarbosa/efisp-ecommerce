@@ -3,61 +3,62 @@ package efisp.efispecommerce.models.repository;
 import efisp.efispecommerce.models.repository.csv.CsvReaderWriter;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 
-public class Repository<T> implements IRepository<T> {
+public class Repository<T extends Writable> implements IRepository<T> {
 
 
     private final CsvReaderWriter<T> dataService;
-    private final List<Writable> data;
+    private final Set<Writable> data;
 
-    @SuppressWarnings("unchecked")
     public Repository(Class<T> clazz) {
         dataService = new CsvReaderWriter<>(clazz.getSimpleName());
-        data = (List<Writable>) dataService.read();
+        try{
+            data = new TreeSet<>(dataService.read());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e + " - Repository not created and file possibly is in use");
+        }
     }
 
 
     @Override
     public boolean add(Writable newValue) {
-        if (data.stream().anyMatch(writable -> writable.getId().equals(newValue.getId()))) return false;
-
-        data.add(newValue);
-
         try {
-            dataService.save(data);
+            if (!data.add(newValue)) return false;
+            dataService.save(List.copyOf(data));
+            return true;
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             return false;
         }
-
-        return true;
     }
 
     @Override
     public boolean update(long id, Writable newValue) {
-        data.removeIf(writable -> writable.getId() == id);
-        data.add(newValue);
-
         try {
-            dataService.save(data);
+            data.removeIf(writable -> writable.getId() == id);
+            if (!data.add(newValue)) return false;
+            dataService.save(List.copyOf(data));
+            return true;
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             return false;
         }
-
-        return true;
     }
 
     @Override
     public boolean delete(long id) {
-        data.removeIf(writable -> writable.getId() == id);
-
         try {
-            dataService.save(data);
+            data.removeIf(writable -> writable.getId() == id);
+            dataService.save(List.copyOf(data));
+            return true;
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             return false;
         }
-
-        return true;
     }
 
     @Override
@@ -69,6 +70,6 @@ public class Repository<T> implements IRepository<T> {
     @Override
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        return (List<T>) data;
+        return (List<T>) List.copyOf(data);
     }
 }

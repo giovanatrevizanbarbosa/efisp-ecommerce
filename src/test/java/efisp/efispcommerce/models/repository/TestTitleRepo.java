@@ -5,8 +5,7 @@ import efisp.efispecommerce.models.repository.IRepository;
 import efisp.efispecommerce.models.repository.Repository;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTitleRepo implements TestRepo{
 
@@ -20,6 +19,7 @@ public class TestTitleRepo implements TestRepo{
 
         assertTrue(titleIRepository.add(title));
         assertTrue(titleIRepository.add(title2));
+        assertFalse(titleIRepository.add(title));
         assertEquals(titleIRepository.getAll().getFirst().getId(), title.getId());
     }
 

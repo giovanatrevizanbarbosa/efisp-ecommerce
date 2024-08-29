@@ -1,8 +1,6 @@
 package efisp.efispcommerce.models.repository;
 
-import efisp.efispecommerce.models.entitys.Cart;
-import efisp.efispecommerce.models.entitys.Item;
-import efisp.efispecommerce.models.entitys.Product;
+import efisp.efispecommerce.models.entitys.*;
 import efisp.efispecommerce.models.repository.IRepository;
 import efisp.efispecommerce.models.repository.Repository;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,11 +17,17 @@ public class TestItemRepo implements TestRepo{
 
     @BeforeAll
     public static void setUp() {
+        IRepository<Brand> brandRepo = new Repository<>(Brand.class);
+        brandRepo.add(new Brand(1L, "Samsung"));
+
+        IRepository<Department> departmentRepo = new Repository<>(Department.class);
+        departmentRepo.add(new Department(1L, "Informática", "Informática"));
+
         cartRepo.add(new Cart(1L, "a@a.com"));
         cartRepo.add(new Cart(2L, "b@b.com"));
 
-        productRepo.add(new Product(1L, "Product 1", 1, null, null, null, 1));
-        productRepo.add(new Product(2L, "Product 2", 2, null, null, null, 2));
+        productRepo.add(new Product(1L, "Product 1", 1, brandRepo.getById(1L), null, departmentRepo.getById(1L), 1));
+        productRepo.add(new Product(2L, "Product 2", 2, brandRepo.getById(1L), null, departmentRepo.getById(1L), 2));
     }
 
     @Override

@@ -33,7 +33,7 @@ public interface IRepository<T> {
     /**
      * Gets an object from the repository by its id.
      * @param id The id of the object to be retrieved.
-     * @return The object with the given id.
+     * @return The object with the given id or null if it doesn't exist.
      */
     T getById(long id);
 
