@@ -20,6 +20,8 @@ public class Repository<T> implements IRepository<T> {
 
     @Override
     public boolean add(Writable newValue) {
+        if (data.stream().anyMatch(writable -> writable.getId().equals(newValue.getId()))) return false;
+
         data.add(newValue);
 
         try {

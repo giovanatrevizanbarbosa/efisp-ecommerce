@@ -64,19 +64,17 @@ public class DomainConverter {
     public static Rating getRatingFromCsv(Csv csv){
         String[] data = csv.getData();
 
-        return new Rating(Long.parseLong(data[0]), data[1], Integer.parseInt(data[2]), data[3], Integer.parseInt(data[4]));
+        return new Rating(Long.parseLong(data[0]), data[1], Long.parseLong(data[2]), data[3], Integer.parseInt(data[4]));
     }
 
     public static Item getItemFromCsv(Csv csv) {
         CsvReaderWriter<Product> csvReaderWriter = new CsvReaderWriter<>(Product.class.getSimpleName());
 
-        List<Product> products = csvReaderWriter.read();
-
         String[] data = csv.getData();
 
-        Product product = products.stream().filter(p -> p.getId() == Long.parseLong(data[1])).findFirst().orElse(null);
+        Product product = csvReaderWriter.read().stream().filter(p -> p.getId() == Long.parseLong(data[2])).findFirst().orElse(null);
 
-        return new Item(Long.parseLong(data[0]), product, Integer.parseInt(data[2]));
+        return new Item(Long.parseLong(data[0]), Long.parseLong(data[1]), product, Integer.parseInt(data[3]));
     }
 
     public static Product getProductFromCsv(Csv csv){
@@ -96,6 +94,13 @@ public class DomainConverter {
 
     public static Cart getCartFromCsv(Csv csv){
         String[] data = csv.getData();
-        return new Cart(Long.parseLong(data[0]), data[1]);
+        Cart cart = new Cart(Long.parseLong(data[0]), data[1]);
+
+        CsvReaderWriter<Item> itemCsvReaderWriter = new CsvReaderWriter<>(Item.class.getSimpleName());
+        List<Item> items = itemCsvReaderWriter.read();
+
+        items.stream().filter(i -> i.getCartId().equals(cart.getId())).forEach(cart::insertItem);
+
+        return cart;
     }
 }

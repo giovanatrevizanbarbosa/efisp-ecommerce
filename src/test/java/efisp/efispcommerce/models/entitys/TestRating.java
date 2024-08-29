@@ -9,7 +9,7 @@ public class TestRating {
     Rating rating;
 
     public void Initialize() {
-        rating = new Rating(1L, "caua@gmail.com", 1, "Excellent quality", 5);
+        rating = new Rating(1L, "caua@gmail.com", 1L, "Excellent quality", 5);
     }
 
     @Test
@@ -26,8 +26,8 @@ public class TestRating {
     public void TestRatingGetProductId() {
         Initialize();
 
-        int expected = 1;
-        int actual = rating.getProductId();
+        long expected = 1;
+        long actual = rating.getProductId();
 
         assertEquals(expected, actual);
     }

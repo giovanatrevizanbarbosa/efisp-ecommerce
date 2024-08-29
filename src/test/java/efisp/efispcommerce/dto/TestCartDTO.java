@@ -30,8 +30,8 @@ public class TestCartDTO {
         Product product1 = new Product(1L, "Laptop", 1000.0, brand, "High-performance laptop", department, 5);
         Product product2 = new Product(2L, "Smartphone", 500.0, brand, "Latest smartphone", department, 10);
 
-        items.put(1L, new Item(1L, product1, 2));
-        items.put(2L, new Item(2L, product2, 1));
+        items.put(1L, new Item(1L, 1L, product1, 2));
+        items.put(2L, new Item(2L, 2L, product2, 1));
 
         cartDTO = new CartDTO(1L, ownerEmail, items);
     }
