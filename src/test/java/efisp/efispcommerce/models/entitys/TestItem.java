@@ -45,8 +45,9 @@ public class TestItem {
 
         int expected = 2;
         item.setQuantity(2);
+        int actual = item.getQuantity();
 
-        assertEquals(expected, 2);
+        assertEquals(expected, actual);
     }
 
     @Test
