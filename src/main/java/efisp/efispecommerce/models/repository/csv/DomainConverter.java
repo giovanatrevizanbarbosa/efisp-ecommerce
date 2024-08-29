@@ -1,5 +1,6 @@
 package efisp.efispecommerce.models.repository.csv;
 
+import com.opencsv.exceptions.CsvException;
 import efisp.efispecommerce.models.repository.Writable;
 import efisp.efispecommerce.models.entitys.*;
 
@@ -30,10 +31,16 @@ public class DomainConverter {
     }
 
     private static Administrator getAdministratorFromCsv(Csv csv){
-        CsvReaderWriter<Title> titleCsvReaderWriter = new CsvReaderWriter<>(Title.class.getSimpleName());
-        List<Title> titles = titleCsvReaderWriter.read();
+        Title title = null;
 
-        Title title = titles.stream().filter(t -> t.getId() == Long.parseLong(csv.getData()[4])).findFirst().orElse(null);
+        CsvReaderWriter<Title> titleCsvReaderWriter = new CsvReaderWriter<>(Title.class.getSimpleName());
+        try {
+            List<Title> titles = titleCsvReaderWriter.read();
+            title = titles.stream().filter(t -> t.getId() == Long.parseLong(csv.getData()[4])).findFirst().orElse(null);
+
+        } catch (CsvException e) {
+            System.err.println(e.getMessage());
+        }
 
         String[] data = csv.getData();
         return new Administrator(Long.parseLong(data[0]), data[1], data[2], data[3], title);
@@ -72,22 +79,35 @@ public class DomainConverter {
 
         String[] data = csv.getData();
 
-        Product product = csvReaderWriter.read().stream().filter(p -> p.getId() == Long.parseLong(data[2])).findFirst().orElse(null);
+        Product product = null;
+
+        try{
+            product = csvReaderWriter.read().stream().filter(p -> p.getId() == Long.parseLong(data[2])).findFirst().orElse(null);
+        } catch (CsvException e) {
+            System.err.println(e.getMessage());
+        }
 
         return new Item(Long.parseLong(data[0]), Long.parseLong(data[1]), product, Integer.parseInt(data[3]));
     }
 
     public static Product getProductFromCsv(Csv csv){
+        Brand brand = null;
+        Department department = null;
+
         CsvReaderWriter<Brand> brandCsvReaderWriter = new CsvReaderWriter<>(Brand.class.getSimpleName());
         CsvReaderWriter<Department> departmentCsvReaderWriter = new CsvReaderWriter<>(Department.class.getSimpleName());
 
-        List<Brand> brands = brandCsvReaderWriter.read();
-        List<Department> departments = departmentCsvReaderWriter.read();
-
         String[] data = csv.getData();
 
-        Brand brand = brands.stream().filter(b -> b.getId() == Long.parseLong(data[3])).findFirst().orElse(null);
-        Department department = departments.stream().filter(d -> d.getId() == Long.parseLong(data[5])).findFirst().orElse(null);
+        try {
+            List<Brand> brands = brandCsvReaderWriter.read();
+            List<Department> departments = departmentCsvReaderWriter.read();
+
+             brand = brands.stream().filter(b -> b.getId() == Long.parseLong(data[3])).findFirst().orElse(null);
+             department = departments.stream().filter(d -> d.getId() == Long.parseLong(data[5])).findFirst().orElse(null);
+        } catch (CsvException e) {
+            System.err.println(e.getMessage());
+        }
 
         return new Product(Long.parseLong(data[0]), data[1], Double.parseDouble(data[2]), brand, data[4], department, Integer.parseInt(data[6]));
     }
@@ -97,9 +117,12 @@ public class DomainConverter {
         Cart cart = new Cart(Long.parseLong(data[0]), data[1]);
 
         CsvReaderWriter<Item> itemCsvReaderWriter = new CsvReaderWriter<>(Item.class.getSimpleName());
-        List<Item> items = itemCsvReaderWriter.read();
-
-        items.stream().filter(i -> i.getCartId().equals(cart.getId())).forEach(cart::insertItem);
+        try {
+            List<Item> items = itemCsvReaderWriter.read();
+            items.stream().filter(i -> i.getCartId().equals(cart.getId())).forEach(cart::insertItem);
+        } catch (CsvException e) {
+            System.err.println(e.getMessage());
+        }
 
         return cart;
     }

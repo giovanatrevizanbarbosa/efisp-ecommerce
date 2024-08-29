@@ -33,11 +33,10 @@ public class CsvReaderWriter<T> {
         if (clazzName.endsWith("ss")) {
             return clazzName.toLowerCase() + "es.csv";
         }
-
             return clazzName.toLowerCase() + "s.csv";
     }
 
-    private void buildWriter(){
+    private void buildWriter() throws InvalidPathException{
         try {
             if (Files.exists(path)) {
                 Files.delete(path);
@@ -50,7 +49,7 @@ public class CsvReaderWriter<T> {
         }
     }
 
-    private void buildReader(){
+    private void buildReader() throws InvalidPathException{
         try {
             Reader reader = Files.newBufferedReader(path);
             csvReader = new CSVReader(reader);
@@ -59,9 +58,7 @@ public class CsvReaderWriter<T> {
         }
     }
 
-    public void save(List<Writable> data) throws RuntimeException {
-
-
+    public void save(List<Writable> data) throws CsvException {
         try {
             buildWriter();
 
@@ -72,13 +69,13 @@ public class CsvReaderWriter<T> {
                 csvWriter.writeNext(csv.toCSV().getData());
             }
             csvWriter.flush();
-        } catch (IOException e) {
-            throw new RuntimeException("Error writing to CSV file: " + e.getMessage());
+        } catch (IOException | InvalidPathException e) {
+            throw new CsvException("Error saving file: " + e.getMessage());
         }
     }
 
     @SuppressWarnings("unchecked")
-    public List<T> read() throws RuntimeException{
+    public List<T> read() throws CsvException {
         try {
            List<T> tList = new LinkedList<>();
 
@@ -90,8 +87,8 @@ public class CsvReaderWriter<T> {
            );
 
            return tList;
-        } catch (IOException | CsvException e) {
-            throw new RuntimeException("Error reading file: " + e.getMessage());
+        } catch (IOException | InvalidPathException e) {
+            throw new CsvException("Error reading file: " + e.getMessage());
         }
     }
 
