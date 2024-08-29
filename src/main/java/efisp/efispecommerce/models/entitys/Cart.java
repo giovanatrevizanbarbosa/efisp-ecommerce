@@ -18,6 +18,7 @@ public class Cart extends Writable {
         super(id);
         this.ownerEmail = ownerEmail;
         items = new HashMap<>();
+        itemsQuantity = 0;
         totalPrice = 0;
     }
 
