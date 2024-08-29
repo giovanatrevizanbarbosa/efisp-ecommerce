@@ -1,6 +1,7 @@
 package efisp.efispcommerce.models.entitys;
 
 import efisp.efispecommerce.models.entitys.Department;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,14 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestDepartment {
     Department department;
 
+    @BeforeEach
     public void Initialize() {
         department = new Department(1L, "Hardware", "Hardwares department");
     }
 
     @Test
     public void TestDepartmentGetName() {
-        Initialize();
-
         String expected = "Hardware";
         String actual = department.getName();
 
@@ -24,8 +24,6 @@ public class TestDepartment {
 
     @Test
     public void TestDepartmentGetDescription() {
-        Initialize();
-
         String expected = "Hardwares department";
         String actual = department.getDescription();
 
