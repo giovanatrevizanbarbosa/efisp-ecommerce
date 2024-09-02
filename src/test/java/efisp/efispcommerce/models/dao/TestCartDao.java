@@ -1,25 +1,25 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
 import efisp.efispecommerce.models.entitys.*;
-import efisp.efispecommerce.models.repository.IRepository;
-import efisp.efispecommerce.models.repository.Repository;
+import efisp.efispecommerce.models.dao.IDao;
+import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestCartRepo implements TestRepo{
+public class TestCartDao implements TestDao {
 
-    IRepository<Cart> cartRepo = new Repository<>(Cart.class);
+    IDao<Cart> cartRepo = new Dao<>(Cart.class);
 
 
     @Test
     public void itemInCart(){
-        IRepository<Item> itemRepo = new Repository<>(Item.class);
-        IRepository<Brand> brandRepo = new Repository<>(Brand.class);
-        IRepository<Department> departmentRepo = new Repository<>(Department.class);
-        IRepository<Product> productRepo = new Repository<>(Product.class);
-        IRepository<Cart> cartRepo = new Repository<>(Cart.class);
+        IDao<Item> itemRepo = new Dao<>(Item.class);
+        IDao<Brand> brandRepo = new Dao<>(Brand.class);
+        IDao<Department> departmentRepo = new Dao<>(Department.class);
+        IDao<Product> productRepo = new Dao<>(Product.class);
+        IDao<Cart> cartRepo = new Dao<>(Cart.class);
 
         brandRepo.add(new Brand(1L, "Samsung"));
         departmentRepo.add(new Department(1L, "Informática", "Informática"));

@@ -1,16 +1,16 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
 import efisp.efispecommerce.models.entitys.Brand;
-import efisp.efispecommerce.models.repository.IRepository;
-import efisp.efispecommerce.models.repository.Repository;
+import efisp.efispecommerce.models.dao.IDao;
+import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestBrandRepo implements TestRepo {
+public class TestBrandDao implements TestDao {
 
-    IRepository<Brand> brandIRepository = new Repository<>(Brand.class);
+    IDao<Brand> brandIDao = new Dao<>(Brand.class);
 
     @Override
     @Test
@@ -18,9 +18,9 @@ public class TestBrandRepo implements TestRepo {
         Brand brand = new Brand(1L, "Samsung");
         Brand brand2 = new Brand(2L, "Apple");
 
-        assertTrue(brandIRepository.add(brand));
-        assertTrue(brandIRepository.add(brand2));
-        assertEquals(brandIRepository.getAll().getFirst().getId(), brand.getId());
+        assertTrue(brandIDao.add(brand));
+        assertTrue(brandIDao.add(brand2));
+        assertEquals(brandIDao.getAll().getFirst().getId(), brand.getId());
     }
 
     @Override
@@ -29,10 +29,10 @@ public class TestBrandRepo implements TestRepo {
         Brand brand = new Brand(1L, "Samsung");
         Brand brand2 = new Brand(2L, "Apple");
 
-        brandIRepository.add(brand);
-        brandIRepository.add(brand2);
+        brandIDao.add(brand);
+        brandIDao.add(brand2);
 
-        var actual = brandIRepository.getById(2);
+        var actual = brandIDao.getById(2);
         assertEquals(brand2.getId(), actual.getId());
     }
 
@@ -42,14 +42,14 @@ public class TestBrandRepo implements TestRepo {
         Brand brand = new Brand(1L, "Samsung");
         Brand brand2 = new Brand(2L, "Apple");
 
-        brandIRepository.add(brand);
-        brandIRepository.add(brand2);
+        brandIDao.add(brand);
+        brandIDao.add(brand2);
 
         var expected = 2;
-        var actual = brandIRepository.getAll().size();
+        var actual = brandIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(brand, brandIRepository.getAll().getFirst());
+        assertEquals(brand, brandIDao.getAll().getFirst());
     }
 
     @Override
@@ -58,12 +58,12 @@ public class TestBrandRepo implements TestRepo {
         Brand brand = new Brand(1L, "Samsung");
         Brand brand2 = new Brand(2L, "Apple");
 
-        brandIRepository.add(brand);
-        brandIRepository.add(brand2);
+        brandIDao.add(brand);
+        brandIDao.add(brand2);
 
         Brand brand3 = new Brand(3L, "Samsung");
 
-        assertTrue(brandIRepository.update(1L, brand3));
+        assertTrue(brandIDao.update(1L, brand3));
     }
 
     @Override
@@ -72,9 +72,9 @@ public class TestBrandRepo implements TestRepo {
         Brand brand = new Brand(1L, "Samsung");
         Brand brand2 = new Brand(2L, "Apple");
 
-        brandIRepository.add(brand);
-        brandIRepository.add(brand2);
+        brandIDao.add(brand);
+        brandIDao.add(brand2);
 
-        assertTrue(brandIRepository.delete(1L));
+        assertTrue(brandIDao.delete(1L));
     }
 }

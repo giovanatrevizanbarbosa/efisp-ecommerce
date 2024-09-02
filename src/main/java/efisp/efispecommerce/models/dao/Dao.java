@@ -1,19 +1,19 @@
-package efisp.efispecommerce.models.repository;
+package efisp.efispecommerce.models.dao;
 
-import efisp.efispecommerce.models.repository.csv.CsvReaderWriter;
+import efisp.efispecommerce.models.dao.csv.CsvReaderWriter;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 
-public class Repository<T extends Writable> implements IRepository<T> {
+public class Dao<T extends Writable> implements IDao<T> {
 
 
     private final CsvReaderWriter<T> dataService;
     private final Set<Writable> data;
 
-    public Repository(Class<T> clazz) {
+    public Dao(Class<T> clazz) {
         dataService = new CsvReaderWriter<>(clazz.getSimpleName());
         try{
             data = new TreeSet<>(dataService.read());

@@ -1,7 +1,7 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.repository.Writable;
-import efisp.efispecommerce.models.repository.csv.Csv;
+import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.dao.csv.Csv;
 
 public class Product extends Writable {
     //id as identifier allows multiple products with same name, but different price, brand and description.

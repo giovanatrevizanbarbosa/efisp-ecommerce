@@ -1,7 +1,7 @@
-package efisp.efispecommerce.models.repository.csv;
+package efisp.efispecommerce.models.dao.csv;
 
 import com.opencsv.exceptions.CsvException;
-import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.entitys.*;
 
 import java.util.List;

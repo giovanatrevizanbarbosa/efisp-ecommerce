@@ -1,4 +1,4 @@
-package efisp.efispecommerce.models.repository;
+package efisp.efispecommerce.models.dao;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
