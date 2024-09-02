@@ -1,7 +1,7 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.repository.csv.Csv;
-import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.dao.csv.Csv;
+import efisp.efispecommerce.models.dao.Writable;
 
 public class User extends Writable {
     private final String name;

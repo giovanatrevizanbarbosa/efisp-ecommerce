@@ -1,6 +1,6 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.repository.csv.Csv;
+import efisp.efispecommerce.models.dao.csv.Csv;
 
 import java.util.Arrays;
 

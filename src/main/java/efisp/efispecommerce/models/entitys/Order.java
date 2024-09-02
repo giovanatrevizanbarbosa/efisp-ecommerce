@@ -1,7 +1,7 @@
 package efisp.efispecommerce.models.entitys;
 
-import efisp.efispecommerce.models.repository.Writable;
-import efisp.efispecommerce.models.repository.csv.Csv;
+import efisp.efispecommerce.models.dao.Writable;
+import efisp.efispecommerce.models.dao.csv.Csv;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
 public class Order extends Writable {

@@ -1,20 +1,20 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
-import efisp.efispecommerce.models.repository.IRepository;
-import efisp.efispecommerce.models.repository.Repository;
+import efisp.efispecommerce.models.dao.IDao;
+import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.entitys.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestUserRepo implements TestRepo {
+public class TestUserDao implements TestDao {
 
-    IRepository<User> userIRepository;
+    IDao<User> userIDao;
 
     @BeforeEach
     public void Initialize(){
-        userIRepository = new Repository<>(User.class);
+        userIDao = new Dao<>(User.class);
     }
 
     @Override
@@ -23,9 +23,9 @@ public class TestUserRepo implements TestRepo {
         User user = new User(1L, "Cauã", "caua@email.com", "Password123");
         User user2 = new User(2L, "João", "joaoa@email.com", "Password123");
 
-        var bool = userIRepository.add(user);
-        var bool2 = userIRepository.add(user2);
-        var expected = userIRepository.getAll();
+        var bool = userIDao.add(user);
+        var bool2 = userIDao.add(user2);
+        var expected = userIDao.getAll();
 
         assertTrue(bool);
         assertTrue(bool2);
@@ -38,10 +38,10 @@ public class TestUserRepo implements TestRepo {
         User user = new User(10L, "Cauã", "caua@email.com", "Password123");
         User user2 = new User(22L, "João", "jaoao@gmail.com", "Password123");
 
-        userIRepository.add(user);
-        userIRepository.add(user2);
+        userIDao.add(user);
+        userIDao.add(user2);
 
-        var actual = userIRepository.getById(10);
+        var actual = userIDao.getById(10);
 
         assertEquals(user.getId(), actual.getId());
     }
@@ -52,15 +52,15 @@ public class TestUserRepo implements TestRepo {
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
-        userIRepository.add(user);
-        userIRepository.add(user2);
+        userIDao.add(user);
+        userIDao.add(user2);
 
         var expected = 2;
-        var actual = userIRepository.getAll().size();
+        var actual = userIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(user, userIRepository.getAll().getFirst());
-        assertEquals(user2, userIRepository.getAll().getLast());
+        assertEquals(user, userIDao.getAll().getFirst());
+        assertEquals(user2, userIDao.getAll().getLast());
     }
 
     @Override
@@ -69,16 +69,16 @@ public class TestUserRepo implements TestRepo {
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
-        userIRepository.add(user);
-        userIRepository.add(user2);
+        userIDao.add(user);
+        userIDao.add(user2);
 
         User user3 = new User(5L, "Giovana", "giovana.email.com", "Password1234");
 
-        var bool = userIRepository.update(1, user3);
+        var bool = userIDao.update(1, user3);
 
-        var actual = userIRepository.getById(5);
+        var actual = userIDao.getById(5);
 
-        var old = userIRepository.getById(1);
+        var old = userIDao.getById(1);
 
         assertNull(old);
         assertTrue(bool);
@@ -91,15 +91,15 @@ public class TestUserRepo implements TestRepo {
         User user = new User(1L, "Cauã", "caua.email.com", "Password123");
         User user2 = new User(2L, "João", "joao.email.com", "Password123");
 
-        userIRepository.add(user);
-        userIRepository.add(user2);
+        userIDao.add(user);
+        userIDao.add(user2);
 
-        var bool = userIRepository.delete(1);
+        var bool = userIDao.delete(1);
 
         var expected = 1;
-        var actual = userIRepository.getAll().size();
+        var actual = userIDao.getAll().size();
 
-        var userRecived = userIRepository.getById(2);
+        var userRecived = userIDao.getById(2);
 
         assertEquals(user2, userRecived);
         assertTrue(bool);

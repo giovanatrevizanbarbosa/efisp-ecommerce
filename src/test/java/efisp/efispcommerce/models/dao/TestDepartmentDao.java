@@ -1,16 +1,16 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
 import efisp.efispecommerce.models.entitys.Department;
-import efisp.efispecommerce.models.repository.IRepository;
-import efisp.efispecommerce.models.repository.Repository;
+import efisp.efispecommerce.models.dao.IDao;
+import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestDepartmentRepo implements TestRepo{
+public class TestDepartmentDao implements TestDao {
 
-    IRepository<Department> departamentIRepository = new Repository<>(Department.class);
+    IDao<Department> departamentIDao = new Dao<>(Department.class);
 
     @Override
     @Test
@@ -18,9 +18,9 @@ public class TestDepartmentRepo implements TestRepo{
         Department department = new Department(1L, "Informática", "Informática");
         Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
 
-        assertTrue(departamentIRepository.add(department));
-        assertTrue(departamentIRepository.add(department2));
-        assertEquals(departamentIRepository.getAll().getFirst().getId(), department.getId());
+        assertTrue(departamentIDao.add(department));
+        assertTrue(departamentIDao.add(department2));
+        assertEquals(departamentIDao.getAll().getFirst().getId(), department.getId());
     }
 
     @Override
@@ -29,10 +29,10 @@ public class TestDepartmentRepo implements TestRepo{
         Department department = new Department(1L, "Informática", "Informática");
         Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
 
-        departamentIRepository.add(department);
-        departamentIRepository.add(department2);
+        departamentIDao.add(department);
+        departamentIDao.add(department2);
 
-        var actual = departamentIRepository.getById(2);
+        var actual = departamentIDao.getById(2);
         assertEquals(department2.getId(), actual.getId());
     }
 
@@ -42,14 +42,14 @@ public class TestDepartmentRepo implements TestRepo{
         Department department = new Department(1L, "Informática", "Informática");
         Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
 
-        departamentIRepository.add(department);
-        departamentIRepository.add(department2);
+        departamentIDao.add(department);
+        departamentIDao.add(department2);
 
         var expected = 2;
-        var actual = departamentIRepository.getAll().size();
+        var actual = departamentIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(department, departamentIRepository.getAll().getFirst());
+        assertEquals(department, departamentIDao.getAll().getFirst());
     }
 
     @Override
@@ -58,12 +58,12 @@ public class TestDepartmentRepo implements TestRepo{
         Department department = new Department(1L, "Informática", "Informática");
         Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
 
-        departamentIRepository.add(department);
-        departamentIRepository.add(department2);
+        departamentIDao.add(department);
+        departamentIDao.add(department2);
 
         Department department3 = new Department(3L, "Informática", "Informática");
 
-        assertTrue(departamentIRepository.update(1L, department3));
+        assertTrue(departamentIDao.update(1L, department3));
     }
 
     @Override
@@ -72,9 +72,9 @@ public class TestDepartmentRepo implements TestRepo{
         Department department = new Department(1L, "Informática", "Informática");
         Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
 
-        departamentIRepository.add(department);
-        departamentIRepository.add(department2);
+        departamentIDao.add(department);
+        departamentIDao.add(department2);
 
-        assertTrue(departamentIRepository.delete(1L));
+        assertTrue(departamentIDao.delete(1L));
     }
 }
