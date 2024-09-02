@@ -1,6 +1,7 @@
 package efisp.efispcommerce.models.entitys;
 
 import efisp.efispecommerce.models.entitys.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ public class TestCart {
     Item itemB;
     Cart cart;
 
+    @BeforeEach
     public void Initialize(){
         cart = new Cart(1L, "caua@gmail.com");
 
@@ -31,8 +33,6 @@ public class TestCart {
 
     @Test
     public void TestCartGetId(){
-        Initialize();
-
         var expected = 1;
         var actual = cart.getId();
 
@@ -41,8 +41,6 @@ public class TestCart {
 
     @Test
     public void TestCartGetOwner() {
-        Initialize();
-
         String expected = "caua@gmail.com";
         String actual = cart.getOwnerEmail();
 
@@ -51,8 +49,6 @@ public class TestCart {
 
     @Test
     public void TestCartGetItems() {
-        Initialize();
-
         Map<Integer, Item> expected = new HashMap<>();
         expected.put(1, itemA);
         Map<Integer, Item> actual = cart.getItems();
@@ -61,9 +57,24 @@ public class TestCart {
     }
 
     @Test
-    public void TestCartGetTotalPrice() {
-        Initialize();
+    public void TestCartGetItemsQuantityIncreaseAndDecrease() {
+        var expected = 1;
+        var actual = cart.getItemsQuantity();
+        assertEquals(expected, actual);
 
+        cart.insertItem(itemB);
+        expected = 2;
+        actual = cart.getItemsQuantity();
+        assertEquals(expected, actual);
+
+        cart.removeItem(Integer.parseInt(itemA.getId().toString()));
+        expected = 1;
+        actual = cart.getItemsQuantity();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestCartGetTotalPrice() {
         double expected = 800;
         double actual = cart.getTotalPrice();
 
@@ -72,8 +83,6 @@ public class TestCart {
 
     @Test
     public void TestCartInsertItem() {
-        Initialize();
-
         Map<Integer, Item> expected = new HashMap<>();
         expected.put(1, itemA);
         expected.put(2, itemB);
@@ -91,8 +100,6 @@ public class TestCart {
 
     @Test
     public void TestCartRemoveItem() {
-        Initialize();
-
         Map<Integer, Item> expected = new HashMap<>();
         expected.put(2, itemB);
 

@@ -3,6 +3,7 @@ package efisp.efispcommerce.models.entitys;
 import efisp.efispecommerce.models.entitys.Brand;
 import efisp.efispecommerce.models.entitys.Department;
 import efisp.efispecommerce.models.entitys.Product;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +13,7 @@ public class TestProduct {
     Department department;
     Product product;
 
+    @BeforeEach
     public void Initialize() {
         brand = new Brand(1L, "Nvidia");
         department = new Department(1L, "Hardware", "Hardware department");
@@ -20,8 +22,6 @@ public class TestProduct {
 
     @Test
     public void TestProductGetId() {
-        Initialize();
-
         int expected = 1;
         int actual = Math.toIntExact(product.getId());
 
@@ -30,8 +30,6 @@ public class TestProduct {
 
     @Test
     public void TestProductGetName() {
-        Initialize();
-
         String expected = "GeForce GTX1660";
         String actual = product.getName();
 
@@ -40,8 +38,6 @@ public class TestProduct {
 
     @Test
     public void TestProductGetPrice() {
-        Initialize();
-
         double expected = 800;
         double actual = product.getPrice();
 
@@ -50,8 +46,6 @@ public class TestProduct {
 
     @Test
     public void TestProductGetBrand() {
-        Initialize();
-
         Brand expected = brand;
         Brand actual = product.getBrand();
 
@@ -60,8 +54,6 @@ public class TestProduct {
 
     @Test
     public void TestProductGetDescription() {
-        Initialize();
-
         String expected = "GPU";
         String actual = product.getDescription();
 
@@ -70,8 +62,6 @@ public class TestProduct {
 
     @Test
     public void TestProductGetDepartment() {
-        Initialize();
-
         Department expected = department;
         Department actual = product.getDepartment();
 
