@@ -1,6 +1,6 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
-public interface TestRepo {
+public interface TestDao {
 
     void add();
     void update();

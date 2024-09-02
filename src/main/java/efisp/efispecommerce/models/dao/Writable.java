@@ -1,6 +1,6 @@
-package efisp.efispecommerce.models.repository;
+package efisp.efispecommerce.models.dao;
 
-import efisp.efispecommerce.models.repository.csv.Csv;
+import efisp.efispecommerce.models.dao.csv.Csv;
 
 public abstract class Writable implements Comparable<Writable>{
     Long id;

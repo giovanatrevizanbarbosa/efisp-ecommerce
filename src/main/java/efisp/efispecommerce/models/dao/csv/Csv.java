@@ -1,4 +1,4 @@
-package efisp.efispecommerce.models.repository.csv;
+package efisp.efispecommerce.models.dao.csv;
 
 public class Csv {
 
@@ -27,9 +27,4 @@ public class Csv {
     public void setData(String[] data) {
         this.data = data;
     }
-
-    public void setHeader(String[] header) {
-        this.header = header;
-    }
-
 }

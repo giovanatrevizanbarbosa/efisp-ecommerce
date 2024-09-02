@@ -1,15 +1,15 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
 import efisp.efispecommerce.models.entitys.Title;
-import efisp.efispecommerce.models.repository.IRepository;
-import efisp.efispecommerce.models.repository.Repository;
+import efisp.efispecommerce.models.dao.IDao;
+import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestTitleRepo implements TestRepo{
+public class TestTitleDao implements TestDao {
 
-    IRepository<Title> titleIRepository = new Repository<>(Title.class);
+    IDao<Title> titleIDao = new Dao<>(Title.class);
 
     @Override
     @Test
@@ -17,10 +17,10 @@ public class TestTitleRepo implements TestRepo{
         Title title = new Title(1L, "ADMIN", 1);
         Title title2 = new Title(2L, "USER", 2);
 
-        assertTrue(titleIRepository.add(title));
-        assertTrue(titleIRepository.add(title2));
-        assertFalse(titleIRepository.add(title));
-        assertEquals(titleIRepository.getAll().getFirst().getId(), title.getId());
+        assertTrue(titleIDao.add(title));
+        assertTrue(titleIDao.add(title2));
+        assertFalse(titleIDao.add(title));
+        assertEquals(titleIDao.getAll().getFirst().getId(), title.getId());
     }
 
     @Override
@@ -29,10 +29,10 @@ public class TestTitleRepo implements TestRepo{
         Title title = new Title(1L, "ADMIN", 1);
         Title title2 = new Title(2L, "USER", 2);
 
-        titleIRepository.add(title);
-        titleIRepository.add(title2);
+        titleIDao.add(title);
+        titleIDao.add(title2);
 
-        var actual = titleIRepository.getById(2);
+        var actual = titleIDao.getById(2);
         assertEquals(title2.getId(), actual.getId());
     }
 
@@ -42,14 +42,14 @@ public class TestTitleRepo implements TestRepo{
         Title title = new Title(1L, "ADMIN", 1);
         Title title2 = new Title(2L, "USER", 2);
 
-        titleIRepository.add(title);
-        titleIRepository.add(title2);
+        titleIDao.add(title);
+        titleIDao.add(title2);
 
         var expected = 2;
-        var actual = titleIRepository.getAll().size();
+        var actual = titleIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(title, titleIRepository.getAll().getFirst());
+        assertEquals(title, titleIDao.getAll().getFirst());
     }
 
     @Override
@@ -58,12 +58,12 @@ public class TestTitleRepo implements TestRepo{
         Title title = new Title(1L, "ADMIN", 1);
         Title title2 = new Title(2L, "USER", 2);
 
-        titleIRepository.add(title);
-        titleIRepository.add(title2);
+        titleIDao.add(title);
+        titleIDao.add(title2);
 
         Title title3 = new Title(3L, "GUEST", 3);
 
-        assertTrue(titleIRepository.update(1L, title3));
+        assertTrue(titleIDao.update(1L, title3));
     }
 
     @Override
@@ -72,9 +72,9 @@ public class TestTitleRepo implements TestRepo{
         Title title = new Title(1L, "ADMIN", 1);
         Title title2 = new Title(2L, "USER", 2);
 
-        titleIRepository.add(title);
-        titleIRepository.add(title2);
+        titleIDao.add(title);
+        titleIDao.add(title2);
 
-        assertTrue(titleIRepository.delete(1L));
+        assertTrue(titleIDao.delete(1L));
     }
 }

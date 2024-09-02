@@ -1,10 +1,10 @@
-package efisp.efispecommerce.models.repository.csv;
+package efisp.efispecommerce.models.dao.csv;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-import efisp.efispecommerce.models.repository.Util;
-import efisp.efispecommerce.models.repository.Writable;
+import efisp.efispecommerce.models.dao.Util;
+import efisp.efispecommerce.models.dao.Writable;
 
 import java.io.IOException;
 import java.io.Reader;

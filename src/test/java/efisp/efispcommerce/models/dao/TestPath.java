@@ -1,6 +1,6 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
-import efisp.efispecommerce.models.repository.Util;
+import efisp.efispecommerce.models.dao.Util;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

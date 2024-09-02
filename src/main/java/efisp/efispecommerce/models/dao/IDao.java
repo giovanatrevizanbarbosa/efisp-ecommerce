@@ -1,4 +1,4 @@
-package efisp.efispecommerce.models.repository;
+package efisp.efispecommerce.models.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * Interface that defines the methods that a repository must implement.
  * @param <T> The type of the object that the repository will manage.
  */
-public interface IRepository<T> {
+public interface IDao<T> {
 
     /**
      * Adds a new object to the repository.

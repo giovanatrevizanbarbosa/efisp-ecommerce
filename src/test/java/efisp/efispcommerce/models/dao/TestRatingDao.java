@@ -1,15 +1,15 @@
-package efisp.efispcommerce.models.repository;
+package efisp.efispcommerce.models.dao;
 
 import efisp.efispecommerce.models.entitys.Rating;
-import efisp.efispecommerce.models.repository.IRepository;
-import efisp.efispecommerce.models.repository.Repository;
+import efisp.efispecommerce.models.dao.IDao;
+import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestRatingRepo implements TestRepo{
+public class TestRatingDao implements TestDao {
 
-    IRepository<Rating> ratingIRepository = new Repository<>(Rating.class);
+    IDao<Rating> ratingIDao = new Dao<>(Rating.class);
 
     @Override
     @Test
@@ -17,9 +17,9 @@ public class TestRatingRepo implements TestRepo{
         Rating rating = new Rating(1L, "A@A.com", 1L, "Muito Bom", 1);
         Rating rating2 = new Rating(2L, "a@a.com", 1L, "Muito Ruim", 1);
 
-        assertTrue(ratingIRepository.add(rating));
-        assertTrue(ratingIRepository.add(rating2));
-        assertFalse(ratingIRepository.add(rating));
+        assertTrue(ratingIDao.add(rating));
+        assertTrue(ratingIDao.add(rating2));
+        assertFalse(ratingIDao.add(rating));
     }
 
     @Override
@@ -28,12 +28,12 @@ public class TestRatingRepo implements TestRepo{
         Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
         Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
 
-        ratingIRepository.add(rating);
-        ratingIRepository.add(rating2);
+        ratingIDao.add(rating);
+        ratingIDao.add(rating2);
 
         Rating rating3 = new Rating(3L, "a", 1L, "Muito Bom", 1);
 
-        assertTrue(ratingIRepository.update(1L, rating3));
+        assertTrue(ratingIDao.update(1L, rating3));
     }
 
     @Override
@@ -42,10 +42,10 @@ public class TestRatingRepo implements TestRepo{
         Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
         Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
 
-        ratingIRepository.add(rating);
-        ratingIRepository.add(rating2);
+        ratingIDao.add(rating);
+        ratingIDao.add(rating2);
 
-        assertTrue(ratingIRepository.delete(1L));
+        assertTrue(ratingIDao.delete(1L));
     }
 
     @Override
@@ -54,10 +54,10 @@ public class TestRatingRepo implements TestRepo{
         Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
         Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
 
-        ratingIRepository.add(rating);
-        ratingIRepository.add(rating2);
+        ratingIDao.add(rating);
+        ratingIDao.add(rating2);
 
-        var actual = ratingIRepository.getById(2);
+        var actual = ratingIDao.getById(2);
 
         assertEquals(rating2.getId(), actual.getId());
     }
@@ -68,13 +68,13 @@ public class TestRatingRepo implements TestRepo{
         Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
         Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
 
-        ratingIRepository.add(rating);
-        ratingIRepository.add(rating2);
+        ratingIDao.add(rating);
+        ratingIDao.add(rating2);
 
         var expected = 2;
-        var actual = ratingIRepository.getAll().size();
+        var actual = ratingIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(rating, ratingIRepository.getAll().getFirst());
+        assertEquals(rating, ratingIDao.getAll().getFirst());
     }
 }
