@@ -22,26 +22,27 @@ public class TestOrderDao implements TestDao {
     static IDao<Cart> cartIDao = Dao.getInstance(Cart.class);
     static IDao<Address> addressIDao = Dao.getInstance(Address.class);
 
-    static UUID userId;
-    static UUID cartId;
-    static UUID addressId;
+
+    static User user;
+    static Cart cart;
+    static Address address;
 
     @BeforeAll
     public static void setUp(){
-        userId = UUID.randomUUID();
-        userIDao.add(new User(userId, "Cauã", "a@a.com", "123"));
+        user = new User(UUID.randomUUID(), "Cauã", "a@a.com", "123");
+        userIDao.add(user);
 
-        cartId = UUID.randomUUID();
-        cartIDao.add(new Cart(cartId, "a@a.com"));
+        cart = new Cart(UUID.randomUUID(), user.getEmail());
+        cartIDao.add(cart);
 
-        addressId = UUID.randomUUID();
-        addressIDao.add(new Address(addressId, "Rua Yoki", 700, "Araraquara", "SP", "14800200"));
+        address = new Address(UUID.randomUUID(), "Rua", 123, "Cidaede", "Estado", "12345-123");
+        addressIDao.add(address);
     }
 
     @Override
     @Test
     public void add() {
-        assertTrue(orderIDao.add(new Order(UUID.randomUUID(), userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId))));
+        assertTrue(orderIDao.add(new Order(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address)));
     }
 
     @Override
@@ -49,11 +50,11 @@ public class TestOrderDao implements TestDao {
     public void update() {
         UUID id = UUID.randomUUID();
 
-        Order order = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
+        Order order = new Order(id, user, cart, PaymentMethod.CreditCard, address);
 
         orderIDao.add(order);
 
-        Order order2 = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
+        Order order2 = new Order(id, user, cart, PaymentMethod.CreditCard, address);
 
         assertTrue(orderIDao.update(id, order2));
     }
@@ -63,7 +64,7 @@ public class TestOrderDao implements TestDao {
     public void delete() {
         UUID id = UUID.randomUUID();
 
-        Order order = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
+        Order order = new Order(id, user, cart, PaymentMethod.CreditCard, address);
 
         orderIDao.add(order);
 
@@ -74,7 +75,7 @@ public class TestOrderDao implements TestDao {
     @Test
     public void getById() {
         UUID id = UUID.randomUUID();
-        Order order = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
+        Order order = new Order(id, user, cart, PaymentMethod.CreditCard, address);
 
         orderIDao.add(order);
 
@@ -86,8 +87,7 @@ public class TestOrderDao implements TestDao {
     public void getAll() {
         var expected = orderIDao.getAll().size() + 1;
 
-        Order order = new Order(UUID.randomUUID(), userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
-
+        Order order = new Order(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
         orderIDao.add(order);
 
         var actual = orderIDao.getAll().size();

@@ -17,8 +17,7 @@ public class Dao<T extends Writable> implements IDao<T> {
         try{
             data = new TreeSet<>(dataService.read());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
-            throw new RuntimeException(e + " - Repository not created and file possibly is in use");
+            throw new RuntimeException(e);
         }
     }
 

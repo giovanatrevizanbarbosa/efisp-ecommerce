@@ -3,7 +3,10 @@ package efisp.efispecommerce.models.dao.csv;
 public class Csv {
 
     private String[] data;
-    private final String[] header;
+    private String[] header;
+
+    public Csv(){
+    }
 
     public Csv(String[] header){
         this.header = header;
@@ -23,6 +26,9 @@ public class Csv {
         return header;
     }
 
+    public void setHeader(String[] header) {
+       this.header = header;
+    }
 
     public void setData(String[] data) {
         this.data = data;

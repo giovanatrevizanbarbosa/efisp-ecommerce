@@ -14,19 +14,25 @@ public class TestCartDao implements TestDao {
 
     IDao<Cart> cartRepo = Dao.getInstance(Cart.class);
 
-
     @Test
     public void itemInCart(){
         IDao<Item> itemRepo = Dao.getInstance(Item.class);
-        IDao<Cart> cartRepo = Dao.getInstance(Cart.class);
+        IDao<Product> productRepo = Dao.getInstance(Product.class);
+        IDao<Brand> brandRepo = Dao.getInstance(Brand.class);
+        IDao<Department> departmentRepo = Dao.getInstance(Department.class);
 
         var cartId = UUID.randomUUID();
 
         Brand brand = new Brand(UUID.randomUUID(), "Apple");
-        Department department = new Department(UUID.randomUUID(), "Technology", "Varias coisas");
-        Product product = new Product(UUID.randomUUID(), "Iphone", 1000.0, brand, "Smartphone", department, 10);
-        Item item = new Item(UUID.randomUUID(), cartId, product, 1);
+        brandRepo.add(brand);
 
+        Department department = new Department(UUID.randomUUID(), "Technology", "Varias coisas");
+        departmentRepo.add(department);
+
+        Product product = new Product(UUID.randomUUID(), "Iphone", 1000.0, brand, "Smartphone", department, 10);
+        productRepo.add(product);
+
+        Item item = new Item(UUID.randomUUID(), cartId, product, 1);
         itemRepo.add(item);
 
         Cart cart = new Cart(cartId, "com");

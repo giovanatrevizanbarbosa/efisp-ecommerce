@@ -1,8 +1,10 @@
 package efisp.efispecommerce.models.dao.csv;
 
-import com.opencsv.exceptions.CsvException;
+import efisp.efispecommerce.models.dao.Dao;
+import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.entitys.*;
+import efisp.efispecommerce.models.enums.PaymentMethod;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +24,7 @@ public class DomainConverter {
             case "Item" -> getItemFromCsv(csv);
             case "Product" -> getProductFromCsv(csv);
             case "Cart" -> getCartFromCsv(csv);
+            case "Order" -> getOrderFromCsv(csv);
             default -> null;
         };
     }
@@ -32,16 +35,10 @@ public class DomainConverter {
     }
 
     private static Administrator getAdministratorFromCsv(Csv csv){
-        Title title = null;
+        IDao<Title> titleCsvReaderWriter = Dao.getInstance(Title.class);
 
-        CsvReaderWriter<Title> titleCsvReaderWriter = new CsvReaderWriter<>(Title.class.getSimpleName());
-        try {
-            List<Title> titles = titleCsvReaderWriter.read();
-            title = titles.stream().filter(t -> t.getId().equals(UUID.fromString(csv.getData()[4]))).findFirst().orElse(null);
-
-        } catch (CsvException e) {
-            System.err.println(e.getMessage());
-        }
+        List<Title> titles = titleCsvReaderWriter.getAll();
+        Title title = titles.stream().filter(t -> t.getId().equals(UUID.fromString(csv.getData()[4]))).findFirst().orElse(null);
 
         String[] data = csv.getData();
         return new Administrator(UUID.fromString(data[0]), data[1], data[2], data[3], title);
@@ -76,39 +73,26 @@ public class DomainConverter {
     }
 
     public static Item getItemFromCsv(Csv csv) {
-        CsvReaderWriter<Product> csvReaderWriter = new CsvReaderWriter<>(Product.class.getSimpleName());
-
+        IDao<Product> csvReaderWriter = Dao.getInstance(Product.class);
         String[] data = csv.getData();
 
-        Product product = null;
-
-        try{
-            product = csvReaderWriter.read().stream().filter(p -> p.getId().equals(UUID.fromString(data[2]))).findFirst().orElse(null);
-        } catch (CsvException e) {
-            System.err.println(e.getMessage());
-        }
+        Product product = csvReaderWriter.getAll().stream().filter(p -> p.getId().equals(UUID.fromString(data[2]))).findFirst().orElse(null);
 
         return new Item(UUID.fromString(data[0]), UUID.fromString(data[1]), product, Integer.parseInt(data[3]));
     }
 
     public static Product getProductFromCsv(Csv csv){
-        Brand brand = null;
-        Department department = null;
-
-        CsvReaderWriter<Brand> brandCsvReaderWriter = new CsvReaderWriter<>(Brand.class.getSimpleName());
-        CsvReaderWriter<Department> departmentCsvReaderWriter = new CsvReaderWriter<>(Department.class.getSimpleName());
+        IDao<Brand> brandCsvReaderWriter = Dao.getInstance(Brand.class);
+        IDao<Department> departmentCsvReaderWriter = Dao.getInstance(Department.class);
 
         String[] data = csv.getData();
 
-        try {
-            List<Brand> brands = brandCsvReaderWriter.read();
-            List<Department> departments = departmentCsvReaderWriter.read();
+        List<Brand> brands = brandCsvReaderWriter.getAll();
+        List<Department> departments = departmentCsvReaderWriter.getAll();
 
-             brand = brands.stream().filter(b -> b.getId().equals(UUID.fromString(data[3]))).findFirst().orElse(null);
-             department = departments.stream().filter(d -> d.getId().equals(UUID.fromString(data[5]))).findFirst().orElse(null);
-        } catch (CsvException e) {
-            System.err.println(e.getMessage());
-        }
+
+        Brand brand = brands.stream().filter(b -> b.getId().equals(UUID.fromString(data[3]))).findFirst().orElse(null);
+        Department department = departments.stream().filter(d -> d.getId().equals(UUID.fromString(data[5]))).findFirst().orElse(null);
 
         return new Product(UUID.fromString(data[0]), data[1], Double.parseDouble(data[2]), brand, data[4], department, Integer.parseInt(data[6]));
     }
@@ -117,14 +101,27 @@ public class DomainConverter {
         String[] data = csv.getData();
         Cart cart = new Cart(UUID.fromString(data[0]), data[1]);
 
-        CsvReaderWriter<Item> itemCsvReaderWriter = new CsvReaderWriter<>(Item.class.getSimpleName());
-        try {
-            List<Item> items = itemCsvReaderWriter.read();
-            items.stream().filter(i -> i.getCartId().equals(cart.getId())).forEach(cart::insertItem);
-        } catch (CsvException e) {
-            System.err.println(e.getMessage());
-        }
+        List<Item> items = Dao.getInstance(Item.class).getAll();
+        items.stream().filter(i -> i.getCartId().equals(cart.getId())).forEach(cart::insertItem);
 
         return cart;
+    }
+
+    public static Order getOrderFromCsv(Csv csv){
+        IDao<User> userCsvReaderWriter = Dao.getInstance(User.class);
+        IDao<Cart> cartCsvReaderWriter = Dao.getInstance(Cart.class);
+        IDao<Address> addressCsvReaderWriter = Dao.getInstance(Address.class);
+
+        String[] data = csv.getData();
+
+        List<User> users = userCsvReaderWriter.getAll();
+        List<Cart> carts = cartCsvReaderWriter.getAll();
+        List<Address> addresses = addressCsvReaderWriter.getAll();
+
+        User user = users.stream().filter(u -> u.getEmail().equals(data[1])).findFirst().orElse(null);
+        Cart cart = carts.stream().filter(c -> c.getId().equals(UUID.fromString(data[2]))).findFirst().orElse(null);
+        Address address = addresses.stream().filter(a -> a.getId().equals(UUID.fromString(data[4]))).findFirst().orElse(null);
+
+        return new Order(UUID.fromString(data[0]), user, cart, PaymentMethod.valueOf(data[3]), address);
     }
 }

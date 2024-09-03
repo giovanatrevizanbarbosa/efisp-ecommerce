@@ -1,6 +1,7 @@
 package efisp.efispcommerce.models.service;
 
 import efisp.efispecommerce.dto.AdmDTO;
+import efisp.efispecommerce.dto.TitleDTO;
 import efisp.efispecommerce.models.service.AdmService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,21 +13,24 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestAdmService {
 
     static AdmService admService;
+    static TitleDTO titleDTO;
+    static UUID titleId = UUID.randomUUID();
 
     @BeforeAll
     public static void setUp() {
+        titleDTO = new TitleDTO(titleId, "CEO", 1);
         admService = new AdmService();}
 
     @Test
     public void addNewAdm() {
-        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", "CEO")));
+        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", titleDTO)));
     }
 
 
     @Test
     public void updateAdm() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", "CEO");
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", titleDTO);
         assertTrue(admService.update(id, admDTO));
     }
 
@@ -35,7 +39,7 @@ public class TestAdmService {
 
         var id = UUID.randomUUID();
 
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
 
         admService.add(admDTO);
 
@@ -45,7 +49,7 @@ public class TestAdmService {
     @Test
     public void getAdmById() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
         admService.add(admDTO);
 
         assertEquals(admService.getById(id).id(), id);
@@ -54,7 +58,7 @@ public class TestAdmService {
     @Test
     public void getAllAdms() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
 
         admService.add(admDTO);
 
