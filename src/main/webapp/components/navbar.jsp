@@ -5,11 +5,16 @@
     <div class="navbar-start dropdown dropdown-hover">
         <div tabindex="0" role="button" class="btn m-1">Departamentos</div>
         <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-            <li><a>Perifericos</a></li>
-            <li><a>Hardware</a></li>
-            <li><a>Computadores</a></li>
-            <li><a>Games</a></li>
-            <li><a>Cameras e drones</a></li>
+            <c:choose>
+                <c:when test="${fn:length(departamentos) > 0}">
+                    <c:forEach var="item" items="${departamentos}" varStatus="index">
+                        <li><a href="${pageContext.request.contextPath}/departamentos/${item.id}">item.name</a></li>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <li><a>Nenhum departamento registrado no momento.</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
     <div class="navbar-center">
