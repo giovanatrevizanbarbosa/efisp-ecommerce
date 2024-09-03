@@ -6,6 +6,8 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAddressDao implements TestDao {
@@ -20,8 +22,8 @@ public class TestAddressDao implements TestDao {
     @Override
     @Test
     public void add() {
-        Address address = new Address(addressIDao.getNextId(),"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
-        Address address2 = new Address(addressIDao.getNextId(),"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
+        Address address = new Address(UUID.randomUUID(),"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address2 = new Address(UUID.randomUUID(),"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
         assertTrue(addressIDao.add(address));
         assertTrue(addressIDao.add(address2));
@@ -30,7 +32,7 @@ public class TestAddressDao implements TestDao {
     @Override
     @Test
     public void getById() {
-        Long id = addressIDao.getNextId();
+        UUID id = UUID.randomUUID();
         Address address = new Address(id,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
 
         addressIDao.add(address);
@@ -43,8 +45,8 @@ public class TestAddressDao implements TestDao {
     public void getAll() {
         int expected = addressIDao.getAll().size() + 2;
 
-        Address address = new Address(addressIDao.getNextId(),"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
-        Address address2 = new Address(addressIDao.getNextId(),"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
+        Address address = new Address(UUID.randomUUID(),"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address2 = new Address(UUID.randomUUID(),"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
 
         addressIDao.add(address);
         addressIDao.add(address2);
@@ -58,7 +60,7 @@ public class TestAddressDao implements TestDao {
     @Test
     public void update() {
 
-        Long id = addressIDao.getNextId();
+        var id = UUID.randomUUID();
         Address address = new Address(id,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
         addressIDao.add(address);
         Address address2 = new Address(id,"Rua 3", 789, "Cidade 3", "Estado 3", "87654321");
@@ -69,7 +71,7 @@ public class TestAddressDao implements TestDao {
     @Override
     @Test
     public void delete() {
-        Long id = addressIDao.getNextId();
+        var id = UUID.randomUUID();
         Address address = new Address(id,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
 
         addressIDao.add(address);

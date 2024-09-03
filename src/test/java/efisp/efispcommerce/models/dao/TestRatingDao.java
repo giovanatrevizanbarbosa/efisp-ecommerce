@@ -5,27 +5,30 @@ import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestRatingDao implements TestDao {
 
     IDao<Rating> ratingIDao = Dao.getInstance(Rating.class);
+    UUID productId = UUID.randomUUID();
 
     @Override
     @Test
     public void add() {
-        assertTrue(ratingIDao.add(new Rating(ratingIDao.getNextId(), "a", 1L, "Muito Bom", 1)));
+        assertTrue(ratingIDao.add(new Rating(UUID.randomUUID(), "a", productId, "Muito Bom", 1)));
     }
 
     @Override
     @Test
     public void update() {
-        Long id = ratingIDao.getNextId();
+        var id = UUID.randomUUID();
 
-        Rating rating = new Rating(id, "a", 1L, "Muito Bom", 1);
+        Rating rating = new Rating(id, "a", productId, "Muito Bom", 1);
         ratingIDao.add(rating);
 
-        Rating rating2 = new Rating(id, "a", 1L, "Muito Ruim", 1);
+        Rating rating2 = new Rating(id, "a", productId, "Muito Ruim", 1);
 
         assertTrue(ratingIDao.update(id, rating2));
     }
@@ -33,9 +36,9 @@ public class TestRatingDao implements TestDao {
     @Override
     @Test
     public void delete() {
-        Long id = ratingIDao.getNextId();
+        var id = UUID.randomUUID();
 
-        Rating rating = new Rating(id, "a", 1L, "Muito Bom", 1);
+        Rating rating = new Rating(id, "a", productId, "Muito Bom", 1);
         ratingIDao.add(rating);
 
         assertTrue(ratingIDao.delete(id));
@@ -44,8 +47,8 @@ public class TestRatingDao implements TestDao {
     @Override
     @Test
     public void getById() {
-        Long id = ratingIDao.getNextId();
-        Rating rating = new Rating(id, "a", 1L, "Muito Bom", 1);
+        var id = UUID.randomUUID();
+        Rating rating = new Rating(id, "a", productId, "Muito Bom", 1);
 
         ratingIDao.add(rating);
 
@@ -57,7 +60,7 @@ public class TestRatingDao implements TestDao {
     public void getAll() {
         var expected = ratingIDao.getAll().size() + 1;
 
-        Rating rating = new Rating(ratingIDao.getNextId(), "a", 1L, "Muito Bom", 1);
+        Rating rating = new Rating(UUID.randomUUID(), "a", productId, "Muito Bom", 1);
 
         ratingIDao.add(rating);
 

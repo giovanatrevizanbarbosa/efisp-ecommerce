@@ -9,6 +9,8 @@ import efisp.efispecommerce.controllers.OrderController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestOrderController {
@@ -21,11 +23,11 @@ public class TestOrderController {
 
     @Test
     public void testAddOrder() {
-        var user = new User(1L, "Cauã", "test@gmail.com", "123456789");
-        var cart = new Cart(1L, "test@gmail.com");
-        var address = new Address(1L, "rua 1", 123, "Araraquara", "SP", "14800200");
+        var user = new User(UUID.randomUUID(), "Cauã", "test@gmail.com", "123456789");
+        var cart = new Cart(UUID.randomUUID(), "test@gmail.com");
+        var address = new Address(UUID.randomUUID(), "rua 1", 123, "Araraquara", "SP", "14800200");
 
-        OrderDTO orderDto = new OrderDTO(1L, user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
 
         var result = controller.addOrder(orderDto);
 

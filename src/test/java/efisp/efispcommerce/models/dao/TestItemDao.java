@@ -6,6 +6,8 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,17 +17,17 @@ public class TestItemDao implements TestDao {
     static IDao<Product> productRepo = Dao.getInstance(Product.class);
     static IDao<Cart> cartRepo = Dao.getInstance(Cart.class);
 
-    static Long productId = productRepo.getNextId();
-    static Long cartId = cartRepo.getNextId();
+    static UUID productId = UUID.randomUUID();
+    static UUID cartId = UUID.randomUUID();
 
     @BeforeAll
     public static void setUp() {
         IDao<Brand> brandRepo = Dao.getInstance(Brand.class);
-        Long brandId = brandRepo.getNextId();
+        var brandId = UUID.randomUUID();
         brandRepo.add(new Brand(brandId, "Samsung"));
 
         IDao<Department> departmentRepo = Dao.getInstance(Department.class);
-        Long departmentId = departmentRepo.getNextId();
+        var departmentId = UUID.randomUUID();
         departmentRepo.add(new Department(departmentId, "Informática", "Informática"));
 
         cartRepo.add(new Cart(cartId, "a@a.com"));
@@ -36,13 +38,13 @@ public class TestItemDao implements TestDao {
     @Override
     @Test
     public void add() {
-        assertTrue(itemRepo.add(new Item(itemRepo.getNextId(), cartId, productRepo.getById(productId), 1)));
+        assertTrue(itemRepo.add(new Item(UUID.randomUUID(), cartId, productRepo.getById(productId), 1)));
     }
 
     @Override
     @Test
     public void update() {
-        Long id = itemRepo.getNextId();
+        UUID id = UUID.randomUUID();
         itemRepo.add(new Item(id, cartId, productRepo.getById(productId), 1));
 
         assertTrue(itemRepo.update(id, new Item(id, cartId, productRepo.getById(productId), 2)));
@@ -51,7 +53,7 @@ public class TestItemDao implements TestDao {
     @Override
     @Test
     public void delete(){
-        Long id = itemRepo.getNextId();
+        UUID id = UUID.randomUUID();
         itemRepo.add(new Item(id, cartId, productRepo.getById(productId), 1));
 
         assertTrue(itemRepo.delete(id));
@@ -60,7 +62,7 @@ public class TestItemDao implements TestDao {
     @Override
     @Test
     public void getById(){
-        Long id = itemRepo.getNextId();
+        UUID id = UUID.randomUUID();
         var expected = new Item(id, cartId, productRepo.getById(productId), 1);
 
         itemRepo.add(expected);
@@ -74,7 +76,7 @@ public class TestItemDao implements TestDao {
     @Test
     public void getAll(){
         var expected = itemRepo.getAll().size() + 1;
-        itemRepo.add(new Item(itemRepo.getNextId(), cartId, productRepo.getById(productId), 1));
+        itemRepo.add(new Item(UUID.randomUUID(), cartId, productRepo.getById(productId), 1));
 
         var actual = itemRepo.getAll().size();
 

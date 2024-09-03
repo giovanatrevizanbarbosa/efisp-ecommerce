@@ -34,8 +34,4 @@ public class ProductService {
     public boolean add(ProductDTO productDto) {
         return dao.add(mapProductDTOToEntity(productDto));
     }
-
-    public Long getNextId() {
-        return dao.getNextId();
-    }
 }

@@ -1,43 +1,55 @@
 package efisp.efispcommerce.models.service;
 
 import efisp.efispecommerce.dto.AdmDTO;
+import efisp.efispecommerce.dto.TitleDTO;
 import efisp.efispecommerce.models.service.AdmService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAdmService {
 
     static AdmService admService;
+    static TitleDTO titleDTO;
+    static UUID titleId = UUID.randomUUID();
 
     @BeforeAll
     public static void setUp() {
+        titleDTO = new TitleDTO(titleId, "CEO", 1);
         admService = new AdmService();}
 
     @Test
     public void addNewAdm() {
-        assertTrue(admService.add(new AdmDTO(admService.getNextId(),"Igor", "igor@.com", "123", "CEO")));
+        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", titleDTO)));
     }
 
 
     @Test
     public void updateAdm() {
-        Long id = admService.getNextId();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", "CEO");
+        var id = UUID.randomUUID();
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", titleDTO);
         assertTrue(admService.update(id, admDTO));
     }
 
     @Test
     public void deleteAdm() {
 
-        assertTrue(admService.delete(1L));
+        var id = UUID.randomUUID();
+
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
+
+        admService.add(admDTO);
+
+        assertTrue(admService.delete(id));
     }
 
     @Test
     public void getAdmById() {
-        Long id = admService.getNextId();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
+        var id = UUID.randomUUID();
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
         admService.add(admDTO);
 
         assertEquals(admService.getById(id).id(), id);
@@ -45,11 +57,11 @@ public class TestAdmService {
 
     @Test
     public void getAllAdms() {
-        Long id = admService.getNextId();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
+        var id = UUID.randomUUID();
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
 
         admService.add(admDTO);
 
-        assertEquals(admService.getAll().getLast().id(), (long) id);
+        assertEquals(admService.getById(id).id(), id);
     }
 }

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,23 +18,26 @@ public class TestCartDTO {
 
     private CartDTO cartDTO;
     private String ownerEmail;
-    private Map<Long, Item> items;
+    private Map<UUID, Item> items;
 
     @BeforeEach
     public void setUp() {
         ownerEmail = "gi.trevizan.barbosa@gmail.com";
         items = new HashMap<>();
 
-        Brand brand = new Brand(1L, "Dell");
-        Department department = new Department(3L, "Electronics", "Electronics department");
+        Brand brand = new Brand(UUID.randomUUID(), "Dell");
+        Department department = new Department(UUID.randomUUID(), "Electronics", "Electronics department");
 
-        Product product1 = new Product(1L, "Laptop", 1000.0, brand, "High-performance laptop", department, 5);
-        Product product2 = new Product(2L, "Smartphone", 500.0, brand, "Latest smartphone", department, 10);
 
-        items.put(1L, new Item(1L, 1L, product1, 2));
-        items.put(2L, new Item(2L, 2L, product2, 1));
+        UUID productId = UUID.randomUUID();
+        UUID cartId = UUID.randomUUID();
 
-        cartDTO = new CartDTO(1L, ownerEmail, items, 0.0);
+        Product product = new Product(productId, "Mouse gamer", 1000.00, brand, "Mouse usado em competição", department, 10);
+
+        items.put(UUID.randomUUID(), new Item(UUID.randomUUID(), cartId, product, 2));
+        items.put(UUID.randomUUID(), new Item(UUID.randomUUID(), cartId, product, 1));
+
+        cartDTO = new CartDTO(cartId, ownerEmail, items, 0.0);
     }
 
     @Test
@@ -49,9 +53,9 @@ public class TestCartDTO {
     @Test
     public void getItemsReturnsCorrectItems() {
         // Given
-        Map<Long, Item> expectedItems = items;
+        Map<UUID, Item> expectedItems = items;
         // When
-        Map<Long, Item> actualItems = cartDTO.items();
+        Map<UUID, Item> actualItems = cartDTO.items();
         // Then
         assertEquals(expectedItems, actualItems);
     }

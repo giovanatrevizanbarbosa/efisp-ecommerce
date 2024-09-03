@@ -7,23 +7,26 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAdministratorDao implements TestDao {
 
     IDao<Administrator> administratorIDao = Dao.getInstance(Administrator.class);
     static IDao<Title> titleIDao = Dao.getInstance(Title.class);
+    static UUID titleId = UUID.randomUUID();
 
     @BeforeAll
     public static void Initialize(){
-        titleIDao.add(new Title(titleIDao.getNextId(), "ADMIN", 1));
+        titleIDao.add(new Title(titleId, "ADMIN", 1));
     }
 
     @Override
     @Test
     public void add() {
-        Administrator administrator = new Administrator(administratorIDao.getNextId(), "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
-        Administrator administrator2 = new Administrator(administratorIDao.getNextId(), "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
+        Administrator administrator2 = new Administrator(UUID.randomUUID(), "João", "joao.email.com", "Password123", titleIDao.getById(titleId));
 
         assertTrue(administratorIDao.add(administrator));
         assertTrue(administratorIDao.add(administrator2));
@@ -32,23 +35,35 @@ public class TestAdministratorDao implements TestDao {
     @Override
     @Test
     public void update() {
-        Long id = administratorIDao.getNextId();
+        var id = UUID.randomUUID();
 
-        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
 
-        Administrator administrator2 = new Administrator(id, "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator2 = new Administrator(id, "João", "joao.email.com", "Password123",titleIDao.getById(titleId));
 
         assertTrue(administratorIDao.update(id, administrator2));
     }
 
+    @Test
+    public void TitleIdInAdministrator(){
+        var id = UUID.randomUUID();
+
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
+
+        administratorIDao.add(administrator);
+
+        assertEquals(titleId, administrator.getTitle().getId());
+    }
+
+
     @Override
     @Test
     public void delete() {
-        Long id = administratorIDao.getNextId();
+        var id = UUID.randomUUID();
 
-        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
 
@@ -58,9 +73,9 @@ public class TestAdministratorDao implements TestDao {
     @Override
     @Test
     public void getById() {
-        Long id = administratorIDao.getNextId();
+        var id = UUID.randomUUID();
 
-        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
 
@@ -72,7 +87,7 @@ public class TestAdministratorDao implements TestDao {
     public void getAll() {
         var expected = administratorIDao.getAll().size() + 1;
 
-        Administrator administrator = new Administrator(administratorIDao.getNextId(), "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
 

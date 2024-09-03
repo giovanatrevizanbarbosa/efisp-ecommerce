@@ -5,6 +5,8 @@ import efisp.efispecommerce.models.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUserService {
@@ -12,7 +14,7 @@ public class TestUserService {
     private UserService userService;
     @BeforeEach
     public void setUp() {
-        userDTO = new UserDTO(1L, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456");
+        userDTO = new UserDTO(UUID.randomUUID(), "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456");
         userService = new UserService();
     }
 

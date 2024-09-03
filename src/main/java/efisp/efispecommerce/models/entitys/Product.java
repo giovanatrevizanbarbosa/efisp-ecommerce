@@ -3,6 +3,8 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Product extends Writable {
     //id as identifier allows multiple products with same name, but different price, brand and description.
     private final String name;
@@ -12,7 +14,7 @@ public class Product extends Writable {
     private final Department department;
     private final int stock;
 
-    public Product(Long id, String name, double price, Brand brand, String description, Department department, int stock) {
+    public Product(UUID id, String name, double price, Brand brand, String description, Department department, int stock) {
         super(id);
         this.name = name;
         this.price = price;

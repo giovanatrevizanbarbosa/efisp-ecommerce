@@ -5,6 +5,8 @@ import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,8 +17,8 @@ public class TestDepartmentDao implements TestDao {
     @Override
     @Test
     public void add() {
-        Department department = new Department(departamentIDao.getNextId(), "Informática", "Informática");
-        Department department2 = new Department(departamentIDao.getNextId(), "Eletrônicos", "Eletrônicos");
+        Department department = new Department(UUID.randomUUID(), "Informática", "Informática");
+        Department department2 = new Department(UUID.randomUUID(), "Eletrônicos", "Eletrônicos");
 
         assertTrue(departamentIDao.add(department));
         assertTrue(departamentIDao.add(department2));
@@ -25,7 +27,7 @@ public class TestDepartmentDao implements TestDao {
     @Override
     @Test
     public void getById() {
-        Long id = departamentIDao.getNextId();
+        var id = UUID.randomUUID();
         Department department = new Department(id, "Informática", "Informática");
         departamentIDao.add(department);
 
@@ -37,8 +39,8 @@ public class TestDepartmentDao implements TestDao {
     @Override
     @Test
     public void getAll() {
-        Department department = new Department(departamentIDao.getNextId(), "Informática", "Informática");
-        Department department2 = new Department(departamentIDao.getNextId(), "Eletrônicos", "Eletrônicos");
+        Department department = new Department(UUID.randomUUID(), "Informática", "Informática");
+        Department department2 = new Department(UUID.randomUUID(), "Eletrônicos", "Eletrônicos");
 
         var expected = departamentIDao.getAll().size() + 2;
 
@@ -49,17 +51,17 @@ public class TestDepartmentDao implements TestDao {
         var actual = departamentIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(department2, departamentIDao.getAll().getLast());
+        assertEquals(department2, departamentIDao.getById(department2.getId()));
     }
 
     @Override
     @Test
     public void update() {
-        Long id = departamentIDao.getNextId();
+        var id = UUID.randomUUID();
         Department department = new Department(id, "Informática", "Informática");
         departamentIDao.add(department);
 
-        Department department3 = new Department(departamentIDao.getNextId(), "Informática", "Informática");
+        Department department3 = new Department(UUID.randomUUID(), "Informática", "Informática");
 
         assertTrue(departamentIDao.update(id, department3));
     }
@@ -67,7 +69,7 @@ public class TestDepartmentDao implements TestDao {
     @Override
     @Test
     public void delete() {
-        Long id = departamentIDao.getNextId();
+        var id = UUID.randomUUID();
         Department department = new Department(id, "Informática", "Informática");
         departamentIDao.add(department);
 

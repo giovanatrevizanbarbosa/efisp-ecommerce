@@ -9,6 +9,8 @@ import efisp.efispecommerce.models.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestOrderService {
@@ -16,10 +18,10 @@ public class TestOrderService {
     private OrderDTO orderDTO;
     @BeforeEach
     public void setUp() {
-        orderDTO = new OrderDTO(1L,
-                new User(1L, "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456"),
-                new Cart(1L, "gi.treviza.barbosa@gmail.com"), PaymentMethod.Pix,
-                new Address(1L,"Rua 1", 120, "Araraquara", "São Paulo", "14800737"));
+        orderDTO = new OrderDTO(UUID.randomUUID(),
+                new User(UUID.randomUUID(), "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456"),
+                new Cart(UUID.randomUUID(), "gi.treviza.barbosa@gmail.com"), PaymentMethod.Pix,
+                new Address(UUID.randomUUID(),"Rua 1", 120, "Araraquara", "São Paulo", "14800737"));
 
         orderService = new OrderService();
     }

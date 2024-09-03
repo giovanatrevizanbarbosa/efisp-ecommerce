@@ -4,9 +4,9 @@ import efisp.efispecommerce.dto.AdmDTO;
 import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.entitys.Administrator;
-import efisp.efispecommerce.models.entitys.Title;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AdmService {
 
@@ -20,17 +20,7 @@ public class AdmService {
                 admDTO.name(),
                 admDTO.email(),
                 admDTO.password(),
-                titleService
-                        .getAll()
-                        .stream()
-                        .filter
-                                (
-                                    title -> title
-                                            .getName()
-                                            .equals(admDTO.title())
-                                )
-                        .findFirst()
-                        .orElse(new Title(0L, "", 0))
+                titleService.getTitleById(admDTO.titleDTO().id())
         );
     }
 
@@ -40,31 +30,29 @@ public class AdmService {
                 administrator.getName(),
                 administrator.getEmail(),
                 administrator.getPassword(),
-                administrator.getTitle().getName()
+                new TitleService().mapEntityToDTO(administrator.getTitle())
         );
     }
 
     public boolean add(AdmDTO admDTO) {
+        titleService.add(admDTO.titleDTO());
         return dao.add(mapDTOToEntity(admDTO));
     }
 
-    public boolean update(long id, AdmDTO admDTO) {
+    public boolean update(UUID id, AdmDTO admDTO) {
+        titleService.add(admDTO.titleDTO());
         return dao.update(id, mapDTOToEntity(admDTO));
     }
 
-    public boolean delete(long id) {
+    public boolean delete(UUID id) {
         return dao.delete(id);
     }
 
-    public AdmDTO getById(long id) {
+    public AdmDTO getById(UUID id) {
         return toDTO(dao.getById(id));
     }
 
     public List<AdmDTO> getAll() {
         return dao.getAll().stream().map(this::toDTO).toList();
-    }
-
-    public Long getNextId() {
-        return dao.getNextId();
     }
 }

@@ -4,6 +4,8 @@ import efisp.efispecommerce.models.entitys.Title;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTitle {
@@ -11,7 +13,7 @@ public class TestTitle {
 
     @BeforeEach
     public void Initialize() {
-        title = new Title(1L, "CEO", 10);
+        title = new Title(UUID.randomUUID(), "CEO", 10);
     }
 
     @Test

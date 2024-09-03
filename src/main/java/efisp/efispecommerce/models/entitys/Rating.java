@@ -3,15 +3,17 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Rating extends Writable {
     //identifier
     private final String userEmail;
     //identifier
-    private final Long productId;
+    private final UUID productId;
     private final String comment;
     private final int rating;
 
-    public Rating(Long id, String userEmail, Long productId, String comment, int rating) {
+    public Rating(UUID id, String userEmail, UUID productId, String comment, int rating) {
         super(id);
         this.userEmail = userEmail;
         this.productId = productId;
@@ -23,7 +25,7 @@ public class Rating extends Writable {
         return userEmail;
     }
 
-    public Long getProductId() {
+    public UUID getProductId() {
         return productId;
     }
 

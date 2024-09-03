@@ -19,14 +19,10 @@ public class CsvReaderWriter<T> {
 
     private final Path path;
     private final String clazzName;
-    private CSVWriter csvWriter;
-    private CSVReader csvReader;
 
     public CsvReaderWriter(String clazzName) throws InvalidPathException{
         this.clazzName = clazzName;
         path = Path.of(Util.RESOURCES_PATH.value() + "/" + getDatasetName(clazzName));
-        buildWriter();
-        buildReader();
     }
 
     private String getDatasetName(String clazzName) {
@@ -36,31 +32,38 @@ public class CsvReaderWriter<T> {
             return clazzName.toLowerCase() + "s.csv";
     }
 
-    private void buildWriter() throws InvalidPathException{
+    private CSVWriter buildWriter() throws InvalidPathException{
         try {
-            if (Files.exists(path)) {
-                Files.delete(path);
-            }
-
             Writer writer = Files.newBufferedWriter(path);
-            csvWriter = new CSVWriter(writer);
+            return new CSVWriter(writer);
         } catch (Exception e) {
             throw new InvalidPathException(String.valueOf(path), e.getMessage());
         }
     }
 
-    private void buildReader() throws InvalidPathException{
+    private CSVReader buildReader() throws InvalidPathException{
         try {
             Reader reader = Files.newBufferedReader(path);
-            csvReader = new CSVReader(reader);
+            return new CSVReader(reader);
         } catch (Exception e) {
             throw new InvalidPathException(String.valueOf(path), e.getMessage());
+        }
+    }
+
+    private void deleteFile(){
+        try{
+            if (Files.exists(path)) {
+                Files.delete(path);
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting file: " + e.getMessage());
         }
     }
 
     public void save(List<Writable> data) throws CsvException {
         try {
-            buildWriter();
+            deleteFile();
+            CSVWriter csvWriter = buildWriter();
 
            if (data.isEmpty()) return;
 
@@ -72,6 +75,7 @@ public class CsvReaderWriter<T> {
            }
 
             csvWriter.flush();
+            csvWriter.close();
         } catch (IOException | InvalidPathException e) {
             throw new CsvException("Error saving file: " + e.getMessage());
         }
@@ -80,13 +84,19 @@ public class CsvReaderWriter<T> {
     @SuppressWarnings("unchecked")
     public List<T> read() throws CsvException {
         try {
-           List<T> tList = new LinkedList<>();
-
-            csvReader.readAll().forEach(obj -> {
-
-                Writable writable = DomainConverter.fromCsv(new Csv(obj), clazzName);
-                tList.add((T) writable);
+            if (!Files.exists(path)) {
+                return new LinkedList<>();
             }
+
+            CSVReader csvReader = buildReader();
+            List<T> tList = new LinkedList<>();
+                csvReader.readAll().forEach(obj -> {
+                    if (!obj[0].equals("id")){
+                        Csv csv = new Csv();
+                        csv.setData(obj);
+                        tList.add((T) DomainConverter.fromCsv(csv, clazzName));
+                    }
+                }
            );
 
            return tList;
