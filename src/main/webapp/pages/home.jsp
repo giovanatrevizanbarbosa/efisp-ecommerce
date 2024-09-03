@@ -12,7 +12,7 @@
     <title>Home - E-fisp</title>
 </head>
 <body>
-    <jsp:include page="./components/navbar.jsp"/>
+    <jsp:include page="../components/navbar.jsp"/>
 
     <main class="flex flex-col items-center m-8 md:mt-16">
         <h1 class="text-3xl font-bold mb-12">Produtos em Destaque</h1>
@@ -37,7 +37,7 @@
         </div>
     </main>
 
-    <jsp:include page="./components/footer.jsp"/>
+    <jsp:include page="../components/footer.jsp"/>
 
     <script src="https://cdn.tailwindcss.com"></script>
 </body>

@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <form action="addToCart" method="post">
+                    <form action="product-details" method="post">
                         <input type="hidden" name="product-id" value="product-id">
                         <button type="submit" class="btn btn-primary w-full">Adicionar ao Carrinho</button>
                     </form>

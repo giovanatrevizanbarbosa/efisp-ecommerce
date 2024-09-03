@@ -9,16 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/register")
-public class UserRegisterServlet extends HttpServlet {
+@WebServlet("/product-details")
+public class ProductDetailsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        //adicionar produto ao carrinho
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/register.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/product-details.jsp");
         dispatcher.forward(req, resp);
     }
 }

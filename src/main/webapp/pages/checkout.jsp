@@ -30,7 +30,7 @@
         <h1 class="text-3xl font-bold mb-4">Detalhes do Pedido</h1>
         <div class="divider mb-6"></div>
 
-        <form action="orderConfirm" method="post" class="space-y-6">
+        <form action="checkout" method="post" class="space-y-6">
             <section class="bg-base-200 p-6 rounded-lg shadow-md">
                 <h2 class="text-xl font-semibold mb-4">1. Endereço de Entrega</h2>
                 <div class="space-y-4">

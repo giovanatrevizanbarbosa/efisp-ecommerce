@@ -20,7 +20,7 @@
                 </p>
             </div>
             <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <form action="userRegister" method="post" class="card-body">
+                <form action="register" method="post" class="card-body">
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Nome</span>
