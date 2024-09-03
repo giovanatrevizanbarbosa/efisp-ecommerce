@@ -10,71 +10,67 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestDepartmentDao implements TestDao {
 
-    IDao<Department> departamentIDao = new Dao<>(Department.class);
+    IDao<Department> departamentIDao = Dao.getInstance(Department.class);
 
     @Override
     @Test
     public void add() {
-        Department department = new Department(1L, "Informática", "Informática");
-        Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
+        Department department = new Department(departamentIDao.getNextId(), "Informática", "Informática");
+        Department department2 = new Department(departamentIDao.getNextId(), "Eletrônicos", "Eletrônicos");
 
         assertTrue(departamentIDao.add(department));
         assertTrue(departamentIDao.add(department2));
-        assertEquals(departamentIDao.getAll().getFirst().getId(), department.getId());
     }
 
     @Override
     @Test
     public void getById() {
-        Department department = new Department(1L, "Informática", "Informática");
-        Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
-
+        Long id = departamentIDao.getNextId();
+        Department department = new Department(id, "Informática", "Informática");
         departamentIDao.add(department);
-        departamentIDao.add(department2);
 
-        var actual = departamentIDao.getById(2);
-        assertEquals(department2.getId(), actual.getId());
+
+        var actual = departamentIDao.getById(id);
+        assertEquals(department, actual);
     }
 
     @Override
     @Test
     public void getAll() {
-        Department department = new Department(1L, "Informática", "Informática");
-        Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
+        Department department = new Department(departamentIDao.getNextId(), "Informática", "Informática");
+        Department department2 = new Department(departamentIDao.getNextId(), "Eletrônicos", "Eletrônicos");
+
+        var expected = departamentIDao.getAll().size() + 2;
 
         departamentIDao.add(department);
         departamentIDao.add(department2);
 
-        var expected = 2;
+
         var actual = departamentIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(department, departamentIDao.getAll().getFirst());
+        assertEquals(department2, departamentIDao.getAll().getLast());
     }
 
     @Override
     @Test
     public void update() {
-        Department department = new Department(1L, "Informática", "Informática");
-        Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
-
+        Long id = departamentIDao.getNextId();
+        Department department = new Department(id, "Informática", "Informática");
         departamentIDao.add(department);
-        departamentIDao.add(department2);
 
-        Department department3 = new Department(3L, "Informática", "Informática");
+        Department department3 = new Department(departamentIDao.getNextId(), "Informática", "Informática");
 
-        assertTrue(departamentIDao.update(1L, department3));
+        assertTrue(departamentIDao.update(id, department3));
     }
 
     @Override
     @Test
     public void delete() {
-        Department department = new Department(1L, "Informática", "Informática");
-        Department department2 = new Department(2L, "Eletrônicos", "Eletrônicos");
-
+        Long id = departamentIDao.getNextId();
+        Department department = new Department(id, "Informática", "Informática");
         departamentIDao.add(department);
-        departamentIDao.add(department2);
 
-        assertTrue(departamentIDao.delete(1L));
+        assertTrue(departamentIDao.delete(id));
     }
 }

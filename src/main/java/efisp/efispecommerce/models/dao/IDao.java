@@ -42,4 +42,10 @@ public interface IDao<T> {
      * @return A list with all the objects in the repository.
      */
     List<T> getAll();
+
+    /**
+     * Gets the next id that will be assigned to a new object.
+     * @return The next id that will be assigned to a new object.
+     */
+    Long getNextId();
 }

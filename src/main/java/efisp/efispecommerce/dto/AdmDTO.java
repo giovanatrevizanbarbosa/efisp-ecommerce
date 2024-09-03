@@ -5,6 +5,7 @@ package efisp.efispecommerce.dto;
  * @param name User's name
  * @param email User's email
  * @param password User's password
+ * @param title User's title
  */
-public record UserDTO(Long id, String name, String email, String password) {
+public record AdmDTO(long id, String name, String email, String password, String title) {
 }

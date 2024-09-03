@@ -10,8 +10,8 @@ public class OrderService {
     private final List<Order> orders = new LinkedList<>();
 
     private Order mapOrderDTOToEntity(OrderDTO orderDTO) {
-        return new Order(orderDTO.getId(), orderDTO.getUser(), orderDTO.getCart()
-                , orderDTO.getPaymentMethod(), orderDTO.getAddress());
+        return new Order(orderDTO.id(), orderDTO.user(), orderDTO.cart()
+                , orderDTO.paymentMethod(), orderDTO.address());
     }
 
     public boolean addOrder(OrderDTO orderDTO) {
