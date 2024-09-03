@@ -20,7 +20,7 @@ public class TestOrder {
 
     @BeforeEach
     public void Initialize() {
-        user = new User(UUID.randomUUID(), "Cauã", "caua@gmail.com", "Password123", "photo");
+        user = new User(UUID.randomUUID(), "Cauã", "caua@gmail.com", "Password123");
         cart = new Cart(UUID.randomUUID(), "caua@gmail.com");
         address = new Address(UUID.randomUUID(), "Rua Yoki", "700", "Araraquara", "SP", "14800200");
         order = new Order(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);

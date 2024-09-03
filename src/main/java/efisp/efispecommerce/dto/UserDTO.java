@@ -8,5 +8,5 @@ import java.util.UUID;
  * @param email User's email
  * @param password User's password
  */
-public record UserDTO(UUID id, String name, String email, String password, String photo) {
+public record UserDTO(UUID id, String name, String email, String password) {
 }

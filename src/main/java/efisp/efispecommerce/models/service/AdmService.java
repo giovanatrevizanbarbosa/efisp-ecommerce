@@ -21,7 +21,6 @@ public class AdmService {
                 admDTO.name(),
                 admDTO.email(),
                 admDTO.password(),
-                admDTO.photo(),
                 titleService.toEntity(admDTO.titleDTO())
         );
     }
@@ -32,7 +31,6 @@ public class AdmService {
                 admDTO.name(),
                 admDTO.email(),
                 password,
-                admDTO.photo(),
                 titleService.toEntity(admDTO.titleDTO())
         );
     }
@@ -43,7 +41,6 @@ public class AdmService {
                 administrator.getName(),
                 administrator.getEmail(),
                 administrator.getPassword(),
-                administrator.getPhoto(),
                 new TitleService().toDTO(administrator.getTitle())
         );
     }

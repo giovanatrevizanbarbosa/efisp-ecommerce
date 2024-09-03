@@ -16,14 +16,14 @@ public class TestUserDao implements TestDao {
     @Override
     @Test
     public void add() {
-        assertTrue(userIDao.add(new User(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123", "photo")));
+        assertTrue(userIDao.add(new User(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123")));
     }
 
     @Override
     @Test
     public void getById() {
         var id = UUID.randomUUID();
-        User user = new User(id, "Cauã", "caua.email.com", "Password123", "photo");
+        User user = new User(id, "Cauã", "caua.email.com", "Password123");
 
         userIDao.add(user);
 
@@ -35,7 +35,7 @@ public class TestUserDao implements TestDao {
     public void getAll() {
         var expected = userIDao.getAll().size() + 1;
 
-        User user = new User(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123", "photo");
+        User user = new User(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123");
 
         userIDao.add(user);
 
@@ -48,11 +48,11 @@ public class TestUserDao implements TestDao {
     @Test
     public void update() {
         var id = UUID.randomUUID();
-        User user = new User(id, "Cauã", "caua.email.com", "Password123", "photo");
+        User user = new User(id, "Cauã", "caua.email.com", "Password123");
 
         userIDao.add(user);
 
-        User user2 = new User(id, "João", "joao.email.com", "Password123", "photo");
+        User user2 = new User(id, "João", "joao.email.com", "Password123");
 
         assertTrue(userIDao.update(id, user2));
     }
@@ -62,7 +62,7 @@ public class TestUserDao implements TestDao {
     public void delete() {
         var id = UUID.randomUUID();
 
-        User user = new User(id, "Cauã", "caua.email.com", "Password123", "photo");
+        User user = new User(id, "Cauã", "caua.email.com", "Password123");
         userIDao.add(user);
 
         assertTrue(userIDao.delete(id));

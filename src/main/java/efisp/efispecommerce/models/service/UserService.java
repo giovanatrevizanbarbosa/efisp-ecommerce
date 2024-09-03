@@ -14,15 +14,15 @@ public class UserService {
     private final IDao<User> users = Dao.getInstance(User.class);
 
     User toEntity(UserDTO userDTO) {
-        return new User(userDTO.id(), userDTO.name(), userDTO.email(), userDTO.password(), userDTO.photo());
+        return new User(userDTO.id(), userDTO.name(), userDTO.email(), userDTO.password());
     }
 
     User toEntity(UserDTO userDTO, String password) {
-        return new User(userDTO.id(), userDTO.name(), userDTO.email(), password, userDTO.photo());
+        return new User(userDTO.id(), userDTO.name(), userDTO.email(), password);
     }
 
     protected UserDTO toDTO(User user) {
-        return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getPhoto());
+        return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword());
     }
 
     /**
