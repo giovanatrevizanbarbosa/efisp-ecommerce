@@ -19,7 +19,7 @@ public class TestItemService {
     static DepartmentService departmentService = new DepartmentService();
     static CartService cartService = new CartService();
 
-    static ProductDTO product = new ProductDTO(UUID.randomUUID(), "Product 1", 20, "Brand 1", "Description 1", "Department 1", 10);
+    static ProductDTO product = new ProductDTO(UUID.randomUUID(), "Product 1", 20, "Brand 1", "Description 1", "Department 1", 10, "photo");
     static BrandDTO brand = new BrandDTO(UUID.randomUUID(), "Brand 1");
     static DepartmentDTO department = new DepartmentDTO(UUID.randomUUID(), "Department 1", "Description 1");
     static CartDTO cart = new CartDTO(UUID.randomUUID(), "User 1", new HashMap<>());

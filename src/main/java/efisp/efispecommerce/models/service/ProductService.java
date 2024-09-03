@@ -20,12 +20,12 @@ public class ProductService {
         Department department = departmentService.getDepartmentByName(productDTO.department());
 
         return new Product(productDTO.id(), productDTO.name(), productDTO.price()
-                ,brand, productDTO.description(), department, productDTO.stock());
+                ,brand, productDTO.description(), department, productDTO.stock(), productDTO.photo());
     }
 
     protected ProductDTO toDTO(Product product){
         return new ProductDTO(product.getId(), product.getName(), product.getPrice()
-                , product.getBrand().getName(), product.getDescription(), product.getDepartment().getName(), product.getStock());
+                , product.getBrand().getName(), product.getDescription(), product.getDepartment().getName(), product.getStock(), product.getPhoto());
     }
 
     public List<Product> getAll() {

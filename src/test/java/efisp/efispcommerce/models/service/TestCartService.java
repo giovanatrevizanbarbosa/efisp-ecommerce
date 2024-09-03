@@ -28,8 +28,8 @@ public class TestCartService {
         Brand brand = new Brand(UUID.randomUUID(),"Dell");
         Department department = new Department(UUID.randomUUID(),"Electronics", "Electronics department");
 
-        Product product1 = new Product(UUID.randomUUID(), "Laptop", 1000.0, brand, "High-performance laptop", department, 5);
-        Product product2 = new Product(UUID.randomUUID(), "Smartphone", 500.0, brand, "Latest smartphone", department, 10);
+        Product product1 = new Product(UUID.randomUUID(), "Laptop", 1000.0, brand, "High-performance laptop", department, 5, "photo");
+        Product product2 = new Product(UUID.randomUUID(), "Smartphone", 500.0, brand, "Latest smartphone", department, 10, "photo");
 
         UUID cartId = UUID.randomUUID();
 

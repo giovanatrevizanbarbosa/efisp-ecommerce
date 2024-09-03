@@ -23,12 +23,12 @@ public class TestCart {
 
         Brand brandA = new Brand(UUID.randomUUID(), "Nvidia");
         Department departmentA = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
-        Product productA = new Product(UUID.randomUUID(), "GeForce GTX1660", 800, brandA, "GPU", departmentA, 10);
+        Product productA = new Product(UUID.randomUUID(), "GeForce GTX1660", 800, brandA, "GPU", departmentA, 10, "photo");
         itemA = new Item(UUID.randomUUID(), id, productA, 1);
 
         Brand brandB = new Brand(UUID.randomUUID(), "AMD");
         Department departmentB = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
-        Product productB = new Product(UUID.randomUUID(), " Ryzen 5 3600", 1200, brandB, "CPU", departmentB, 10);
+        Product productB = new Product(UUID.randomUUID(), " Ryzen 5 3600", 1200, brandB, "CPU", departmentB, 10, "photo");
         itemB = new Item(UUID.randomUUID(), id, productB, 1);
 
         cart.insertItem(itemA);
