@@ -101,3 +101,7 @@ Para rodar o projeto, você vai precisar ter instalado em sua máquina as seguin
 - [Giovana Trevizan Barbosa](https://github.com/giovanatrevizanbarbosa)
 - [Igor Filipi Cardoso](https://github.com/IgorFilipiCardoso)
 - [Natan Salvador Ligabo](https://github.com/natansalvadorligabo)
+
+## 🔑 LICENÇA
+
+Distribuído sob a licença [Apache 2.0](https://github.com/giovanatrevizanbarbosa/efisp-ecommerce/blob/master/LICENSE).
