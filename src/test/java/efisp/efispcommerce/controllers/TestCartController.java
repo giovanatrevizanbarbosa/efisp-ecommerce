@@ -22,7 +22,7 @@ public class TestCartController {
     public void testAddCart() {
         var items = new HashMap<Long, Item>();
 
-        CartDTO cartDto = new CartDTO(1L, "tester@email.com", items);
+        CartDTO cartDto = new CartDTO(1L, "tester@email.com", items, 100.00);
 
         var result = controller.addCart(cartDto);
 
