@@ -18,7 +18,7 @@ public class TestAdministrator {
     public void Initialize(){
         admTitle = new Title(UUID.randomUUID(),"CEO", 10);
         id = UUID.randomUUID();
-        administrator = new Administrator(id, "Cauã", "caua@gmail.com", "Password123", admTitle);
+        administrator = new Administrator(id, "Cauã", "caua@gmail.com", "Password123", "photo", admTitle);
     }
 
     @Test

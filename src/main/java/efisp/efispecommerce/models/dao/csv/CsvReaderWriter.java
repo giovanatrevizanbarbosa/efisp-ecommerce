@@ -3,7 +3,7 @@ package efisp.efispecommerce.models.dao.csv;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-import efisp.efispecommerce.models.dao.Util;
+import efisp.efispecommerce.models.Util;
 import efisp.efispecommerce.models.dao.Writable;
 
 import java.io.IOException;

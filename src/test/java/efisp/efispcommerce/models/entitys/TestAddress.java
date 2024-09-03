@@ -13,7 +13,7 @@ public class TestAddress {
 
     @BeforeEach
     public void Initialize(){
-        address = new Address(UUID.randomUUID(), "Rua Yoki", 700, "Araraquara", "SP", "14800200");
+        address = new Address(UUID.randomUUID(), "Rua Yoki", "700", "Araraquara", "SP", "14800200");
     }
 
     @Test
@@ -26,8 +26,8 @@ public class TestAddress {
 
     @Test
     public void TestAddressGetNumber() {
-        int expected = 700;
-        int actual = address.getNumber();
+        var expected = "700";
+        var actual = address.getNumber();
 
         assertEquals(expected, actual);
     }

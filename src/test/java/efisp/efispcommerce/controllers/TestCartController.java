@@ -23,7 +23,7 @@ public class TestCartController {
     public void testAddCart() {
         var items = new HashMap<UUID, Item>();
 
-        CartDTO cartDto = new CartDTO(UUID.randomUUID(), "tester@email.com", items, 100.00);
+        CartDTO cartDto = new CartDTO(UUID.randomUUID(), "tester@email.com", items);
 
         var result = controller.addCart(cartDto);
 

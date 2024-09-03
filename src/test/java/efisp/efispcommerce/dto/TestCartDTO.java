@@ -37,7 +37,7 @@ public class TestCartDTO {
         items.put(UUID.randomUUID(), new Item(UUID.randomUUID(), cartId, product, 2));
         items.put(UUID.randomUUID(), new Item(UUID.randomUUID(), cartId, product, 1));
 
-        cartDTO = new CartDTO(cartId, ownerEmail, items, 0.0);
+        cartDTO = new CartDTO(cartId, ownerEmail, items);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestCartDTO {
     @Test
     public void getTotalPriceReturnsDefaultPrice() {
         // Given
-        double expectedPrice = 0.0;
+        double expectedPrice = 3000.00;
         // When
         double actualPrice = cartDTO.totalPrice();
         // Then

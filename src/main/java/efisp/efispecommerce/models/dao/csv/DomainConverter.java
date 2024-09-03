@@ -31,17 +31,17 @@ public class DomainConverter {
 
     private static User getUserFromCsv(Csv csv){
         String[] data = csv.getData();
-        return new User(UUID.fromString(data[0]), data[1], data[2], data[3]);
+        return new User(UUID.fromString(data[0]), data[1], data[2], data[3], data[4]);
     }
 
     private static Administrator getAdministratorFromCsv(Csv csv){
         IDao<Title> titleCsvReaderWriter = Dao.getInstance(Title.class);
 
         List<Title> titles = titleCsvReaderWriter.getAll();
-        Title title = titles.stream().filter(t -> t.getId().equals(UUID.fromString(csv.getData()[4]))).findFirst().orElse(null);
+        Title title = titles.stream().filter(t -> t.getId().equals(UUID.fromString(csv.getData()[5]))).findFirst().orElse(null);
 
         String[] data = csv.getData();
-        return new Administrator(UUID.fromString(data[0]), data[1], data[2], data[3], title);
+        return new Administrator(UUID.fromString(data[0]), data[1], data[2], data[3], data[4], title);
     }
 
     private static Title getTitleFromCsv(Csv csv){
@@ -51,7 +51,7 @@ public class DomainConverter {
 
     public static Address getAddressFromCsv(Csv csv){
         String[] data = csv.getData();
-        return new Address(UUID.fromString(data[0]), data[1], Integer.parseInt(data[2]), data[3], data[4], data[5]);
+        return new Address(UUID.fromString(data[0]), data[1], data[2], data[3], data[4], data[5]);
     }
 
     public static Brand getBrandFromCsv(Csv csv){

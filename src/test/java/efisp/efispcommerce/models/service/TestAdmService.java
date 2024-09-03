@@ -23,14 +23,14 @@ public class TestAdmService {
 
     @Test
     public void addNewAdm() {
-        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", titleDTO)));
+        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", "photo", titleDTO)));
     }
 
 
     @Test
     public void updateAdm() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", titleDTO);
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", "photo", titleDTO);
         assertTrue(admService.update(id, admDTO));
     }
 
@@ -39,7 +39,7 @@ public class TestAdmService {
 
         var id = UUID.randomUUID();
 
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "photo", titleDTO);
 
         admService.add(admDTO);
 
@@ -49,7 +49,7 @@ public class TestAdmService {
     @Test
     public void getAdmById() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "photo", titleDTO);
         admService.add(admDTO);
 
         assertEquals(admService.getById(id).id(), id);
@@ -58,7 +58,7 @@ public class TestAdmService {
     @Test
     public void getAllAdms() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "photo", titleDTO);
 
         admService.add(admDTO);
 
