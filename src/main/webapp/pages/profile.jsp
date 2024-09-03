@@ -19,7 +19,7 @@
 
         <div class="card bg-base-100 w-full max-w-lg shadow-xl mb-8">
             <div class="card-body">
-                <form action="updateProfile" method="post" class="space-y-6">
+                <form action="profile" method="post" class="space-y-6">
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">Informações do Perfil</h2>
                         <div class="form-control mb-4">

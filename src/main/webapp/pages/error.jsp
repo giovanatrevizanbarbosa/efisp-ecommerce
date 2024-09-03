@@ -15,8 +15,8 @@
         <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-200 sm:text-5xl">Página não encontrada</h1>
         <p class="mt-6 text-base leading-7 text-gray-400">Oops, não conseguimos encontrar a página que procura.</p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a href="/home" class="btn btn-primary">Voltar para Home</a>
-            <a href="/login" class="btn btn-outline btn-info">Login <span>&rarr;</span></a>
+            <a href="${pageContext.request.contextPath}/home" class="btn btn-primary">Voltar para Home</a>
+            <a href="${pageContext.request.contextPath}/login" class="btn btn-outline btn-info">Login <span>&rarr;</span></a>
         </div>
     </div>
 </main>
