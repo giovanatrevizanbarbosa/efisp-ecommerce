@@ -2,7 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="navbar bg-base-300">
-    <div class="navbar-start">
+    <div class="navbar-start dropdown dropdown-hover">
+        <div tabindex="0" role="button" class="btn m-1">Departamentos</div>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li><a>Perifericos</a></li>
+            <li><a>Hardware</a></li>
+            <li><a>Computadores</a></li>
+            <li><a>Games</a></li>
+            <li><a>Cameras e drones</a></li>
+        </ul>
+    </div>
+    <div class="navbar-center">
         <a href="home" class="btn btn-ghost text-xl">E-fisp</a>
     </div>
     <div class="navbar-end flex items-center gap-2">
