@@ -5,6 +5,8 @@ import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,14 +17,14 @@ public class TestBrandDao implements TestDao {
     @Override
     @Test
     public void add() {
-        Brand brand = new Brand(brandIDao.getNextId(), "Samsung");
+        Brand brand = new Brand(UUID.randomUUID(), "Samsung");
         assertTrue(brandIDao.add(brand));
     }
 
     @Override
     @Test
     public void getById() {
-        Long id = brandIDao.getNextId();
+        var id = UUID.randomUUID();
         Brand brand = new Brand(id, "Samsung");
 
         brandIDao.add(brand);
@@ -36,7 +38,7 @@ public class TestBrandDao implements TestDao {
 
         var expected = brandIDao.getAll().size() + 1;
 
-        Brand brand = new Brand(brandIDao.getNextId(), "Samsung");
+        Brand brand = new Brand(UUID.randomUUID(), "Samsung");
 
         brandIDao.add(brand);
 
@@ -48,7 +50,7 @@ public class TestBrandDao implements TestDao {
     @Override
     @Test
     public void update() {
-        Long id = brandIDao.getNextId();
+        var id = UUID.randomUUID();
 
         Brand brand = new Brand(id, "Samsung");
         brandIDao.add(brand);
@@ -61,7 +63,7 @@ public class TestBrandDao implements TestDao {
     @Override
     @Test
     public void delete() {
-        Long id = brandIDao.getNextId();
+        var id = UUID.randomUUID();
         Brand brand = new Brand(id, "Amazon");
 
         brandIDao.add(brand);

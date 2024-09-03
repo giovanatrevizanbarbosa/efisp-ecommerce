@@ -1,5 +1,7 @@
 package efisp.efispecommerce.dto;
 
+import java.util.UUID;
+
 /**
  * @param id Product's id
  * @param name Product's name
@@ -9,10 +11,10 @@ package efisp.efispecommerce.dto;
  * @param department Product's department
  * @param stock Product's stock
  */
-public record ProductDTO(Long id, String name, double price, String brand, String description, String department,
+public record ProductDTO(UUID id, String name, double price, String brand, String description, String department,
                          int stock) {
 
-    public ProductDTO(Long id, String name, double price, String brand, String description, String department, int stock) {
+    public ProductDTO(UUID id, String name, double price, String brand, String description, String department, int stock) {
         this.id = id;
         this.name = name;
         this.price = price;

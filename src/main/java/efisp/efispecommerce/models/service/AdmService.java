@@ -7,6 +7,7 @@ import efisp.efispecommerce.models.entitys.Administrator;
 import efisp.efispecommerce.models.entitys.Title;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AdmService {
 
@@ -30,7 +31,7 @@ public class AdmService {
                                             .equals(admDTO.title())
                                 )
                         .findFirst()
-                        .orElse(new Title(0L, "", 0))
+                        .orElse(new Title(UUID.randomUUID(), "", 0))
         );
     }
 
@@ -48,23 +49,19 @@ public class AdmService {
         return dao.add(mapDTOToEntity(admDTO));
     }
 
-    public boolean update(long id, AdmDTO admDTO) {
+    public boolean update(UUID id, AdmDTO admDTO) {
         return dao.update(id, mapDTOToEntity(admDTO));
     }
 
-    public boolean delete(long id) {
+    public boolean delete(UUID id) {
         return dao.delete(id);
     }
 
-    public AdmDTO getById(long id) {
+    public AdmDTO getById(UUID id) {
         return toDTO(dao.getById(id));
     }
 
     public List<AdmDTO> getAll() {
         return dao.getAll().stream().map(this::toDTO).toList();
-    }
-
-    public Long getNextId() {
-        return dao.getNextId();
     }
 }

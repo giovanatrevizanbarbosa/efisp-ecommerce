@@ -3,13 +3,15 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.csv.Csv;
 import efisp.efispecommerce.models.dao.Writable;
 
+import java.util.UUID;
+
 public class User extends Writable {
     private final String name;
     //identifier
     private final String email;
     private final String password;
 
-    public User(Long id, String name, String email, String password) {
+    public User(UUID id, String name, String email, String password) {
         super(id);
         this.name = name;
         this.email = email;

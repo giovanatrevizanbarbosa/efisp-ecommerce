@@ -33,8 +33,4 @@ public class TitleService {
     public boolean getById() {
         return true;
     }
-
-    public Long getNextId() {
-        return dao.getNextId();
-    }
 }

@@ -7,6 +7,7 @@ import efisp.efispecommerce.models.entitys.User;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class UserService {
     private final IDao<User> users = Dao.getInstance(User.class);
@@ -28,7 +29,7 @@ public class UserService {
         return userDTOs;
     }
 
-    public UserDTO getUserById(Long id) {
+    public UserDTO getUserById(UUID id) {
         for (User user : users.getAll()) {
             if (user.getId().equals(id)) {
                 return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword());
@@ -58,12 +59,12 @@ public class UserService {
         return null;
     }
 
-    public boolean updateUser(long id, UserDTO userDTO) {
+    public boolean updateUser(UUID id, UserDTO userDTO) {
         User user = mapUserDTOToEntity(userDTO);
         return users.update(id, user);
     }
 
-    public boolean deleteUser(long id) {
+    public boolean deleteUser(UUID id) {
         return users.delete(id);
     }
 }

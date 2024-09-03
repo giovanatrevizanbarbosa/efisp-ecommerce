@@ -8,6 +8,8 @@ import efisp.efispecommerce.models.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestOrderDTO {
@@ -20,12 +22,12 @@ public class TestOrderDTO {
 
     @BeforeEach
     public void setUp() {
-        user = new User(1L, "Giovana", "gi.trevizan.barbosa@gmail.com", "senha1234");
-        cart = new Cart(1L, "gi.trevizan.barbosa@gmail.com");
+        user = new User(UUID.randomUUID(), "Giovana", "gi.trevizan.barbosa@gmail.com", "senha1234");
+        cart = new Cart(UUID.randomUUID(), "gi.trevizan.barbosa@gmail.com");
 
         paymentMethod = PaymentMethod.CreditCard;
-        address = new Address(1L,"123 Main St", 10, "Springfield", "62701", "USA");
-        orderDTO = new OrderDTO(1L, user, cart, paymentMethod, address);
+        address = new Address(UUID.randomUUID(),"123 Main St", 10, "Springfield", "62701", "USA");
+        orderDTO = new OrderDTO(UUID.randomUUID(), user, cart, paymentMethod, address);
     }
 
     @Test

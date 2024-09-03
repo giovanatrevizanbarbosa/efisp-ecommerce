@@ -2,20 +2,22 @@ package efisp.efispecommerce.models.dao;
 
 import efisp.efispecommerce.models.dao.csv.Csv;
 
-public abstract class Writable implements Comparable<Writable>{
-    Long id;
+import java.util.UUID;
 
-    public Writable(Long id){
+public abstract class Writable implements Comparable<Writable>{
+    UUID id;
+
+    public Writable(UUID id){
         this.id = id;
     }
 
     public abstract Csv toCSV();
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
     
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -6,6 +6,7 @@ import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.entitys.Brand;
 
 import java.util.List;
+import java.util.UUID;
 
 public class BrandService {
 
@@ -31,11 +32,7 @@ public class BrandService {
         return dao.getAll().stream().map(this::mapBrandEntityToDTO).toList();
     }
 
-    public BrandDTO getById(long id) {
+    public BrandDTO getById(UUID id) {
         return mapBrandEntityToDTO(dao.getById(id));
-    }
-
-    public Long getNextId() {
-        return dao.getNextId();
     }
 }

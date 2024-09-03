@@ -4,6 +4,8 @@ import efisp.efispecommerce.dto.DepartmentDTO;
 import efisp.efispecommerce.models.service.DepartmentService;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,8 +15,8 @@ public class TestDepartmentService {
 
     @Test
     public void add() {
-        var department = new DepartmentDTO(service.getNextId(), "Informática", "Informática");
-        var department2 = new DepartmentDTO(service.getNextId(), "Eletrônicos", "Eletrônicos");
+        var department = new DepartmentDTO(UUID.randomUUID(), "Informática", "Informática");
+        var department2 = new DepartmentDTO(UUID.randomUUID(), "Eletrônicos", "Eletrônicos");
 
         assertTrue(service.add(department));
         assertTrue(service.add(department2));
@@ -22,7 +24,7 @@ public class TestDepartmentService {
 
     @Test
     public void getById() {
-        Long id = service.getNextId();
+        var id = UUID.randomUUID();
         var department = new DepartmentDTO(id, "Informática", "Informática");
         service.add(department);
 
@@ -32,8 +34,8 @@ public class TestDepartmentService {
 
     @Test
     public void getAll() {
-        var department = new DepartmentDTO(service.getNextId(), "Informática", "Informática");
-        var department2 = new DepartmentDTO(service.getNextId(), "Eletrônicos", "Eletrônicos");
+        var department = new DepartmentDTO(UUID.randomUUID(), "Informática", "Informática");
+        var department2 = new DepartmentDTO(UUID.randomUUID(), "Eletrônicos", "Eletrônicos");
 
         var expected = service.getAll().size() + 2;
 
@@ -43,6 +45,6 @@ public class TestDepartmentService {
         var actual = service.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(department, service.getAll().getFirst());
+        assertEquals(department, service.getById(department.id()));
     }
 }

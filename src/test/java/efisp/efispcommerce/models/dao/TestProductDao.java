@@ -8,6 +8,8 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,8 +19,8 @@ public class TestProductDao implements TestDao {
     static IDao<Brand> brandIDao = Dao.getInstance(Brand.class);
     static IDao<Department> departmentIDao = Dao.getInstance(Department.class);
 
-    static Long brandId = brandIDao.getNextId();
-    static Long departmentId = departmentIDao.getNextId();
+    static UUID brandId = UUID.randomUUID();
+    static UUID departmentId = UUID.randomUUID();
 
     @BeforeAll
     public static void setUp(){
@@ -38,13 +40,13 @@ public class TestProductDao implements TestDao {
     @Override
     @Test
     public void add() {
-        assertTrue(productIDao.add(new Product(productIDao.getNextId(), "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1)));
+        assertTrue(productIDao.add(new Product(UUID.randomUUID(), "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1)));
     }
 
     @Override
     @Test
     public void update() {
-        Long id = productIDao.getNextId();
+        var id = UUID.randomUUID();
 
         productIDao.add(new Product(id, "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1));
 
@@ -56,7 +58,7 @@ public class TestProductDao implements TestDao {
     @Override
     @Test
     public void delete() {
-        Long id = productIDao.getNextId();
+        var id = UUID.randomUUID();
 
         productIDao.add(new Product(id, "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1));
 
@@ -66,7 +68,7 @@ public class TestProductDao implements TestDao {
     @Override
     @Test
     public void getById() {
-        Long id = productIDao.getNextId();
+        var id = UUID.randomUUID();
         Product product = new Product(id, "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1);
 
         productIDao.add(product);
@@ -79,7 +81,7 @@ public class TestProductDao implements TestDao {
     public void getAll() {
         var expected = productIDao.getAll().size() + 1;
 
-        Product product = new Product(productIDao.getNextId(), "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1);
+        Product product = new Product(UUID.randomUUID(), "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1);
 
         productIDao.add(product);
 

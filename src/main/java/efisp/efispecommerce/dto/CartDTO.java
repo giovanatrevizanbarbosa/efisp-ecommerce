@@ -3,6 +3,7 @@ package efisp.efispecommerce.dto;
 import efisp.efispecommerce.models.entitys.Item;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @param id Cart's id
@@ -12,5 +13,5 @@ import java.util.Map;
  */
 
 // Map<ProductId, Item>
-public record CartDTO(Long id, String ownerEmail, Map<Long, Item> items, double totalPrice) {
+public record CartDTO(UUID id, String ownerEmail, Map<UUID, Item> items, double totalPrice) {
 }

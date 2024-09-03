@@ -9,6 +9,8 @@ import efisp.efispecommerce.models.service.ProductService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,16 +21,16 @@ public class TestProductService {
     public static void setUp() {
 
         BrandService brandService = new BrandService();
-        BrandDTO brand = new BrandDTO(brandService.getNextId(), "Nvidia");
+        BrandDTO brand = new BrandDTO(UUID.randomUUID(), "Nvidia");
         brandService.add(brand);
 
 
         DepartmentService departmentService = new DepartmentService();
-        DepartmentDTO department = new DepartmentDTO(departmentService.getNextId(), "Informática", "Informática");
+        DepartmentDTO department = new DepartmentDTO(UUID.randomUUID(), "Informática", "Informática");
         departmentService.add(department);
 
 
-        ProductDTO productDTO = new ProductDTO(productService.getNextId(), "Teclado Mecânico", 600.00, brand.name()
+        ProductDTO productDTO = new ProductDTO(UUID.randomUUID(), "Teclado Mecânico", 600.00, brand.name()
                 , "Teclado com teclas suaves", department.name(), 15);
 
         productService.add(productDTO);
@@ -36,7 +38,7 @@ public class TestProductService {
 
     @Test
     public void addProductReturnsBoolean() {
-        boolean actual = productService.add(new ProductDTO(productService.getNextId(), "Mouse", 200.00, "Nvidia"
+        boolean actual = productService.add(new ProductDTO(UUID.randomUUID(), "Mouse", 200.00, "Nvidia"
                 , "Mouse com fio", "Informática", 10));
 
         assertTrue(actual);
@@ -47,7 +49,7 @@ public class TestProductService {
         // When
         int expected = productService.getAll().size() + 1;
 
-        productService.add(new ProductDTO(productService.getNextId(), "Mouse", 200.00, "Nvidia"
+        productService.add(new ProductDTO(UUID.randomUUID(), "Mouse", 200.00, "Nvidia"
                 , "Mouse com fio", "Informática", 10));
 
         int actual = productService.getAll().size();

@@ -10,6 +10,8 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,32 +22,32 @@ public class TestOrderDao implements TestDao {
     static IDao<Cart> cartIDao = Dao.getInstance(Cart.class);
     static IDao<Address> addressIDao = Dao.getInstance(Address.class);
 
-    static Long userId;
-    static Long cartId;
-    static Long addressId;
+    static UUID userId;
+    static UUID cartId;
+    static UUID addressId;
 
     @BeforeAll
     public static void setUp(){
-        userId = userIDao.getNextId();
+        userId = UUID.randomUUID();
         userIDao.add(new User(userId, "Cauã", "a@a.com", "123"));
 
-        cartId = cartIDao.getNextId();
+        cartId = UUID.randomUUID();
         cartIDao.add(new Cart(cartId, "a@a.com"));
 
-        addressId = addressIDao.getNextId();
+        addressId = UUID.randomUUID();
         addressIDao.add(new Address(addressId, "Rua Yoki", 700, "Araraquara", "SP", "14800200"));
     }
 
     @Override
     @Test
     public void add() {
-        assertTrue(orderIDao.add(new Order(orderIDao.getNextId(), userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId))));
+        assertTrue(orderIDao.add(new Order(UUID.randomUUID(), userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId))));
     }
 
     @Override
     @Test
     public void update() {
-        Long id = orderIDao.getNextId();
+        UUID id = UUID.randomUUID();
 
         Order order = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
 
@@ -59,7 +61,7 @@ public class TestOrderDao implements TestDao {
     @Override
     @Test
     public void delete() {
-        Long id = orderIDao.getNextId();
+        UUID id = UUID.randomUUID();
 
         Order order = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
 
@@ -71,7 +73,7 @@ public class TestOrderDao implements TestDao {
     @Override
     @Test
     public void getById() {
-        Long id = orderIDao.getNextId();
+        UUID id = UUID.randomUUID();
         Order order = new Order(id, userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
 
         orderIDao.add(order);
@@ -84,7 +86,7 @@ public class TestOrderDao implements TestDao {
     public void getAll() {
         var expected = orderIDao.getAll().size() + 1;
 
-        Order order = new Order(orderIDao.getNextId(), userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
+        Order order = new Order(UUID.randomUUID(), userIDao.getById(userId), cartIDao.getById(cartId), PaymentMethod.CreditCard, addressIDao.getById(addressId));
 
         orderIDao.add(order);
 

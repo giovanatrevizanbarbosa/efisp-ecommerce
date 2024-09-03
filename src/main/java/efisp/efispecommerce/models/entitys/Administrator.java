@@ -3,11 +3,12 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class Administrator extends User {
     private Title title;
 
-    public Administrator(Long id, String name, String email, String password, Title title){
+    public Administrator(UUID id, String name, String email, String password, Title title){
         super(id, name, email, password);
         this.title = title;
     }

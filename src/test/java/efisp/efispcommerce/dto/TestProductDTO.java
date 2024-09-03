@@ -6,18 +6,22 @@ import efisp.efispecommerce.models.entitys.Department;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestProductDTO {
 
     private ProductDTO productDTO;
+    private UUID id;
 
     @BeforeEach
     public void setUp() {
-        Brand brand = new Brand(1L, "Dell");
-        Department department = new Department(1L, "Hardware", "Hardware department");
-        productDTO = new ProductDTO(1L, "Notebook Inspiron 15",
+        Brand brand = new Brand(UUID.randomUUID(), "Dell");
+        Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
+        id = UUID.randomUUID();
+        productDTO = new ProductDTO(id, "Notebook Inspiron 15",
                 4500, brand.getName(), "Notebook Intel Core i7 12a geração",
                 department.getName(), 10);
     }
@@ -25,9 +29,9 @@ public class TestProductDTO {
     @Test
     public void getIdReturnsCorrectId() {
         // Given
-        Long expected = 1L;
+        UUID expected = id;
         // When
-        Long actual = productDTO.id();
+        UUID actual = productDTO.id();
         // Then
         assertEquals(expected, actual);
     }
@@ -95,10 +99,10 @@ public class TestProductDTO {
     @Test
     public void constructorThrowsExceptionWhenStockIsNegative() {
         // Given
-        Brand brand = new Brand(1L, "Dell");
-        Department department = new Department(1L, "Hardware", "Hardware department");
+        Brand brand = new Brand(UUID.randomUUID(), "Dell");
+        Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
         // When & Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ProductDTO(1L, "Notebook Inspiron 15", 4500, brand.getName()
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ProductDTO(UUID.randomUUID(), "Notebook Inspiron 15", 4500, brand.getName()
                 , "Notebook Intel Core i7 12a geração", department.getName(), -1));
 
         assertEquals("Stock cannot be negative", exception.getMessage());

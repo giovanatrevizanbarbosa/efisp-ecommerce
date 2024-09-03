@@ -5,6 +5,7 @@ import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.entitys.Department;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DepartmentService {
 
@@ -31,11 +32,7 @@ public class DepartmentService {
         return dao.getAll().stream().map(this::mapDepartmentEntityToDTO).toList();
     }
 
-    public DepartmentDTO getById(long id) {
+    public DepartmentDTO getById(UUID id) {
         return mapDepartmentEntityToDTO(dao.getById(id));
-    }
-
-    public Long getNextId() {
-        return dao.getNextId();
     }
 }

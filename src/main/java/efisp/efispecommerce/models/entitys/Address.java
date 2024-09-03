@@ -3,6 +3,8 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Address extends Writable {
     private final String street;
     private final Integer number;
@@ -10,7 +12,7 @@ public class Address extends Writable {
     private final String state;
     private final String zip;
 
-    public Address(Long id, String street, Integer number, String city, String state, String zip) {
+    public Address(UUID id, String street, Integer number, String city, String state, String zip) {
         super(id);
         this.street = street;
         this.number = number;

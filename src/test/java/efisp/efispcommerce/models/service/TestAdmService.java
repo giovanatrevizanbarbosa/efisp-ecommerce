@@ -5,6 +5,8 @@ import efisp.efispecommerce.models.service.AdmService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAdmService {
@@ -17,13 +19,13 @@ public class TestAdmService {
 
     @Test
     public void addNewAdm() {
-        assertTrue(admService.add(new AdmDTO(admService.getNextId(),"Igor", "igor@.com", "123", "CEO")));
+        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", "CEO")));
     }
 
 
     @Test
     public void updateAdm() {
-        Long id = admService.getNextId();
+        var id = UUID.randomUUID();
         AdmDTO admDTO = new AdmDTO(id, "Cauã", "kaun@gamil.com", "Password123", "CEO");
         assertTrue(admService.update(id, admDTO));
     }
@@ -31,12 +33,18 @@ public class TestAdmService {
     @Test
     public void deleteAdm() {
 
-        assertTrue(admService.delete(1L));
+        var id = UUID.randomUUID();
+
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
+
+        admService.add(admDTO);
+
+        assertTrue(admService.delete(id));
     }
 
     @Test
     public void getAdmById() {
-        Long id = admService.getNextId();
+        var id = UUID.randomUUID();
         AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
         admService.add(admDTO);
 
@@ -45,11 +53,11 @@ public class TestAdmService {
 
     @Test
     public void getAllAdms() {
-        Long id = admService.getNextId();
+        var id = UUID.randomUUID();
         AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", "CEO");
 
         admService.add(admDTO);
 
-        assertEquals(admService.getAll().getLast().id(), (long) id);
+        assertEquals(admService.getById(id).id(), id);
     }
 }
