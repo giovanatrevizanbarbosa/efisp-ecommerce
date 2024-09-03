@@ -23,7 +23,7 @@ public class TestOrderDTO {
 
     @BeforeEach
     public void setUp() {
-        user = new UserDTO(UUID.randomUUID(), "Giovana", "gi.trevizan.barbosa@gmail.com", "senha1234", "photo");
+        user = new UserDTO(UUID.randomUUID(), "Giovana", "gi.trevizan.barbosa@gmail.com", "senha1234");
         cart = new CartDTO(UUID.randomUUID(), "gi.trevizan.barbosa@gmail.com", new HashMap<>());
 
         paymentMethod = PaymentMethod.CreditCard;

@@ -27,7 +27,7 @@ public class TestOrderService {
         CartService cartDAO = new CartService();
         AddressService addressDAO = new AddressService();
 
-        var user = new UserDTO(UUID.randomUUID(), "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456", "photo");
+        var user = new UserDTO(UUID.randomUUID(), "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456");
         var cart = new CartDTO(UUID.randomUUID(), "gi.treviza.barbosa@gmail.com", new HashMap<>());
         var address = new AddressDTO(UUID.randomUUID(),"Rua 1", "120", "Araraquara", "São Paulo", "14800737");
 

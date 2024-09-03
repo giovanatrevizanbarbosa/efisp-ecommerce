@@ -15,7 +15,7 @@ public class TestUser {
     @BeforeEach
     public void Initialize() {
         id = UUID.randomUUID();
-        user = new User(id, "Cauã", "caua@gmail.com", "Password123", "photo");
+        user = new User(id, "Cauã", "caua@gmail.com", "Password123");
     }
 
     @Test

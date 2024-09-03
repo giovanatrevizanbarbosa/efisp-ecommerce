@@ -32,7 +32,7 @@ public class TestOrderController {
         CartService cartService = new CartService();
         AddressService addressDao = new AddressService();
 
-        var user = new UserDTO(UUID.randomUUID(), "Cauã", "a.com", "123", "photo");
+        var user = new UserDTO(UUID.randomUUID(), "Cauã", "a.com", "123");
         userService.addUser(user);
 
         var cart = new CartDTO(UUID.randomUUID(), "a.com", new HashMap<>());

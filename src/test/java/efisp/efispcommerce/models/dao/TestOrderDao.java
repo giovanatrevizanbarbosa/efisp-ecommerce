@@ -29,7 +29,7 @@ public class TestOrderDao implements TestDao {
 
     @BeforeAll
     public static void setUp(){
-        user = new User(UUID.randomUUID(), "Cauã", "a@a.com", "123", "photo");
+        user = new User(UUID.randomUUID(), "Cauã", "a@a.com", "123");
         userIDao.add(user);
 
         cart = new Cart(UUID.randomUUID(), user.getEmail());

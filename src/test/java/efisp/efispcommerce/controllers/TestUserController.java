@@ -19,7 +19,7 @@ public class TestUserController {
 
     @Test
     public void testAddUser() {
-        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "test@gmail.com", "123456789", "photo");
+        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "test@gmail.com", "123456789");
 
         var result = controller.addUser(userDto);
 
