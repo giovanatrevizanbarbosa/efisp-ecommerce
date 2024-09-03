@@ -10,7 +10,7 @@ public class TestUserDTO {
     @Test
     public void getUserDTOEmailReturnsCorrectEmail() {
         String expected = "gi.trevizan.barbosa@gmail.com";
-        String actual = userDTO.getEmail();
+        String actual = userDTO.email();
 
         assertEquals(expected, actual);
     }
@@ -18,7 +18,7 @@ public class TestUserDTO {
     @Test
     public void getUserDTOPasswordReturnsCorrectPassword() {
         String expected = "senha1234";
-        String actual = userDTO.getPassword();
+        String actual = userDTO.password();
 
         assertEquals(expected, actual);
     }

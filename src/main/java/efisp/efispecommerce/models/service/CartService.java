@@ -10,7 +10,7 @@ public class CartService {
     private final List<Cart> products = new LinkedList<>();
 
     private Cart mapCartDTOToEntity(CartDTO cartDTO){
-        return new Cart(cartDTO.getId(), cartDTO.getOwnerEmail());
+        return new Cart(cartDTO.id(), cartDTO.ownerEmail());
     }
 
     public boolean addCart(CartDTO cartDTO) {

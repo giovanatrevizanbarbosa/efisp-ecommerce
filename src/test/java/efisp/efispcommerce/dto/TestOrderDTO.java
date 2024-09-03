@@ -33,7 +33,7 @@ public class TestOrderDTO {
         // Given
         User expectedUser = user;
         // When
-        User actualUser = orderDTO.getUser();
+        User actualUser = orderDTO.user();
         // Then
         assertEquals(expectedUser, actualUser);
     }
@@ -43,7 +43,7 @@ public class TestOrderDTO {
         // Given
         Cart expectedCart = cart;
         // When
-        Cart actualCart = orderDTO.getCart();
+        Cart actualCart = orderDTO.cart();
         // Then
         assertEquals(expectedCart, actualCart);
     }
@@ -53,7 +53,7 @@ public class TestOrderDTO {
         // Given
         PaymentMethod expectedPaymentMethod = paymentMethod;
         // When
-        PaymentMethod actualPaymentMethod = orderDTO.getPaymentMethod();
+        PaymentMethod actualPaymentMethod = orderDTO.paymentMethod();
         // Then
         assertEquals(expectedPaymentMethod, actualPaymentMethod);
     }
@@ -63,7 +63,7 @@ public class TestOrderDTO {
         // Given
         Address expectedAddress = address;
         // When
-        Address actualAddress = orderDTO.getAddress();
+        Address actualAddress = orderDTO.address();
         // Then
         assertEquals(expectedAddress, actualAddress);
     }

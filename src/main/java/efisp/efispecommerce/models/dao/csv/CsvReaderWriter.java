@@ -62,12 +62,15 @@ public class CsvReaderWriter<T> {
         try {
             buildWriter();
 
-            csvWriter.writeNext(data.getFirst().toCSV().getHeader());
-            csvWriter.flush();
+           if (data.isEmpty()) return;
 
-            for (Writable csv : data) {
-                csvWriter.writeNext(csv.toCSV().getData());
-            }
+           csvWriter.writeNext(data.getFirst().toCSV().getHeader());
+           csvWriter.flush();
+
+           for (Writable csv : data) {
+               csvWriter.writeNext(csv.toCSV().getData());
+           }
+
             csvWriter.flush();
         } catch (IOException | InvalidPathException e) {
             throw new CsvException("Error saving file: " + e.getMessage());

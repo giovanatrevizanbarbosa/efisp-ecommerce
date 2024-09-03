@@ -33,7 +33,7 @@ public class TestCartDTO {
         items.put(1L, new Item(1L, 1L, product1, 2));
         items.put(2L, new Item(2L, 2L, product2, 1));
 
-        cartDTO = new CartDTO(1L, ownerEmail, items);
+        cartDTO = new CartDTO(1L, ownerEmail, items, 0.0);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestCartDTO {
         // Given
         String expectedEmail = ownerEmail;
         // When
-        String actualEmail = cartDTO.getOwnerEmail();
+        String actualEmail = cartDTO.ownerEmail();
         // Then
         assertEquals(expectedEmail, actualEmail);
     }
@@ -51,7 +51,7 @@ public class TestCartDTO {
         // Given
         Map<Long, Item> expectedItems = items;
         // When
-        Map<Long, Item> actualItems = cartDTO.getItems();
+        Map<Long, Item> actualItems = cartDTO.items();
         // Then
         assertEquals(expectedItems, actualItems);
     }
@@ -61,7 +61,7 @@ public class TestCartDTO {
         // Given
         double expectedPrice = 0.0;
         // When
-        double actualPrice = cartDTO.getTotalPrice();
+        double actualPrice = cartDTO.totalPrice();
         // Then
         assertEquals(expectedPrice, actualPrice);
     }

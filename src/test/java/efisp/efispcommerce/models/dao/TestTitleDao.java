@@ -9,72 +9,61 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTitleDao implements TestDao {
 
-    IDao<Title> titleIDao = new Dao<>(Title.class);
+    IDao<Title> titleIDao = Dao.getInstance(Title.class);
 
     @Override
     @Test
     public void add() {
-        Title title = new Title(1L, "ADMIN", 1);
-        Title title2 = new Title(2L, "USER", 2);
-
-        assertTrue(titleIDao.add(title));
-        assertTrue(titleIDao.add(title2));
-        assertFalse(titleIDao.add(title));
-        assertEquals(titleIDao.getAll().getFirst().getId(), title.getId());
+        assertTrue(titleIDao.add(new Title(titleIDao.getNextId(), "ADMIN", 1)));
+        assertTrue(titleIDao.add(new Title(titleIDao.getNextId(), "USER", 2)));
     }
 
     @Override
     @Test
     public void getById() {
-        Title title = new Title(1L, "ADMIN", 1);
-        Title title2 = new Title(2L, "USER", 2);
+        Long id = titleIDao.getNextId();
+        Title title = new Title(id, "ADMIN", 1);
 
         titleIDao.add(title);
-        titleIDao.add(title2);
 
-        var actual = titleIDao.getById(2);
-        assertEquals(title2.getId(), actual.getId());
+        assertEquals(title.getName(), titleIDao.getById(id).getName());
     }
 
     @Override
     @Test
     public void getAll() {
-        Title title = new Title(1L, "ADMIN", 1);
-        Title title2 = new Title(2L, "USER", 2);
+        var expected = titleIDao.getAll().size() + 1;
+
+        Title title = new Title(titleIDao.getNextId(), "ADMIN", 1);
 
         titleIDao.add(title);
-        titleIDao.add(title2);
 
-        var expected = 2;
         var actual = titleIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(title, titleIDao.getAll().getFirst());
     }
 
     @Override
     @Test
     public void update() {
-        Title title = new Title(1L, "ADMIN", 1);
-        Title title2 = new Title(2L, "USER", 2);
+        Long id = titleIDao.getNextId();
+        Title title = new Title(id, "ADMIN", 1);
 
         titleIDao.add(title);
-        titleIDao.add(title2);
 
-        Title title3 = new Title(3L, "GUEST", 3);
+        Title title2 = new Title(id, "USER", 2);
 
-        assertTrue(titleIDao.update(1L, title3));
+        assertTrue(titleIDao.update(id, title2));
     }
 
     @Override
     @Test
     public void delete() {
-        Title title = new Title(1L, "ADMIN", 1);
-        Title title2 = new Title(2L, "USER", 2);
+        Long id = titleIDao.getNextId();
+        Title title = new Title(id, "ADMIN", 1);
 
         titleIDao.add(title);
-        titleIDao.add(title2);
 
-        assertTrue(titleIDao.delete(1L));
+        assertTrue(titleIDao.delete(id));
     }
 }

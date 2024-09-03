@@ -11,6 +11,10 @@ public class ProductController {
     }
 
     public boolean addProduct(ProductDTO productDto) {
-        return service.addProduct(productDto);
+        return service.add(productDto);
+    }
+
+    public Long getNextId() {
+        return service.getNextId();
     }
 }

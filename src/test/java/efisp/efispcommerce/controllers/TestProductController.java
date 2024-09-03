@@ -2,7 +2,6 @@ package efisp.efispcommerce.controllers;
 
 import efisp.efispecommerce.controllers.ProductController;
 import efisp.efispecommerce.dto.ProductDTO;
-import efisp.efispecommerce.models.entitys.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,10 +17,7 @@ public class TestProductController {
 
     @Test
     public void testAddProduct() {
-        var brand = new Brand(1L, "Logitech");
-        var department = new Department(1L, "Perifericos", "Periféricos gamers");
-
-        var productDto = new ProductDTO(1L, "Mouse gamer", 1000.00, brand, "Mouse usado em competição", department, 10);
+        var productDto = new ProductDTO(controller.getNextId(), "Mouse gamer", 1000.00, "Samsung", "Mouse usado em competição", "Informática", 10);
 
         var result = controller.addProduct(productDto);
 
