@@ -36,7 +36,7 @@ public class TestCartService {
         items.put(product1.getId(), new Item(UUID.randomUUID(), cartId, product1, 2));
         items.put(product2.getId(), new Item(UUID.randomUUID(), cartId, product2, 1));
 
-        cartDTO = new CartDTO(cartId, ownerEmail, items, 30.00);
+        cartDTO = new CartDTO(cartId, ownerEmail, items);
     }
 
     @Test

@@ -8,8 +8,8 @@ import java.util.UUID;
 public class Administrator extends User {
     private Title title;
 
-    public Administrator(UUID id, String name, String email, String password, Title title){
-        super(id, name, email, password);
+    public Administrator(UUID id, String name, String email, String password, String photo, Title title){
+        super(id, name, email, password, photo);
         this.title = title;
     }
 

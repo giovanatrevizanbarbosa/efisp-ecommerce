@@ -1,8 +1,5 @@
 package efisp.efispecommerce.dto;
 
-import efisp.efispecommerce.models.entitys.Address;
-import efisp.efispecommerce.models.entitys.Cart;
-import efisp.efispecommerce.models.entitys.User;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
 import java.util.UUID;
@@ -14,5 +11,5 @@ import java.util.UUID;
  * @param paymentMethod Order's payment method
  * @param address Order's address
  */
-public record OrderDTO(UUID id, User user, Cart cart, PaymentMethod paymentMethod, Address address) {
+public record OrderDTO(UUID id, UserDTO user, CartDTO cart, PaymentMethod paymentMethod, AddressDTO address) {
 }

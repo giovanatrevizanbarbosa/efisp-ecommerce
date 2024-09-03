@@ -29,13 +29,13 @@ public class TestOrderDao implements TestDao {
 
     @BeforeAll
     public static void setUp(){
-        user = new User(UUID.randomUUID(), "Cauã", "a@a.com", "123");
+        user = new User(UUID.randomUUID(), "Cauã", "a@a.com", "123", "photo");
         userIDao.add(user);
 
         cart = new Cart(UUID.randomUUID(), user.getEmail());
         cartIDao.add(cart);
 
-        address = new Address(UUID.randomUUID(), "Rua", 123, "Cidaede", "Estado", "12345-123");
+        address = new Address(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressIDao.add(address);
     }
 

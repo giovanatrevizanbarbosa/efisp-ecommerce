@@ -9,9 +9,23 @@ import java.util.UUID;
  * @param id Cart's id
  * @param ownerEmail Cart's owner email
  * @param items Cart's items
- * @param totalPrice Cart's total price
  */
 
 // Map<ProductId, Item>
-public record CartDTO(UUID id, String ownerEmail, Map<UUID, Item> items, double totalPrice) {
+public record CartDTO(UUID id, String ownerEmail, Map<UUID, Item> items){
+    public double totalPrice(){
+        double total = 0;
+        for (Item item : items.values()) {
+            total += item.getProduct().getPrice() * item.getQuantity();
+        }
+        return total;
+    }
+
+    public int totalItems(){
+        int total = 0;
+        for (Item item : items.values()) {
+            total += item.getQuantity();
+        }
+        return total;
+    }
 }

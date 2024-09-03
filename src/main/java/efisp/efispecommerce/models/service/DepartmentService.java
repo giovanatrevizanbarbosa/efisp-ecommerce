@@ -11,11 +11,11 @@ public class DepartmentService {
 
     private final Dao<Department> dao = Dao.getInstance(Department.class);
 
-    private Department mapDepartmentDTOToEntity(DepartmentDTO department){
+    private Department toEntity(DepartmentDTO department){
         return new Department(department.id(), department.name(), department.description());
     }
 
-    private DepartmentDTO mapDepartmentEntityToDTO(Department department){
+    private DepartmentDTO toDTO(Department department){
         return new DepartmentDTO(department.getId(), department.getName(), department.getDescription());
     }
 
@@ -24,15 +24,22 @@ public class DepartmentService {
     }
 
     public boolean add(DepartmentDTO department) {
-        return dao.add(mapDepartmentDTOToEntity(department));
+        return dao.add(toEntity(department));
     }
 
+    public boolean update(UUID id, DepartmentDTO department) {
+        return dao.update(id, toEntity(department));
+    }
+
+    public boolean delete(UUID id) {
+        return dao.delete(id);
+    }
 
     public List<DepartmentDTO> getAll() {
-        return dao.getAll().stream().map(this::mapDepartmentEntityToDTO).toList();
+        return dao.getAll().stream().map(this::toDTO).toList();
     }
 
     public DepartmentDTO getById(UUID id) {
-        return mapDepartmentEntityToDTO(dao.getById(id));
+        return toDTO(dao.getById(id));
     }
 }

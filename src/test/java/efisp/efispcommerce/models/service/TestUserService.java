@@ -14,7 +14,7 @@ public class TestUserService {
     private UserService userService;
     @BeforeEach
     public void setUp() {
-        userDTO = new UserDTO(UUID.randomUUID(), "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456");
+        userDTO = new UserDTO(UUID.randomUUID(), "Giovana Trevizan", "gi.trevizan.barbosa@gmail.com", "123456", "photo");
         userService = new UserService();
     }
 

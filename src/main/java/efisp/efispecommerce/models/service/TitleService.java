@@ -12,36 +12,36 @@ public class TitleService {
 
     IDao<Title> dao = Dao.getInstance(Title.class);
 
-    protected TitleDTO mapEntityToDTO(Title title) {
+    protected TitleDTO toDTO(Title title) {
         return new TitleDTO(title.getId(), title.getName(), title.getPermissionLevel());
     }
 
-    protected Title mapDTOToEntity(TitleDTO titleDTO) {
+    protected Title toEntity(TitleDTO titleDTO) {
         return new Title(titleDTO.id(), titleDTO.name(), titleDTO.level());
     }
 
-    public Title getTitleById(UUID id) {
-        return dao.getById(id);
+    public TitleDTO getTitleById(UUID id) {
+        return toDTO(dao.getById(id));
     }
 
-    public List<Title> getAll() {
-        return dao.getAll();
+    public List<TitleDTO> getAll() {
+        return dao.getAll().stream().map(this::toDTO).toList();
     }
 
     public boolean add(TitleDTO title) {
-        return dao.add(mapDTOToEntity(title));
+        return dao.add(toEntity(title));
     }
 
-    public boolean update() {
-        return true;
+    public boolean update(UUID id, TitleDTO title) {
+        return dao.update(id, toEntity(title));
     }
 
-    public boolean delete() {
-        return true;
+    public boolean delete(UUID id) {
+        return dao.delete(id);
     }
 
-    public boolean getById() {
-        return true;
+    public TitleDTO getById(UUID id) {
+        return toDTO(dao.getById(id));
     }
 
 

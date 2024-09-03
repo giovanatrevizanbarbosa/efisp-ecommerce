@@ -9,5 +9,5 @@ import java.util.UUID;
  * @param password User's password
  * @param titleDTO User's title
  */
-public record AdmDTO(UUID id, String name, String email, String password, TitleDTO titleDTO) {
+public record AdmDTO(UUID id, String name, String email, String password, String photo, TitleDTO titleDTO) {
 }

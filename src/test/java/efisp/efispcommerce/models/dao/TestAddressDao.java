@@ -22,8 +22,8 @@ public class TestAddressDao implements TestDao {
     @Override
     @Test
     public void add() {
-        Address address = new Address(UUID.randomUUID(),"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
-        Address address2 = new Address(UUID.randomUUID(),"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
+        Address address = new Address(UUID.randomUUID(),"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
+        Address address2 = new Address(UUID.randomUUID(),"Rua 2", "456", "Cidade 2", "Estado 2", "87654321");
 
         assertTrue(addressIDao.add(address));
         assertTrue(addressIDao.add(address2));
@@ -33,7 +33,7 @@ public class TestAddressDao implements TestDao {
     @Test
     public void getById() {
         UUID id = UUID.randomUUID();
-        Address address = new Address(id,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address = new Address(id,"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
 
         addressIDao.add(address);
 
@@ -45,8 +45,8 @@ public class TestAddressDao implements TestDao {
     public void getAll() {
         int expected = addressIDao.getAll().size() + 2;
 
-        Address address = new Address(UUID.randomUUID(),"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
-        Address address2 = new Address(UUID.randomUUID(),"Rua 2", 456, "Cidade 2", "Estado 2", "87654321");
+        Address address = new Address(UUID.randomUUID(),"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
+        Address address2 = new Address(UUID.randomUUID(),"Rua 2", "456", "Cidade 2", "Estado 2", "87654321");
 
         addressIDao.add(address);
         addressIDao.add(address2);
@@ -61,9 +61,9 @@ public class TestAddressDao implements TestDao {
     public void update() {
 
         var id = UUID.randomUUID();
-        Address address = new Address(id,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address = new Address(id,"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
         addressIDao.add(address);
-        Address address2 = new Address(id,"Rua 3", 789, "Cidade 3", "Estado 3", "87654321");
+        Address address2 = new Address(id,"Rua 3", "789", "Cidade 3", "Estado 3", "87654321");
 
         assertTrue(addressIDao.update(id, address2));
     }
@@ -72,7 +72,7 @@ public class TestAddressDao implements TestDao {
     @Test
     public void delete() {
         var id = UUID.randomUUID();
-        Address address = new Address(id,"Rua 1", 123, "Cidade 1", "Estado 1", "12345678");
+        Address address = new Address(id,"Rua 1", "123", "Cidade 1", "Estado 1", "12345678");
 
         addressIDao.add(address);
 
