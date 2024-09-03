@@ -13,8 +13,9 @@ public class Product extends Writable {
     private final String description;
     private final Department department;
     private final int stock;
+    private final String image;
 
-    public Product(UUID id, String name, double price, Brand brand, String description, Department department, int stock) {
+    public Product(UUID id, String name, double price, Brand brand, String description, Department department, int stock, String image) {
         super(id);
         this.name = name;
         this.price = price;
@@ -22,6 +23,7 @@ public class Product extends Writable {
         this.description = description;
         this.department = department;
         this.stock = stock;
+        this.image = image;
     }
     
     public String getName() {
@@ -44,6 +46,10 @@ public class Product extends Writable {
         return department;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public int getStock() {
         return stock;
     }
@@ -51,8 +57,8 @@ public class Product extends Writable {
     @Override
     public Csv toCSV() {
         return new Csv(
-            new String[]{"id", "name", "price", "brand", "description", "department", "stock"},
-            new String[]{getId().toString(), name, String.valueOf(price), brand.getId().toString(), description, department.getId().toString(), String.valueOf(stock)}
+            new String[]{"id", "name", "price", "brand", "description", "department", "stock", "image"},
+            new String[]{getId().toString(), name, String.valueOf(price), brand.getId().toString(), description, department.getId().toString(), String.valueOf(stock), image}
         );
     }
 }

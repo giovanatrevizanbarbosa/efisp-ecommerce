@@ -16,7 +16,7 @@ public class TestItem {
     public void Initialize() {
         Brand brand = new Brand(UUID.randomUUID(), "Nvidia");
         Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
-        product = new Product(UUID.randomUUID(), "GeForce GTX1660", 800, brand, "GPU", department, 10);
+        product = new Product(UUID.randomUUID(), "GeForce GTX1660", 800, brand, "GPU", department, 10, "image");
 
         item = new Item(UUID.randomUUID(), UUID.randomUUID(), product, 1);
     }

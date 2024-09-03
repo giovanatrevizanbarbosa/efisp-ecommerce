@@ -32,7 +32,7 @@ public class TestCartDTO {
         UUID productId = UUID.randomUUID();
         UUID cartId = UUID.randomUUID();
 
-        Product product = new Product(productId, "Mouse gamer", 1000.00, brand, "Mouse usado em competição", department, 10);
+        Product product = new Product(productId, "Mouse gamer", 1000.00, brand, "Mouse usado em competição", department, 10, "image");
 
         items.put(UUID.randomUUID(), new Item(UUID.randomUUID(), cartId, product, 2));
         items.put(UUID.randomUUID(), new Item(UUID.randomUUID(), cartId, product, 1));

@@ -4,6 +4,9 @@ import efisp.efispecommerce.models.dao.csv.Csv;
 
 import java.util.UUID;
 
+/**
+ * Abstract class that represents a writable object.
+ */
 public abstract class Writable implements Comparable<Writable>{
     UUID id;
 
@@ -11,6 +14,10 @@ public abstract class Writable implements Comparable<Writable>{
         this.id = id;
     }
 
+    /**
+     * Converts the object to a CSV object.
+     * @return CSV object.
+     */
     public abstract Csv toCSV();
 
     public UUID getId() {

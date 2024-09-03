@@ -23,7 +23,7 @@ public class TestProductDTO {
         id = UUID.randomUUID();
         productDTO = new ProductDTO(id, "Notebook Inspiron 15",
                 4500, brand.getName(), "Notebook Intel Core i7 12a geração",
-                department.getName(), 10);
+                department.getName(), 10, "image");
     }
 
     @Test
@@ -103,7 +103,7 @@ public class TestProductDTO {
         Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
         // When & Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ProductDTO(UUID.randomUUID(), "Notebook Inspiron 15", 4500, brand.getName()
-                , "Notebook Intel Core i7 12a geração", department.getName(), -1));
+                , "Notebook Intel Core i7 12a geração", department.getName(), -1, "image"));
 
         assertEquals("Stock cannot be negative", exception.getMessage());
     }

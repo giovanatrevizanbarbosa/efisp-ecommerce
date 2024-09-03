@@ -19,7 +19,7 @@ public class TestProductController {
 
     @Test
     public void testAddProduct() {
-        var productDto = new ProductDTO(UUID.randomUUID(), "Mouse gamer", 1000.00, "Samsung", "Mouse usado em competição", "Informática", 10);
+        var productDto = new ProductDTO(UUID.randomUUID(), "Mouse gamer", 1000.00, "Samsung", "Mouse usado em competição", "Informática", 10, "image");
 
         var result = controller.addProduct(productDto);
 
