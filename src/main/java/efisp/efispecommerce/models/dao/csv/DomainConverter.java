@@ -94,7 +94,7 @@ public class DomainConverter {
         Brand brand = brands.stream().filter(b -> b.getId().equals(UUID.fromString(data[3]))).findFirst().orElse(null);
         Department department = departments.stream().filter(d -> d.getId().equals(UUID.fromString(data[5]))).findFirst().orElse(null);
 
-        return new Product(UUID.fromString(data[0]), data[1], Double.parseDouble(data[2]), brand, data[4], department, Integer.parseInt(data[6]));
+        return new Product(UUID.fromString(data[0]), data[1], Double.parseDouble(data[2]), brand, data[4], department, Integer.parseInt(data[6]), data[7]);
     }
 
     public static Cart getCartFromCsv(Csv csv){

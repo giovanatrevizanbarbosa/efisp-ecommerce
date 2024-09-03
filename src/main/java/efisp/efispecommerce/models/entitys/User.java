@@ -38,6 +38,6 @@ public class User extends Writable {
 
     @Override
     public Csv toCSV() {
-        return new Csv(new String[]{"id", "name", "email", "password, photo"}, new String[]{String.valueOf(getId()), name, email, password, photo});
+        return new Csv(new String[]{"id", "name", "email", "password", "photo"}, new String[]{String.valueOf(getId()), name, email, password, photo});
     }
 }

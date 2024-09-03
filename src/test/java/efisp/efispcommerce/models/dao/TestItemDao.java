@@ -32,7 +32,7 @@ public class TestItemDao implements TestDao {
 
         cartRepo.add(new Cart(cartId, "a@a.com"));
 
-        assertTrue(productRepo.add(new Product(productId, "Product 1", 1, brandRepo.getById(brandId), "Mui Bom", departmentRepo.getById(departmentId), 1)));
+        assertTrue(productRepo.add(new Product(productId, "Product 1", 1, brandRepo.getById(brandId), "Mui Bom", departmentRepo.getById(departmentId), 1, "photo")));
     }
 
     @Override

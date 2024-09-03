@@ -31,7 +31,7 @@ public class TestProductService {
 
 
         ProductDTO productDTO = new ProductDTO(UUID.randomUUID(), "Teclado Mecânico", 600.00, brand.name()
-                , "Teclado com teclas suaves", department.name(), 15);
+                , "Teclado com teclas suaves", department.name(), 15, "photo");
 
         productService.add(productDTO);
     }
@@ -39,7 +39,7 @@ public class TestProductService {
     @Test
     public void addProductReturnsBoolean() {
         boolean actual = productService.add(new ProductDTO(UUID.randomUUID(), "Mouse", 200.00, "Nvidia"
-                , "Mouse com fio", "Informática", 10));
+                , "Mouse com fio", "Informática", 10, "photo"));
 
         assertTrue(actual);
     }
@@ -50,7 +50,7 @@ public class TestProductService {
         int expected = productService.getAll().size() + 1;
 
         productService.add(new ProductDTO(UUID.randomUUID(), "Mouse", 200.00, "Nvidia"
-                , "Mouse com fio", "Informática", 10));
+                , "Mouse com fio", "Informática", 10, "photo"));
 
         int actual = productService.getAll().size();
 

@@ -22,7 +22,7 @@ public class TestProduct {
         department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
 
         id = UUID.randomUUID();
-        product = new Product(id, "GeForce GTX1660", 800, brand, "GPU", department, 10);
+        product = new Product(id, "GeForce GTX1660", 800, brand, "GPU", department, 10, "photo");
     }
 
     @Test

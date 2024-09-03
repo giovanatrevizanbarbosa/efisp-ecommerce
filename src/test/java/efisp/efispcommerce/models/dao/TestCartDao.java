@@ -29,7 +29,7 @@ public class TestCartDao implements TestDao {
         Department department = new Department(UUID.randomUUID(), "Technology", "Varias coisas");
         departmentRepo.add(department);
 
-        Product product = new Product(UUID.randomUUID(), "Iphone", 1000.0, brand, "Smartphone", department, 10);
+        Product product = new Product(UUID.randomUUID(), "Iphone", 1000.0, brand, "Smartphone", department, 10, "photo");
         productRepo.add(product);
 
         Item item = new Item(UUID.randomUUID(), cartId, product, 1);

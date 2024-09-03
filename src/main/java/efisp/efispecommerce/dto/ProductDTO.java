@@ -12,13 +12,14 @@ import java.util.UUID;
  * @param stock Product's stock
  */
 public record ProductDTO(UUID id, String name, double price, String brand, String description, String department,
-                         int stock) {
+                         int stock, String photo) {
 
-    public ProductDTO(UUID id, String name, double price, String brand, String description, String department, int stock) {
+    public ProductDTO(UUID id, String name, double price, String brand, String description, String department, int stock, String photo) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.brand = brand;
+        this.photo = photo;
         this.description = description;
         this.department = department;
         if (stock < 0) {
