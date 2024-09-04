@@ -1,8 +1,10 @@
 package efisp.efispecommerce.servlets;
 
 import efisp.efispecommerce.controllers.AdmController;
+import efisp.efispecommerce.controllers.CartController;
 import efisp.efispecommerce.controllers.UserController;
 import efisp.efispecommerce.dto.AdmDTO;
+import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.dto.UserDTO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -34,6 +39,16 @@ public class LoginServlet extends HttpServlet {
             UserDTO userDto = userController.authenticate(email, password);
 
             if(userDto != null){
+                CartController cartController = new CartController();
+                CartDTO cartDto = cartController.getCartByOwnerEmail(email);
+
+                if(cartDto != null){
+                    cartController.deleteCart(cartDto.id());
+                }
+                cartDto = new CartDTO(UUID.randomUUID(), userDto.email(), new HashMap<>());
+                cartController.addCart(cartDto);
+                session.setAttribute("cart", cartDto);
+
                 session.setAttribute("user", userDto);
                 req.getRequestDispatcher("/home").forward(req, resp);
             } else {
