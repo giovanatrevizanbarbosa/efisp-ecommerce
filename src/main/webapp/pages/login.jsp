@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +14,33 @@
 </head>
 <body>
     <main class="hero bg-base-200 min-h-screen">
+        <c:choose>
+            <c:when test="${result == 'loginError'}">
+                <div role="alert" class="alert alert-error fixed top-4 left-1/2 transform -translate-x-1/2 w-fit z-50 mb-40">
+                    <span>Não foi possível efetuar login! Verifique os dados e tente novamente.</span>
+                    <div>
+                        <button class="btn btn-ghost message-alert-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </c:when>
+            <c:when test="${result == 'registered'}">
+                <div role="alert" class="alert alert-success fixed top-4 left-1/2 transform -translate-x-1/2 w-fit z-50 mb-40">
+                    <span>Usuário cadastrado com sucesso! Efetue login para acessar ao site.</span>
+                    <div>
+                        <button class="btn btn-ghost message-alert-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </c:when>
+        </c:choose>
+
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left max-w-3xl">
                 <h1 class="text-5xl font-bold">Acesso ao Efisp</h1>
@@ -44,6 +75,7 @@
         </div>
     </main>
 
+    <script defer src="./scripts/timeAlert.js"></script>
     <script defer src="./scripts/validateUserLogin.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
