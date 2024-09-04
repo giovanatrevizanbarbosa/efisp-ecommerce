@@ -22,7 +22,13 @@ public class CsvReaderWriter<T> {
 
     public CsvReaderWriter(String clazzName) throws InvalidPathException{
         this.clazzName = clazzName;
-        path = Path.of(Util.RESOURCES_PATH.value() + "/" + getDatasetName(clazzName));
+        var utilPath = Util.RESOURCES_PATH_FOR_TEST.value();
+
+        path = Path.of(utilPath + "/" + getDatasetName(clazzName));
+
+        if (utilPath.equals(Util.RESOURCES_PATH_FOR_TEST.value())) {
+            deleteFile();
+        }
     }
 
     private String getDatasetName(String clazzName) {

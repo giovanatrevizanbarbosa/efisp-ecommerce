@@ -23,7 +23,20 @@ public class TestAdmService {
 
     @Test
     public void addNewAdm() {
-        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igor@.com", "123", titleDTO)));
+        assertTrue(admService.add(new AdmDTO(UUID.randomUUID(),"Igor", "igorfff@.com", "123", titleDTO)));
+    }
+
+
+    @Test
+    public void TestEqualsAdm(){
+        AdmDTO admDTO = admService.getByEmail("igor@.com");
+
+        if (admDTO == null) {
+            AdmDTO admDTO2 = new AdmDTO(UUID.randomUUID(), "Igor", "igor@.com", "123", titleDTO);
+            assertTrue(admService.add(admDTO2));
+        }
+
+        assertFalse(admService.add(admDTO));
     }
 
 
@@ -58,7 +71,7 @@ public class TestAdmService {
     @Test
     public void getAllAdms() {
         var id = UUID.randomUUID();
-        AdmDTO admDTO = new AdmDTO(id, "Cauã", "a.com", "123", titleDTO);
+        AdmDTO admDTO = new AdmDTO(id, "Cauã", "aasd@asdff.com", "123", titleDTO);
 
         admService.add(admDTO);
 

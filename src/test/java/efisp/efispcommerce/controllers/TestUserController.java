@@ -20,7 +20,7 @@ public class TestUserController {
 
     @Test
     public void testAddUser() {
-        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "test@gmail.com", "123456789");
+        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "testAddUser@gmail.com", "123456789");
 
         var result = controller.add(userDto);
 
@@ -29,18 +29,18 @@ public class TestUserController {
 
     @Test
     public void testAuthenticate() {
-        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "causTeste@gmail.com", "123456789");
+        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "causTestAuth@gmail.com", "123456789");
 
         controller.add(userDto);
 
-        var result = controller.authenticate("causTeste@gmail.com", "123456789");
+        var result = controller.authenticate("causTestAuth@gmail.com", "123456789");
 
         assertNotNull(result);
     }
 
     @Test
     public void testUpdateUser() {
-        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "caua@g.com", "123456789");
+        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "cauaUpdate@g.com", "123456789");
 
         controller.add(userDto);
 
@@ -52,11 +52,11 @@ public class TestUserController {
 
     @Test
     public void testDeleteUser() {
-        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "asdasd@gmail.com", "123456789");
+        var userDto = new UserDTO(UUID.randomUUID(), "Cauã", "asdasdMorete@gmail.com", "123456789");
 
         controller.add(userDto);
 
-        var result = controller.delete("asdasd@gmail.com", "123456789");
+        var result = controller.delete("asdasdMorete@gmail.com", "123456789");
 
         assertTrue(result);
     }

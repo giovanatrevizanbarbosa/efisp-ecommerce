@@ -34,4 +34,16 @@ public class User extends Writable {
     public Csv toCSV() {
         return new Csv(new String[]{"id", "name", "email", "password"}, new String[]{String.valueOf(getId()), name, email, password});
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) return true;
+        if (!(obj instanceof User user)) return false;
+        return email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return email.hashCode();
+    }
 }

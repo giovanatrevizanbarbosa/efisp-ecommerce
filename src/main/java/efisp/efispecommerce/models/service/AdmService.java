@@ -71,6 +71,7 @@ public class AdmService {
      * @see Encoder#encode(String)
      */
     public boolean add(AdmDTO admDTO) {
+        if (admDTO == null) return false;
         titleService.add(admDTO.titleDTO());
         return dao.add(toEntity(admDTO, Encoder.encode(admDTO.password())));
     }
@@ -90,5 +91,25 @@ public class AdmService {
 
     public List<AdmDTO> getAll() {
         return dao.getAll().stream().map(this::toDTO).toList();
+    }
+
+    public AdmDTO getByEmail(String s) {
+        for (Administrator administrator : dao.getAll()) {
+            if (administrator.getEmail().equals(s)) {
+                return toDTO(administrator);
+            }
+        }
+
+        return null;
+    }
+
+    public boolean containsEmail(String email) {
+        for (Administrator administrator : dao.getAll()) {
+            if (administrator.getEmail().equals(email)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
