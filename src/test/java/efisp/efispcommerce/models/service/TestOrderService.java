@@ -46,7 +46,7 @@ public class TestOrderService {
         // Given
         boolean expected = true;
         // When
-        boolean actual = orderService.addOrder(orderDTO);
+        boolean actual = orderService.add(orderDTO);
         // Then
         assertEquals(expected, actual);
     }
