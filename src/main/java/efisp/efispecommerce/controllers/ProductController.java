@@ -1,5 +1,6 @@
 package efisp.efispecommerce.controllers;
 
+import efisp.efispecommerce.dto.AdmDTO;
 import efisp.efispecommerce.dto.ProductDTO;
 import efisp.efispecommerce.models.service.ProductService;
 
@@ -8,20 +9,25 @@ import java.util.UUID;
 
 public class ProductController {
     private final ProductService service;
+    private final AdmController admController;
 
     public ProductController() {
+        admController = new AdmController();
         service = new ProductService();
     }
 
-    public boolean add(ProductDTO productDto) {
+    public boolean add(ProductDTO productDto, AdmDTO admDto) {
+        if (admController.authenticate(admDto.email(), admDto.password()) == null) return false;
         return service.add(productDto);
     }
 
-    public boolean update(UUID id, ProductDTO productDto) {
+    public boolean update(UUID id, ProductDTO productDto, AdmDTO admDto) {
+        if (admController.authenticate(admDto.email(), admDto.password()) == null) return false;
         return service.update(id, productDto);
     }
 
-    public boolean delete(UUID id) {
+    public boolean delete(UUID id, AdmDTO admDto) {
+        if (admController.authenticate(admDto.email(), admDto.password()) == null) return false;
         return service.delete(id);
     }
 
