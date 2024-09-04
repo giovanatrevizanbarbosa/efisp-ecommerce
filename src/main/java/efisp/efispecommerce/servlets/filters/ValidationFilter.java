@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/cart","/checkout", "/home", "/product-details", "/profile"},
+@WebFilter(urlPatterns = {"/cart", "/checkout", "/profile"},
         filterName = "Authorization")
 public class ValidationFilter implements Filter {
         @Override

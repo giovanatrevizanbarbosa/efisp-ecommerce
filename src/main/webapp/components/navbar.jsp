@@ -30,7 +30,7 @@
                     <span class="text-lg font-bold">${cart.quantity} itens</span>
                     <span class="text-info">Subtotal: R$ ${cart.subtotal}</span>
                     <div class="card-actions">
-                        <button class="btn btn-primary btn-block">Ver carrinho</button>
+                        <a href="cart" class="btn btn-primary btn-block">Ver carrinho</a>
                     </div>
                 </div>
             </div>
