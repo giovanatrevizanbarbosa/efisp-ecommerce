@@ -24,8 +24,7 @@ public class LoginServlet extends HttpServlet {
         if(userDto != null){
             HttpSession session = req.getSession();
             session.setMaxInactiveInterval(30 * 60);
-            session.setAttribute("userEmail", userDto.email());
-            session.setAttribute("userId", userDto.id());
+            session.setAttribute("user", userDto);
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
             resp.sendRedirect(req.getContextPath() + "/login");

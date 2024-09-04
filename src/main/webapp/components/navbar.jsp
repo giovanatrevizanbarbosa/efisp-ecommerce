@@ -38,7 +38,7 @@
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
                 <div class="bg-neutral text-neutral-content w-12 rounded-full">
-                    <span class="text-xl">${fn:toUpperCase(fn:substring(user.username, 0, 1))}</span>
+                    <span class="text-xl">${fn:toUpperCase(fn:substring(user.name(), 0, 1))}</span>
                 </div>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">

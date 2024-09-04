@@ -99,9 +99,6 @@
             </form>
         </div>
     </main>
-
-    <jsp:include page="../components/footer.jsp"/>
-
 <script src="https://cdn.tailwindcss.com"></script>
 </body>
 

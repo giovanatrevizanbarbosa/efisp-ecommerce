@@ -26,43 +26,57 @@
                             <label class="label">
                                 <span class="label-text">Nome</span>
                             </label>
-                            <input type="text" name="name" placeholder="Seu nome" class="input input-bordered" required />
+                            <input type="text" name="name"
+                                   class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                   value="${user.name()}" required />
                         </div>
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text">Email</span>
                             </label>
-                            <input type="email" name="email" placeholder="Seu email" class="input input-bordered" required />
+                            <input type="email" name="email" placeholder="Seu email"
+                                   class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                   value="${user.email()}" required />
                         </div>
                     </div>
 
-                    <div>
+                    <button type="button" id="editPasswordBtn"
+                            onclick="togglePasswordEdit()"
+                            class="btn btn-outline w-full hidden">Alterar Senha</button>
+
+                    <div class="change-password hidden">
                         <h2 class="text-2xl font-semibold mb-4">Alterar Senha</h2>
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text">Senha Atual</span>
                             </label>
-                            <input type="password" name="current-password" placeholder="Senha atual" class="input input-bordered"
-                                   required />
+                            <input type="password" name="current-password" placeholder="Senha atual"
+                                   class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                    />
                         </div>
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text">Nova Senha</span>
                             </label>
-                            <input type="password" name="new-password" placeholder="Nova senha" class="input input-bordered"
-                                   required />
+                            <input type="password" name="new-password" placeholder="Nova senha"
+                                   class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                    />
                         </div>
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text">Confirmar Nova Senha</span>
                             </label>
                             <input type="password" name="confirm-new-password" placeholder="Confirmar nova senha"
-                                   class="input input-bordered" required />
+                                   class="input flex items-center w-full bg-base-300 pointer-events-none"  />
                         </div>
                     </div>
 
                     <div class="form-control mt-6">
-                        <button type="submit" class="btn btn-primary w-full">Atualizar Informações</button>
+                        <button type="button"
+                                onclick="toggleEdit(this)"
+                                class="btn btn-primary w-full">Editar Informações</button>
+                        <button type="submit" id="submitEdit"
+                                class="btn btn-success mt-4 status-reseter-button hidden">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -90,9 +104,7 @@
             </div>
         </div>
     </main>
-
-    <jsp:include page="../components/footer.jsp"/>
-
+    <script src="./scripts/toggleEdit.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
