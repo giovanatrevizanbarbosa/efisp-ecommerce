@@ -27,8 +27,8 @@ public class HomeServlet extends HttpServlet {
         ProductController productController = new ProductController();
         DepartmentController departmentController = new DepartmentController();
 
-        LinkedList<ProductDTO> products = new LinkedList<>(productController.getAll());
-        LinkedList<DepartmentDTO> departments = new LinkedList<>(departmentController.getAll());
+        List<ProductDTO> products = new LinkedList<>(productController.getAll());
+        List<DepartmentDTO> departments = new LinkedList<>(departmentController.getAll());
 
         String search = req.getParameter("search");
 
