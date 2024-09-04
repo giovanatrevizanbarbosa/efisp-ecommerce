@@ -21,7 +21,7 @@ public class UserRegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        if(controller.addUser(new UserDTO(UUID.randomUUID(), name, email, password))){
+        if(controller.add(new UserDTO(UUID.randomUUID(), name, email, password))){
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/register.jsp");
