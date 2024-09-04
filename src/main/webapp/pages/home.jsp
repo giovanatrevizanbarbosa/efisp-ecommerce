@@ -13,7 +13,6 @@
 </head>
 <body>
     <jsp:include page="../components/navbar.jsp"/>
-
     <main class="flex flex-col items-center m-8 md:mt-16">
         <h1 class="text-3xl font-bold mb-12">Produtos em Destaque</h1>
         <div class="flex flex-wrap justify-center gap-8">
@@ -39,7 +38,10 @@
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <p class="text-center mt-8">Nenhum produto disponível no momento.</p>
+                <div class="flex flex-col items-center justify-center h-5/6">
+                    <img class="w-64" alt="Resources not found" src="${pageContext.request.contextPath}/images/no-results.png">
+                    <p class="text-center text-xl mt-8">Erro ao buscar produtos.</p>
+                </div>
             </c:otherwise>
         </c:choose>
         </div>
