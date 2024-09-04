@@ -9,7 +9,7 @@ public class TestPath {
 
     @Test
     public void testPath(){
-        String path = Util.RESOURCES_PATH.value();
+        String path = Util.RESOURCES_PATH_FOR_TEST.value();
         String expected = "/efisp-ecommerce/resources/database";
         String orElse = "\\efisp-ecommerce\\resources\\database";
 

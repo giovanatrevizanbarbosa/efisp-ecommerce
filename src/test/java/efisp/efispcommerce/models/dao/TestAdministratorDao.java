@@ -25,8 +25,8 @@ public class TestAdministratorDao implements TestDao {
     @Override
     @Test
     public void add() {
-        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123",titleIDao.getById(titleId));
-        Administrator administrator2 = new Administrator(UUID.randomUUID(), "João", "joao.email.com", "Password123", titleIDao.getById(titleId));
+        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "caua@@@.email.com", "Password123",titleIDao.getById(titleId));
+        Administrator administrator2 = new Administrator(UUID.randomUUID(), "João", "joao@@@.email.com", "Password123", titleIDao.getById(titleId));
 
         assertTrue(administratorIDao.add(administrator));
         assertTrue(administratorIDao.add(administrator2));
@@ -75,7 +75,7 @@ public class TestAdministratorDao implements TestDao {
     public void getById() {
         var id = UUID.randomUUID();
 
-        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
+        Administrator administrator = new Administrator(id, "Cauã", "cauasda.demail.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
 
@@ -87,7 +87,7 @@ public class TestAdministratorDao implements TestDao {
     public void getAll() {
         var expected = administratorIDao.getAll().size() + 1;
 
-        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
+        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "cauasa.edmail.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
 

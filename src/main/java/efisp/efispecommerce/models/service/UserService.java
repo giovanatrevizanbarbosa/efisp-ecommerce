@@ -12,6 +12,7 @@ import java.util.UUID;
 
 public class UserService {
     private final IDao<User> users = Dao.getInstance(User.class);
+    private final AdmService admService = new AdmService();
 
     User toEntity(UserDTO userDTO) {
         return new User(userDTO.id(), userDTO.name(), userDTO.email(), userDTO.password());
@@ -50,6 +51,7 @@ public class UserService {
      * @see Encoder#encode(String)
      */
     public boolean addUser(UserDTO userDTO) {
+        if (Objects.isNull(userDTO) || admService.containsEmail(userDTO.email())) return false;
         User user = toEntity(userDTO, Encoder.encode(userDTO.password()));
         return users.add(user);
     }
@@ -63,11 +65,23 @@ public class UserService {
     }
 
     public UserDTO getUserByEmail(String email) {
-        return toDTO(Objects.requireNonNull(users.getAll().stream().filter(user -> user.getEmail().equals(email)).findFirst().orElse(null)));
+        for (User user : users.getAll()) {
+            if (user.getEmail().equals(email)) {
+                return toDTO(user);
+            }
+        }
+
+        return null;
     }
 
     public UserDTO getUserByName(String name) {
-        return toDTO(Objects.requireNonNull(users.getAll().stream().filter(user -> user.getName().equals(name)).findFirst().orElse(null)));
+        for (User user : users.getAll()) {
+            if (user.getName().equals(name)) {
+                return toDTO(user);
+            }
+        }
+
+        return null;
     }
 
     public boolean updateUser(UUID id, UserDTO userDTO) {
