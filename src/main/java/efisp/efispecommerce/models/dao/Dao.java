@@ -15,7 +15,7 @@ public class Dao<T extends Writable> implements IDao<T> {
     private Dao(Class<T> clazz) {
         dataService = new CsvReaderWriter<>(clazz.getSimpleName());
         try{
-            data = new TreeSet<>(dataService.read());
+            data = new LinkedHashSet<>(dataService.read());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

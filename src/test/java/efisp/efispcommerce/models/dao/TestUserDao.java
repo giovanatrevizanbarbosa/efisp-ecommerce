@@ -16,14 +16,14 @@ public class TestUserDao implements TestDao {
     @Override
     @Test
     public void add() {
-        assertTrue(userIDao.add(new User(UUID.randomUUID(), "Cauã", "caua.email.com", "Password123")));
+        assertTrue(userIDao.add(new User(UUID.randomUUID(), "Cauã", "kausnda.email.com", "Password123")));
     }
 
     @Override
     @Test
     public void getById() {
         var id = UUID.randomUUID();
-        User user = new User(id, "Cauã", "caua.email.com", "Password123");
+        User user = new User(id, "Cauã", "cauaaaaaa.email.com", "Password123");
 
         userIDao.add(user);
 
