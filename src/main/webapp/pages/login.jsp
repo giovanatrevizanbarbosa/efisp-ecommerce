@@ -6,7 +6,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
 
-    <title>Login - Efisp</title>
+    <title>Login - E-fisp</title>
 </head>
 <body>
     <main class="hero bg-base-200 min-h-screen">
@@ -44,6 +44,7 @@
         </div>
     </main>
 
+    <script defer src="./scripts/validateUserLogin.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
