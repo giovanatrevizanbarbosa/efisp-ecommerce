@@ -43,6 +43,9 @@ public class HomeServlet extends HttpServlet {
             }
         }
 
+        req.setAttribute("search", search);
+        req.setAttribute("products", products);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
         dispatcher.forward(req, resp);
     }
