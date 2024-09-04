@@ -21,6 +21,10 @@ public class CartController {
         return service.addItemToCart(cartId, itemId);
     }
 
+    public boolean removeItemFromCart(UUID cartId, UUID itemId) {
+        return service.removeItemFromCart(cartId, itemId);
+    }
+
     public boolean updateCart(UUID id, CartDTO cartDto) {
         return service.updateCart(id, cartDto);
     }
