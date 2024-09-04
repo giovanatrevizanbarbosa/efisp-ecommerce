@@ -21,12 +21,18 @@ public class UserRegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
+        String url;
+
         if(controller.add(new UserDTO(UUID.randomUUID(), name, email, password))){
-            resp.sendRedirect(req.getContextPath() + "/login");
+            req.setAttribute("result", "registered");
+            url = "/pages/login.jsp";
         } else {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/register.jsp");
-            dispatcher.forward(req, resp);
+            req.setAttribute("result", "notRegistered");
+            url = "/pages/register.jsp";
         }
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+        dispatcher.forward(req, resp);
     }
 
     @Override
