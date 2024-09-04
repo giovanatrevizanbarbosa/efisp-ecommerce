@@ -34,7 +34,7 @@ public class HomeServlet extends HttpServlet {
 
         if (search != null) {
             if (!search.trim().isEmpty()) {
-                products = products.stream()
+                products = (LinkedList<ProductDTO>) products.stream()
                         .filter(product -> product.name().toUpperCase().contains(search.toUpperCase()) ||
                                 product.brand().toUpperCase().contains(search.toUpperCase()))
                         .toList();
