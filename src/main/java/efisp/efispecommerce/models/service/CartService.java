@@ -42,12 +42,24 @@ public class CartService {
     }
 
     public CartDTO getCartByOwnerEmail(String ownerEmail) {
-        return toDTO(Objects.requireNonNull(dao.getAll().stream().filter(c -> c.getOwnerEmail().equals(ownerEmail)).findFirst().orElse(null)));
+        for (Cart cart : dao.getAll()) {
+            if (Objects.equals(cart.getOwnerEmail(), ownerEmail)) {
+                return toDTO(cart);
+            }
+        }
+
+        return null;
     }
 
     public boolean addItemToCart(UUID id, UUID itemId) {
         Cart cart = dao.getById(id);
         cart.insertItem(itemService.toEntity(itemService.getItemById(itemId)));
+        return dao.update(id, cart);
+    }
+
+    public boolean removeItemFromCart(UUID id, UUID itemId) {
+        Cart cart = dao.getById(id);
+        cart.removeItem(itemId);
         return dao.update(id, cart);
     }
 }
