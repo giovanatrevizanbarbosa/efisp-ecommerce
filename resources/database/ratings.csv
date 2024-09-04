@@ -1,3 +1,5 @@
 "id","userEmail","productId","comment","rating"
-"1","A@A.com","1","Muito Bom","1"
-"2","a@a.com","1","Muito Ruim","1"
+"0f36a00f-4f1c-42a0-adef-ac1ff42fddd2","a","18a4e15e-55f3-4221-b639-47f725c2ab8b","Muito Bom","1"
+"769fb393-ebfc-419c-afea-aedc22329f2b","a","38c669d9-c538-4cb4-97a3-4d26ce6bdb64","Muito Ruim","1"
+"07d766d4-f3a0-456e-9377-806e3e6340b3","a","7165dd7a-adc8-4b6f-b3bf-0989082b9cc1","Muito Bom","1"
+"6a1069c3-2b3c-4d58-b1e0-70a579388116","a","dc48be7a-7352-445a-9ae3-2b6a0089d25b","Muito Bom","1"

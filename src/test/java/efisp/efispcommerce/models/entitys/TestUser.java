@@ -4,19 +4,23 @@ import efisp.efispecommerce.models.entitys.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUser {
     User user;
+    UUID id;
 
     @BeforeEach
     public void Initialize() {
-        user = new User(1L, "Cauã", "caua@gmail.com", "Password123");
+        id = UUID.randomUUID();
+        user = new User(id, "Cauã", "caua@gmail.com", "Password123");
     }
 
     @Test
     public void TestUserGetId(){
-        var expected = 1;
+        var expected = id;
         var actual = user.getId();
 
         assertEquals(expected,actual);

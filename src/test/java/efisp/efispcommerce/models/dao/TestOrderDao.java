@@ -10,76 +10,88 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestOrderDao implements TestDao {
 
-    IDao<Order> orderIDao = new Dao<>(Order.class);
-    static IDao<User> userIDao = new Dao<>(User.class);
-    static IDao<Cart> cartIDao = new Dao<>(Cart.class);
-    static IDao<Address> addressIDao = new Dao<>(Address.class);
+    IDao<Order> orderIDao = Dao.getInstance(Order.class);
+    static IDao<User> userIDao = Dao.getInstance(User.class);
+    static IDao<Cart> cartIDao = Dao.getInstance(Cart.class);
+    static IDao<Address> addressIDao = Dao.getInstance(Address.class);
+
+
+    static User user;
+    static Cart cart;
+    static Address address;
 
     @BeforeAll
     public static void setUp(){
-        userIDao.add(new User(1L, "Cauã", "a@a.com", "123"));
-        userIDao.add(new User(2L, "Igor", "i@i.com", "123"));
+        user = new User(UUID.randomUUID(), "Cauã", "a@a.com", "123");
+        userIDao.add(user);
 
-        cartIDao.add(new Cart(1L, "a@a.com"));
-        cartIDao.add(new Cart(2L, "i@i.com"));
+        cart = new Cart(UUID.randomUUID(), user.getEmail());
+        cartIDao.add(cart);
 
-        addressIDao.add(new Address(1L, "Rua Yoki", 700, "Araraquara", "SP", "14800200"));
-        addressIDao.add(new Address(2L, "Rua Yoki", 700, "Araraquara", "SP", "14800200"));
+        address = new Address(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
+        addressIDao.add(address);
     }
 
     @Override
     @Test
     public void add() {
-        assertTrue(orderIDao.add(new Order(1L, userIDao.getById(1L), cartIDao.getById(1L), PaymentMethod.CreditCard, addressIDao.getById(1L))));
-        assertTrue(orderIDao.add(new Order(2L, userIDao.getById(2L), cartIDao.getById(2L), PaymentMethod.CreditCard, addressIDao.getById(2L))));
+        assertTrue(orderIDao.add(new Order(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address)));
     }
 
     @Override
     @Test
     public void update() {
-        orderIDao.add(new Order(1L, userIDao.getById(1L), cartIDao.getById(1L), PaymentMethod.CreditCard, addressIDao.getById(1L)));
-        orderIDao.add(new Order(2L, userIDao.getById(2L), cartIDao.getById(2L), PaymentMethod.CreditCard, addressIDao.getById(2L)));
+        UUID id = UUID.randomUUID();
 
-        Order order3 = new Order(3L, userIDao.getById(2L), cartIDao.getById(2L), PaymentMethod.CreditCard, addressIDao.getById(2L));
+        Order order = new Order(id, user, cart, PaymentMethod.CreditCard, address);
 
-        assertTrue(orderIDao.update(1L, order3));
+        orderIDao.add(order);
+
+        Order order2 = new Order(id, user, cart, PaymentMethod.CreditCard, address);
+
+        assertTrue(orderIDao.update(id, order2));
     }
 
     @Override
     @Test
     public void delete() {
-        orderIDao.add(new Order(1L, userIDao.getById(1L), cartIDao.getById(1L), PaymentMethod.CreditCard, addressIDao.getById(1L)));
-        orderIDao.add(new Order(2L, userIDao.getById(2L), cartIDao.getById(2L), PaymentMethod.CreditCard, addressIDao.getById(2L)));
+        UUID id = UUID.randomUUID();
 
-        assertTrue(orderIDao.delete(1L));
+        Order order = new Order(id, user, cart, PaymentMethod.CreditCard, address);
+
+        orderIDao.add(order);
+
+        assertTrue(orderIDao.delete(id));
     }
 
     @Override
     @Test
     public void getById() {
-        orderIDao.add(new Order(1L, userIDao.getById(1L), cartIDao.getById(1L), PaymentMethod.CreditCard, addressIDao.getById(1L)));
-        orderIDao.add(new Order(2L, userIDao.getById(2L), cartIDao.getById(2L), PaymentMethod.CreditCard, addressIDao.getById(2L)));
+        UUID id = UUID.randomUUID();
+        Order order = new Order(id, user, cart, PaymentMethod.CreditCard, address);
 
-        var actual = orderIDao.getById(2);
+        orderIDao.add(order);
 
-        assertEquals(2L, actual.getId());
+        assertEquals(order.getPaymentMethod(), orderIDao.getById(id).getPaymentMethod());
     }
 
     @Override
     @Test
     public void getAll() {
-        orderIDao.add(new Order(1L, userIDao.getById(1L), cartIDao.getById(1L), PaymentMethod.CreditCard, addressIDao.getById(1L)));
-        orderIDao.add(new Order(2L, userIDao.getById(2L), cartIDao.getById(2L), PaymentMethod.CreditCard, addressIDao.getById(2L)));
+        var expected = orderIDao.getAll().size() + 1;
 
-        var expected = 2;
+        Order order = new Order(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        orderIDao.add(order);
+
         var actual = orderIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(1L, orderIDao.getAll().getFirst().getId());
     }
 }

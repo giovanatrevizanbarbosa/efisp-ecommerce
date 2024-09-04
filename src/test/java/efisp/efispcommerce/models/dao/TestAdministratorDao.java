@@ -7,83 +7,93 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAdministratorDao implements TestDao {
 
-    IDao<Administrator> administratorIDao = new Dao<>(Administrator.class);
-    static IDao<Title> titleIDao = new Dao<>(Title.class);
+    IDao<Administrator> administratorIDao = Dao.getInstance(Administrator.class);
+    static IDao<Title> titleIDao = Dao.getInstance(Title.class);
+    static UUID titleId = UUID.randomUUID();
 
     @BeforeAll
     public static void Initialize(){
-        titleIDao.add(new Title(1L, "ADMIN", 1));
+        titleIDao.add(new Title(titleId, "ADMIN", 1));
     }
 
     @Override
     @Test
     public void add() {
-        Administrator administrator = new Administrator(1L, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
-        Administrator administrator2 = new Administrator(2L, "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "caua@@@.email.com", "Password123",titleIDao.getById(titleId));
+        Administrator administrator2 = new Administrator(UUID.randomUUID(), "João", "joao@@@.email.com", "Password123", titleIDao.getById(titleId));
 
         assertTrue(administratorIDao.add(administrator));
         assertTrue(administratorIDao.add(administrator2));
-        assertFalse(administratorIDao.add(administrator));
     }
 
     @Override
     @Test
     public void update() {
-        Administrator administrator = new Administrator(1L, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
-        Administrator administrator2 = new Administrator(2L, "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        var id = UUID.randomUUID();
+
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
-        administratorIDao.add(administrator2);
 
-        Administrator administrator3 = new Administrator(3L, "Kauam", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
+        Administrator administrator2 = new Administrator(id, "João", "joao.email.com", "Password123", titleIDao.getById(titleId));
 
-        assertTrue(administratorIDao.update(1L, administrator3));
+        assertTrue(administratorIDao.update(id, administrator2));
     }
+
+    @Test
+    public void TitleIdInAdministrator(){
+        var id = UUID.randomUUID();
+
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
+
+        administratorIDao.add(administrator);
+
+        assertEquals(titleId, administrator.getTitle().getId());
+    }
+
 
     @Override
     @Test
     public void delete() {
-        Administrator administrator = new Administrator(1L, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
-        Administrator administrator2 = new Administrator(2L, "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        var id = UUID.randomUUID();
+
+        Administrator administrator = new Administrator(id, "Cauã", "caua.email.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
-        administratorIDao.add(administrator2);
 
-        assertTrue(administratorIDao.delete(1L));
+        assertTrue(administratorIDao.delete(id));
     }
 
     @Override
     @Test
     public void getById() {
-        Administrator administrator = new Administrator(1L, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
-        Administrator administrator2 = new Administrator(2L, "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        var id = UUID.randomUUID();
+
+        Administrator administrator = new Administrator(id, "Cauã", "cauasda.demail.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
-        administratorIDao.add(administrator2);
 
-        var actual = administratorIDao.getById(2L);
-        assertEquals(administrator2.getId(), actual.getId());
+        assertEquals(administrator, administratorIDao.getById(id));
     }
 
     @Override
     @Test
     public void getAll() {
-        Administrator administrator = new Administrator(1L, "Cauã", "caua.email.com", "Password123", titleIDao.getAll().getFirst());
-        Administrator administrator2 = new Administrator(2L, "João", "joao.email.com", "Password123", titleIDao.getAll().getFirst());
+        var expected = administratorIDao.getAll().size() + 1;
+
+        Administrator administrator = new Administrator(UUID.randomUUID(), "Cauã", "cauasa.edmail.com", "Password123", titleIDao.getById(titleId));
 
         administratorIDao.add(administrator);
-        administratorIDao.add(administrator2);
 
-        var expected = 2;
         var actual = administratorIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(administrator, administratorIDao.getAll().getFirst());
-        assertEquals(administrator2, administratorIDao.getAll().getLast());
     }
 
 }

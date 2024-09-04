@@ -5,16 +5,16 @@ import efisp.efispecommerce.models.dao.csv.Csv;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class Cart extends Writable {
-    //identifier
     private final String ownerEmail;
     //Map<ProductId, Item>
-    private final Map<Integer, Item> items;
+    private final Map<UUID, Item> items;
     private int itemsQuantity;
     private double totalPrice;
 
-    public Cart(Long id, String ownerEmail) {
+    public Cart(UUID id, String ownerEmail) {
         super(id);
         this.ownerEmail = ownerEmail;
         items = new HashMap<>();
@@ -26,7 +26,7 @@ public class Cart extends Writable {
         return ownerEmail;
     }
 
-    public Map<Integer, Item> getItems() {
+    public Map<UUID, Item> getItems() {
         return items;
     }
 
@@ -35,7 +35,7 @@ public class Cart extends Writable {
     }
 
     public Boolean insertItem(Item item) {
-        if (items.put(Integer.parseInt(item.getProduct().getId().toString()), item) == null){
+        if (items.put(item.getProduct().getId(), item) == null) {
             totalPrice += item.getProduct().getPrice() * item.getQuantity();
             itemsQuantity += item.getQuantity();
             return true;
@@ -43,7 +43,7 @@ public class Cart extends Writable {
         return false;
     }
 
-    public Item removeItem(int productId) {
+    public Item removeItem(UUID productId) {
         Item item = items.remove(productId);
         totalPrice -= item.getProduct().getPrice() * item.getQuantity();
         itemsQuantity -= item.getQuantity();

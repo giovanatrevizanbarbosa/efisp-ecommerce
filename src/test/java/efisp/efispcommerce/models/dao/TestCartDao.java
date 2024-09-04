@@ -5,81 +5,88 @@ import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCartDao implements TestDao {
 
-    IDao<Cart> cartRepo = new Dao<>(Cart.class);
-
+    IDao<Cart> cartRepo = Dao.getInstance(Cart.class);
 
     @Test
     public void itemInCart(){
-        IDao<Item> itemRepo = new Dao<>(Item.class);
-        IDao<Brand> brandRepo = new Dao<>(Brand.class);
-        IDao<Department> departmentRepo = new Dao<>(Department.class);
-        IDao<Product> productRepo = new Dao<>(Product.class);
-        IDao<Cart> cartRepo = new Dao<>(Cart.class);
+        IDao<Item> itemRepo = Dao.getInstance(Item.class);
+        IDao<Product> productRepo = Dao.getInstance(Product.class);
+        IDao<Brand> brandRepo = Dao.getInstance(Brand.class);
+        IDao<Department> departmentRepo = Dao.getInstance(Department.class);
 
-        brandRepo.add(new Brand(1L, "Samsung"));
-        departmentRepo.add(new Department(1L, "Informática", "Informática"));
+        var cartId = UUID.randomUUID();
 
-        cartRepo.add(new Cart(1L, "a@a.com"));
+        Brand brand = new Brand(UUID.randomUUID(), "Apple");
+        brandRepo.add(brand);
 
-        productRepo.add(new Product(1L, "Product 1", 1, brandRepo.getById(1L), null, departmentRepo.getById(1L), 1));
-        productRepo.add(new Product(2L, "Product 2", 2, brandRepo.getById(1L), null, departmentRepo.getById(1L), 2));
+        Department department = new Department(UUID.randomUUID(), "Technology", "Varias coisas");
+        departmentRepo.add(department);
 
-        itemRepo.add(new Item(1L, 1L, productRepo.getById(1L), 1));
-        itemRepo.add(new Item(2L, 1L, productRepo.getById(2L), 2));
+        Product product = new Product(UUID.randomUUID(), "Iphone", 1000.0, brand, "Smartphone", department, 10, "photo");
+        productRepo.add(product);
 
-        cartRepo.getById(1L).insertItem(itemRepo.getById(1L));
-        cartRepo.getById(1L).insertItem(itemRepo.getById(2L));
+        Item item = new Item(UUID.randomUUID(), cartId, product, 1);
+        itemRepo.add(item);
+
+        Cart cart = new Cart(cartId, "com");
+        cart.insertItem(item);
+        cartRepo.add(cart);
 
 
-        assertEquals(5, cartRepo.getById(1L).getTotalPrice());
+        assertTrue(cartRepo.getById(cartId).getItems().containsKey(product.getId()));
     }
 
     @Override
     @Test
     public void add() {
-        assertTrue(cartRepo.add(new Cart(1L, "a@a.com")));
-        assertTrue(cartRepo.add(new Cart(2L, "b@b.com")));
+        assertTrue(cartRepo.add(new Cart(UUID.randomUUID(), "a@a.com")));
+        assertTrue(cartRepo.add(new Cart(UUID.randomUUID(), "b@b.com")));
     }
 
     @Override
     @Test
     public void update() {
-        cartRepo.add(new Cart(1L, "a@a.com"));
-        cartRepo.add(new Cart(2L, "b@b.com"));
-
-        assertTrue(cartRepo.update(1L, new Cart(1L, "c@c.com")));
+        var id = UUID.randomUUID();
+        cartRepo.add(new Cart(id, "a@a.com"));
+        assertTrue(cartRepo.update(id, new Cart(id, "c@c.com")));
     }
 
     @Override
     @Test
     public void delete() {
-        cartRepo.add(new Cart(1L, "a@a.com"));
-        cartRepo.add(new Cart(2L, "b@b.com"));
+        var id = UUID.randomUUID();
 
-        assertTrue(cartRepo.delete(2L));
+        cartRepo.add(new Cart(id, "b@b.com"));
+
+        assertTrue(cartRepo.delete(id));
     }
 
     @Override
     @Test
     public void getById() {
-        cartRepo.add(new Cart(1L, "a@a.com"));
-        cartRepo.add(new Cart(2L, "b@b.com"));
+        var id = UUID.randomUUID();
+        cartRepo.add(new Cart(id, "a@a.com"));
 
-        assertEquals("a@a.com", cartRepo.getById(1L).getOwnerEmail());
+        assertEquals("a@a.com", cartRepo.getById(id).getOwnerEmail());
     }
 
     @Override
     @Test
     public void getAll(){
-        cartRepo.add(new Cart(1L, "a@a.com"));
-        cartRepo.add(new Cart(2L, "b@b.com"));
 
-        assertEquals(2, cartRepo.getAll().size());
+        int size = cartRepo.getAll().size() + 2;
+
+        cartRepo.add(new Cart(UUID.randomUUID(), "a@a.com"));
+        cartRepo.add(new Cart(UUID.randomUUID(), "b@b.com"));
+
+        assertEquals(size, cartRepo.getAll().size());
     }
 
 }

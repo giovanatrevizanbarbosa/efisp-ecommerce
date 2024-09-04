@@ -3,7 +3,7 @@ package efisp.efispecommerce.models.dao.csv;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-import efisp.efispecommerce.models.dao.Util;
+import efisp.efispecommerce.models.Util;
 import efisp.efispecommerce.models.dao.Writable;
 
 import java.io.IOException;
@@ -19,14 +19,16 @@ public class CsvReaderWriter<T> {
 
     private final Path path;
     private final String clazzName;
-    private CSVWriter csvWriter;
-    private CSVReader csvReader;
 
     public CsvReaderWriter(String clazzName) throws InvalidPathException{
         this.clazzName = clazzName;
-        path = Path.of(Util.RESOURCES_PATH.value() + "/" + getDatasetName(clazzName));
-        buildWriter();
-        buildReader();
+        var utilPath = Util.RESOURCES_PATH_FOR_TEST.value();
+
+        path = Path.of(utilPath + "/" + getDatasetName(clazzName));
+
+        if (utilPath.equals(Util.RESOURCES_PATH_FOR_TEST.value())) {
+            deleteFile();
+        }
     }
 
     private String getDatasetName(String clazzName) {
@@ -36,39 +38,50 @@ public class CsvReaderWriter<T> {
             return clazzName.toLowerCase() + "s.csv";
     }
 
-    private void buildWriter() throws InvalidPathException{
+    private CSVWriter buildWriter() throws InvalidPathException{
         try {
-            if (Files.exists(path)) {
-                Files.delete(path);
-            }
-
             Writer writer = Files.newBufferedWriter(path);
-            csvWriter = new CSVWriter(writer);
+            return new CSVWriter(writer);
         } catch (Exception e) {
             throw new InvalidPathException(String.valueOf(path), e.getMessage());
         }
     }
 
-    private void buildReader() throws InvalidPathException{
+    private CSVReader buildReader() throws InvalidPathException{
         try {
             Reader reader = Files.newBufferedReader(path);
-            csvReader = new CSVReader(reader);
+            return new CSVReader(reader);
         } catch (Exception e) {
             throw new InvalidPathException(String.valueOf(path), e.getMessage());
+        }
+    }
+
+    private void deleteFile(){
+        try{
+            if (Files.exists(path)) {
+                Files.delete(path);
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting file: " + e.getMessage());
         }
     }
 
     public void save(List<Writable> data) throws CsvException {
         try {
-            buildWriter();
+            deleteFile();
+            CSVWriter csvWriter = buildWriter();
 
-            csvWriter.writeNext(data.getFirst().toCSV().getHeader());
-            csvWriter.flush();
+           if (data.isEmpty()) return;
 
-            for (Writable csv : data) {
-                csvWriter.writeNext(csv.toCSV().getData());
-            }
+           csvWriter.writeNext(data.getFirst().toCSV().getHeader());
+           csvWriter.flush();
+
+           for (Writable csv : data) {
+               csvWriter.writeNext(csv.toCSV().getData());
+           }
+
             csvWriter.flush();
+            csvWriter.close();
         } catch (IOException | InvalidPathException e) {
             throw new CsvException("Error saving file: " + e.getMessage());
         }
@@ -77,13 +90,19 @@ public class CsvReaderWriter<T> {
     @SuppressWarnings("unchecked")
     public List<T> read() throws CsvException {
         try {
-           List<T> tList = new LinkedList<>();
-
-            csvReader.readAll().forEach(obj -> {
-
-                Writable writable = DomainConverter.fromCsv(new Csv(obj), clazzName);
-                tList.add((T) writable);
+            if (!Files.exists(path)) {
+                return new LinkedList<>();
             }
+
+            CSVReader csvReader = buildReader();
+            List<T> tList = new LinkedList<>();
+                csvReader.readAll().forEach(obj -> {
+                    if (!obj[0].equals("id")){
+                        Csv csv = new Csv();
+                        csv.setData(obj);
+                        tList.add((T) DomainConverter.fromCsv(csv, clazzName));
+                    }
+                }
            );
 
            return tList;

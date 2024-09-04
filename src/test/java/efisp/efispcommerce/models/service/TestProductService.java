@@ -1,32 +1,60 @@
 package efisp.efispcommerce.models.service;
 
+import efisp.efispecommerce.dto.BrandDTO;
+import efisp.efispecommerce.dto.DepartmentDTO;
 import efisp.efispecommerce.dto.ProductDTO;
-import efisp.efispecommerce.models.entitys.Brand;
-import efisp.efispecommerce.models.entitys.Department;
+import efisp.efispecommerce.models.service.BrandService;
+import efisp.efispecommerce.models.service.DepartmentService;
 import efisp.efispecommerce.models.service.ProductService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestProductService {
-    private ProductDTO productDTO;
-    private ProductService productService;
-    @BeforeEach
-    public void setUp() {
-        Brand brand = new Brand(1L, "Red Dragon");
-        Department department = new Department(1L,"Hardware", "Hardware department");
-        productDTO = new ProductDTO(1L, "Teclado Mecânico", 600.00, brand
-                , "Teclado com teclas suaves", department, 15);
-        productService = new ProductService();
+    private static final ProductService productService = new ProductService();
+
+    @BeforeAll
+    public static void setUp() {
+
+        BrandService brandService = new BrandService();
+        BrandDTO brand = new BrandDTO(UUID.randomUUID(), "Nvidia");
+        brandService.add(brand);
+
+
+        DepartmentService departmentService = new DepartmentService();
+        DepartmentDTO department = new DepartmentDTO(UUID.randomUUID(), "Informática", "Informática");
+        departmentService.add(department);
+
+
+        ProductDTO productDTO = new ProductDTO(UUID.randomUUID(), "Teclado Mecânico", 600.00, brand.name()
+                , "Teclado com teclas suaves", department.name(), 15, "photo");
+
+        productService.add(productDTO);
     }
 
     @Test
     public void addProductReturnsBoolean() {
-        // GIven
-        boolean expected = true;
+        boolean actual = productService.add(new ProductDTO(UUID.randomUUID(), "Mouse", 200.00, "Nvidia"
+                , "Mouse com fio", "Informática", 10, "photo"));
+
+        assertTrue(actual);
+    }
+
+    @Test
+    public void getAllProductsReturnsList() {
         // When
-        boolean actual = productService.addProduct(productDTO);
+        int expected = productService.getAll().size() + 1;
+
+        productService.add(new ProductDTO(UUID.randomUUID(), "Mouse", 200.00, "Nvidia"
+                , "Mouse com fio", "Informática", 10, "photo"));
+
+        int actual = productService.getAll().size();
+
+
         // Then
         assertEquals(expected, actual);
     }

@@ -2,27 +2,34 @@ package efisp.efispecommerce.models.dao;
 
 import efisp.efispecommerce.models.dao.csv.CsvReaderWriter;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class Dao<T extends Writable> implements IDao<T> {
 
 
     private final CsvReaderWriter<T> dataService;
+    private static final Map<Class<?>, Dao<?>> instances = new HashMap<>();
     private final Set<Writable> data;
 
-    public Dao(Class<T> clazz) {
+    private Dao(Class<T> clazz) {
         dataService = new CsvReaderWriter<>(clazz.getSimpleName());
         try{
-            data = new TreeSet<>(dataService.read());
+            data = new LinkedHashSet<>(dataService.read());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
-            throw new RuntimeException(e + " - Repository not created and file possibly is in use");
+            throw new RuntimeException(e);
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T extends Writable> Dao<T> getInstance(Class<T> clazz) {
+        if (!instances.containsKey(clazz)) {
+            instances.put(clazz, new Dao<>(clazz));
+            return (Dao<T>) instances.get(clazz);
+        }
+
+        return (Dao<T>) instances.get(clazz);
+    }
 
     @Override
     public boolean add(Writable newValue) {
@@ -37,9 +44,9 @@ public class Dao<T extends Writable> implements IDao<T> {
     }
 
     @Override
-    public boolean update(long id, Writable newValue) {
+    public boolean update(UUID id, Writable newValue) {
         try {
-            data.removeIf(writable -> writable.getId() == id);
+            data.removeIf(writable -> writable.getId().equals(id));
             if (!data.add(newValue)) return false;
             dataService.save(List.copyOf(data));
             return true;
@@ -50,9 +57,9 @@ public class Dao<T extends Writable> implements IDao<T> {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(UUID id) {
         try {
-            data.removeIf(writable -> writable.getId() == id);
+            data.removeIf(writable -> writable.getId().equals(id));
             dataService.save(List.copyOf(data));
             return true;
         } catch (Exception e) {
@@ -63,8 +70,8 @@ public class Dao<T extends Writable> implements IDao<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public T getById(long id) {
-        return (T) data.stream().filter(writable -> writable.getId() == id).findFirst().orElse(null);
+    public T getById(UUID id) {
+        return (T) data.stream().filter(writable -> writable.getId().equals(id)).findFirst().orElse(null);
     }
 
     @Override

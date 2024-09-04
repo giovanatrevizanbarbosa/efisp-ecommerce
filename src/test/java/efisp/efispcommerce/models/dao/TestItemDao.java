@@ -6,71 +6,81 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestItemDao implements TestDao {
 
-    IDao<Item> itemRepo = new Dao<>(Item.class);
-    static IDao<Product> productRepo = new Dao<>(Product.class);
-    static IDao<Cart> cartRepo = new Dao<>(Cart.class);
+    IDao<Item> itemRepo = Dao.getInstance(Item.class);
+    static IDao<Product> productRepo = Dao.getInstance(Product.class);
+    static IDao<Cart> cartRepo = Dao.getInstance(Cart.class);
+
+    static UUID productId = UUID.randomUUID();
+    static UUID cartId = UUID.randomUUID();
 
     @BeforeAll
     public static void setUp() {
-        IDao<Brand> brandRepo = new Dao<>(Brand.class);
-        brandRepo.add(new Brand(1L, "Samsung"));
+        IDao<Brand> brandRepo = Dao.getInstance(Brand.class);
+        var brandId = UUID.randomUUID();
+        brandRepo.add(new Brand(brandId, "Samsung"));
 
-        IDao<Department> departmentRepo = new Dao<>(Department.class);
-        departmentRepo.add(new Department(1L, "Informática", "Informática"));
+        IDao<Department> departmentRepo = Dao.getInstance(Department.class);
+        var departmentId = UUID.randomUUID();
+        departmentRepo.add(new Department(departmentId, "Informática", "Informática"));
 
-        cartRepo.add(new Cart(1L, "a@a.com"));
-        cartRepo.add(new Cart(2L, "b@b.com"));
+        cartRepo.add(new Cart(cartId, "a@a.com"));
 
-        productRepo.add(new Product(1L, "Product 1", 1, brandRepo.getById(1L), null, departmentRepo.getById(1L), 1));
-        productRepo.add(new Product(2L, "Product 2", 2, brandRepo.getById(1L), null, departmentRepo.getById(1L), 2));
+        assertTrue(productRepo.add(new Product(productId, "Product 1", 1, brandRepo.getById(brandId), "Mui Bom", departmentRepo.getById(departmentId), 1, "photo")));
     }
 
     @Override
     @Test
     public void add() {
-        assertTrue(itemRepo.add(new Item(1L, 1L, productRepo.getById(1L), 1)));
-        assertTrue(itemRepo.add(new Item(2L, 2L, productRepo.getById(2L), 2)));
+        assertTrue(itemRepo.add(new Item(UUID.randomUUID(), cartId, productRepo.getById(productId), 1)));
     }
 
     @Override
     @Test
     public void update() {
-        itemRepo.add(new Item(1L, 1L, productRepo.getById(1L), 1));
-        itemRepo.add(new Item(2L, 2L, productRepo.getById(2L), 2));
+        UUID id = UUID.randomUUID();
+        itemRepo.add(new Item(id, cartId, productRepo.getById(productId), 1));
 
-        assertTrue(itemRepo.update(1L, new Item(1L, 1L, productRepo.getById(1L), 4)));
+        assertTrue(itemRepo.update(id, new Item(id, cartId, productRepo.getById(productId), 2)));
     }
 
     @Override
     @Test
     public void delete(){
-        itemRepo.add(new Item(1L, 1L, productRepo.getById(1L), 1));
-        itemRepo.add(new Item(2L, 2L, productRepo.getById(2L), 2));
+        UUID id = UUID.randomUUID();
+        itemRepo.add(new Item(id, cartId, productRepo.getById(productId), 1));
 
-        assertTrue(itemRepo.delete(2L));
+        assertTrue(itemRepo.delete(id));
     }
 
     @Override
     @Test
     public void getById(){
-        itemRepo.add(new Item(1L, 1L, productRepo.getById(1L), 1));
-        itemRepo.add(new Item(2L, 2L, productRepo.getById(2L), 3));
+        UUID id = UUID.randomUUID();
+        var expected = new Item(id, cartId, productRepo.getById(productId), 1);
 
-        assertEquals(3, itemRepo.getById(2L).getQuantity());
+        itemRepo.add(expected);
+
+        var actual = itemRepo.getById(id);
+
+        assertEquals(expected, actual);
     }
 
     @Override
     @Test
     public void getAll(){
-        itemRepo.add(new Item(1L, 1L, productRepo.getById(1L), 1));
-        itemRepo.add(new Item(2L, 2L, productRepo.getById(2L), 2));
+        var expected = itemRepo.getAll().size() + 1;
+        itemRepo.add(new Item(UUID.randomUUID(), cartId, productRepo.getById(productId), 1));
 
-        assertEquals(2, itemRepo.getAll().size());
+        var actual = itemRepo.getAll().size();
+
+        assertEquals(expected, actual);
     }
 
 }

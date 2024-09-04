@@ -80,7 +80,7 @@
 
         <div class="mt-8">
             <div class="divider mb-6"></div>
-            <form action="checkout" method="post" class="space-y-4">
+            <form action="cart" method="post" class="space-y-4">
                 <h2 class="text-xl font-semibold">Detalhes do pedido</h2>
                 <div class="flex justify-between">
                     <p>Subtotal</p>

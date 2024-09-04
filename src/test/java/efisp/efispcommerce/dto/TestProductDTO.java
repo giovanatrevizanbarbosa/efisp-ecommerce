@@ -6,30 +6,32 @@ import efisp.efispecommerce.models.entitys.Department;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestProductDTO {
 
     private ProductDTO productDTO;
-    private Brand brand;
-    private Department department;
+    private UUID id;
 
     @BeforeEach
     public void setUp() {
-        brand = new Brand(1L,"Dell");
-        department = new Department(1L, "Hardware", "Hardware department");
-        productDTO = new ProductDTO(1L, "Notebook Inspiron 15",
-                4500, brand, "Notebook Intel Core i7 12a geração",
-                department, 10);
+        Brand brand = new Brand(UUID.randomUUID(), "Dell");
+        Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
+        id = UUID.randomUUID();
+        productDTO = new ProductDTO(id, "Notebook Inspiron 15",
+                4500, brand.getName(), "Notebook Intel Core i7 12a geração",
+                department.getName(), 10, "photo");
     }
 
     @Test
     public void getIdReturnsCorrectId() {
         // Given
-        Long expected = 1L;
+        UUID expected = id;
         // When
-        Long actual = productDTO.getId();
+        UUID actual = productDTO.id();
         // Then
         assertEquals(expected, actual);
     }
@@ -39,7 +41,7 @@ public class TestProductDTO {
         // Given
         String expected = "Notebook Inspiron 15";
         // When
-        String actual = productDTO.getName();
+        String actual = productDTO.name();
         // Then
         assertEquals(expected, actual);
     }
@@ -49,7 +51,7 @@ public class TestProductDTO {
         // Given
         double expected = 4500;
         // When
-        double actual = productDTO.getPrice();
+        double actual = productDTO.price();
         // Then
         assertEquals(expected, actual);
     }
@@ -59,7 +61,7 @@ public class TestProductDTO {
         // Given
         String expected = "Notebook Intel Core i7 12a geração";
         // When
-        String actual = productDTO.getDescription();
+        String actual = productDTO.description();
         // Then
         assertEquals(expected, actual);
     }
@@ -68,13 +70,10 @@ public class TestProductDTO {
     public void getDepartmentReturnsCorrectDepartment() {
         // Given
         String expectedName = "Hardware";
-        String expectedDescription = "Hardware department";
         // When
-        String actualName = productDTO.getDepartment().getName();
-        String actualDescription = productDTO.getDepartment().getDescription();
+        String actualName = productDTO.department();
         // Then
         assertEquals(expectedName, actualName);
-        assertEquals(expectedDescription, actualDescription);
     }
 
     @Test
@@ -82,7 +81,7 @@ public class TestProductDTO {
         // Given
         int expected = 10;
         // When
-        int actual = productDTO.getStock();
+        int actual = productDTO.stock();
         // Then
         assertEquals(expected, actual);
     }
@@ -92,7 +91,7 @@ public class TestProductDTO {
         // Given
         String expected = "Dell";
         // When
-        String actual = productDTO.getBrand().getName();
+        String actual = productDTO.brand();
         // Then
         assertEquals(expected, actual);
     }
@@ -100,13 +99,11 @@ public class TestProductDTO {
     @Test
     public void constructorThrowsExceptionWhenStockIsNegative() {
         // Given
-        Brand brand = new Brand(1L, "Dell");
-        Department department = new Department(1L, "Hardware", "Hardware department");
+        Brand brand = new Brand(UUID.randomUUID(), "Dell");
+        Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
         // When & Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new ProductDTO(1L, "Notebook Inspiron 15", 4500, brand
-                    , "Notebook Intel Core i7 12a geração", department, -1);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new ProductDTO(UUID.randomUUID(), "Notebook Inspiron 15", 4500, brand.getName()
+                , "Notebook Intel Core i7 12a geração", department.getName(), -1, "photo"));
 
         assertEquals("Stock cannot be negative", exception.getMessage());
     }

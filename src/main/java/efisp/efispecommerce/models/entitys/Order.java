@@ -4,6 +4,8 @@ import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
+import java.util.UUID;
+
 public class Order extends Writable {
     //identifier
     private final User user;
@@ -11,7 +13,7 @@ public class Order extends Writable {
     private PaymentMethod paymentMethod;
     private Address address;
 
-    public Order(Long id, User user, Cart cart, PaymentMethod method, Address address) {
+    public Order(UUID id, User user, Cart cart, PaymentMethod method, Address address) {
         super(id);
         this.user = user;
         this.cart = cart;

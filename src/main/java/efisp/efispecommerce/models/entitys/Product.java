@@ -3,6 +3,8 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Product extends Writable {
     //id as identifier allows multiple products with same name, but different price, brand and description.
     private final String name;
@@ -11,9 +13,11 @@ public class Product extends Writable {
     private final String description;
     private final Department department;
     private final int stock;
+    private final String photo;
 
-    public Product(Long id, String name, double price, Brand brand, String description, Department department, int stock) {
+    public Product(UUID id, String name, double price, Brand brand, String description, Department department, int stock, String photo) {
         super(id);
+        this.photo = photo;
         this.name = name;
         this.price = price;
         this.brand = brand;
@@ -38,6 +42,10 @@ public class Product extends Writable {
         return description;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
     public Department getDepartment() {
         return department;
     }
@@ -49,8 +57,8 @@ public class Product extends Writable {
     @Override
     public Csv toCSV() {
         return new Csv(
-            new String[]{"id", "name", "price", "brand", "description", "department", "stock"},
-            new String[]{getId().toString(), name, String.valueOf(price), brand.getId().toString(), description, department.getId().toString(), String.valueOf(stock)}
+            new String[]{"id", "name", "price", "brand", "description", "department", "stock", "photo"},
+            new String[]{getId().toString(), name, String.valueOf(price), brand.getId().toString(), description, department.getId().toString(), String.valueOf(stock), photo}
         );
     }
 }
