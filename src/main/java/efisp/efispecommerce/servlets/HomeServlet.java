@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.LinkedList;
 
 @WebServlet("/home")
@@ -34,10 +33,14 @@ public class HomeServlet extends HttpServlet {
 
         if (search != null) {
             if (!search.trim().isEmpty()) {
-                products = products.stream()
-                        .filter(product -> product.name().toUpperCase().contains(search.toUpperCase()) ||
-                                product.brand().toUpperCase().contains(search.toUpperCase()))
-                        .toList();
+                LinkedList<ProductDTO> list = new LinkedList<>();
+                for (ProductDTO product : products) {
+                    if (product.name().toUpperCase().contains(search.toUpperCase()) ||
+                            product.brand().toUpperCase().contains(search.toUpperCase())) {
+                        list.add(product);
+                    }
+                }
+                products = list;
             }
         }
 
