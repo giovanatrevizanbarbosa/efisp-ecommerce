@@ -2,6 +2,7 @@ package efisp.efispecommerce.servlets;
 
 import efisp.efispecommerce.controllers.UserController;
 import efisp.efispecommerce.dto.UserDTO;
+import efisp.efispecommerce.models.Encoder;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,11 +25,16 @@ public class ProfileServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("new-password");
 
-        if(password != null && !password.isEmpty()){
-            controller.update(user.id(), new UserDTO(user.id(), name, email, password));
+        UserDTO updatedUser;
+        if (password != null && !password.isEmpty()) {
+            String encodedPassword = Encoder.encode(password);
+            updatedUser = new UserDTO(user.id(), name, email, encodedPassword);
         } else {
-            controller.update(user.id(), new UserDTO(user.id(), name, email, user.password()));
+            updatedUser = new UserDTO(user.id(), name, email, user.password());
         }
+        controller.update(user.id(), updatedUser);
+
+        session.setAttribute("user", updatedUser);
 
         req.getRequestDispatcher("/pages/profile.jsp").forward(req, resp);
     }

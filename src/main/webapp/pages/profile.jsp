@@ -20,7 +20,7 @@
         <div class="card bg-base-100 w-full max-w-lg shadow-xl mb-8">
             <div class="card-body">
                 <form action="profile" method="post" class="space-y-6">
-                    <div>
+                    <div class="change-profile">
                         <h2 class="text-2xl font-semibold mb-4">Informações do Perfil</h2>
                         <div class="form-control mb-4">
                             <label class="label">
@@ -52,6 +52,7 @@
                             </label>
                             <input type="password" name="current-password" placeholder="Senha atual"
                                    class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                   readonly
                                     />
                         </div>
                         <div class="form-control mb-4">
@@ -60,6 +61,7 @@
                             </label>
                             <input type="password" name="new-password" placeholder="Nova senha"
                                    class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                   readonly
                                     />
                         </div>
                         <div class="form-control mb-4">
@@ -67,7 +69,8 @@
                                 <span class="label-text">Confirmar Nova Senha</span>
                             </label>
                             <input type="password" name="confirm-new-password" placeholder="Confirmar nova senha"
-                                   class="input flex items-center w-full bg-base-300 pointer-events-none"  />
+                                   class="input flex items-center w-full bg-base-300 pointer-events-none"
+                                   readonly/>
                         </div>
                     </div>
 
@@ -82,25 +85,30 @@
             </div>
         </div>
 
-        <div class="w-full max-w-7xl">
-            <h2 class="text-2xl font-semibold mb-4 text-left">Histórico de Compras</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <section class="card card-compact bg-base-200 shadow-xl">
-                    <a href="#">
-                        <figure>
-                            <img class="rounded-t-lg w-full object-cover"
-                                 src="https://www.kabum.com.br/_next/image?url=https%3A%2F%2Fimages.kabum.com.br%2Fprodutos%2Ffotos%2F522531%2Fplaca-de-video-rtx-4060-asus-dual-o8g-evo-nvidia-geforce-8gb-gddr6-g-sync-ray-tracing-90yv0jc7-m0na00_1711036187_g.jpg&w=640&q=100"
-                                 alt="Placa de vídeo RTX 4060 ASUS Dual 8G EVO OC" />
-                        </figure>
-                        <div class="card-body">
-                            <h2 class="card-title line-clamp-2">Placa de vídeo RTX 4060 ASUS Dual 8G EVO OC NVIDIA GeForce</h2>
-                            <div class="card-actions flex justify-between items-center mt-4">
-                                <span class="text-xl font-semibold text-secondary">R$ 2.099,99</span>
-                            </div>
-                        </div>
-                    </a>
-                </section>
+        <div class="collapse bg-base-200">
+            <input type="checkbox" />
+            <div class="collapse-title text-2xl font-semibold text-center">Histórico de Compras</div>
+            <div class="collapse-content">
+                <div class="w-full max-w-xs">
+                    <div class="w-full max-w-lg shadow-xl mb-8">
+                        <section class="card card-compact bg-base-200 shadow-xl">
+                            <a href="#">
+                                <figure>
+                                    <img class="rounded-t-lg w-full object-cover"
+                                         src="https://www.kabum.com.br/_next/image?url=https%3A%2F%2Fimages.kabum.com.br%2Fprodutos%2Ffotos%2F522531%2Fplaca-de-video-rtx-4060-asus-dual-o8g-evo-nvidia-geforce-8gb-gddr6-g-sync-ray-tracing-90yv0jc7-m0na00_1711036187_g.jpg&w=640&q=100"
+                                         alt="Placa de vídeo RTX 4060 ASUS Dual 8G EVO OC" />
+                                </figure>
+                                <div class="card-body">
+                                    <h2 class="card-title line-clamp-2">Placa de vídeo RTX 4060 ASUS Dual 8G EVO OC NVIDIA GeForce</h2>
+                                    <div class="card-actions flex justify-between items-center mt-4">
+                                        <span class="text-xl font-semibold text-secondary">R$ 2.099,99</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </section>
 
+                    </div>
+                </div>
             </div>
         </div>
     </main>

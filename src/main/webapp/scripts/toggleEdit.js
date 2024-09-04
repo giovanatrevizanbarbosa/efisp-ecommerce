@@ -1,9 +1,8 @@
 const submitBtn = document.getElementById('submitEdit');
 
 function toggleEdit(button) {
-    const form = button.parentNode.parentNode;
+    const form = document.querySelector('.change-profile');
     const inputs = form.querySelectorAll('input');
-    const selects = form.querySelectorAll('select');
     const editPasswordButton = document.getElementById('editPasswordBtn');
 
     inputs.forEach(input => {
@@ -12,10 +11,6 @@ function toggleEdit(button) {
         input.readOnly = false;
     });
 
-    selects.forEach(select => {
-        select.classList.remove('pointer-events-none');
-        select.classList.add('select-bordered');
-    })
     button.classList.add('hidden');
     editPasswordButton.classList.remove('hidden');
     submitBtn.classList.remove('hidden');
@@ -23,14 +18,20 @@ function toggleEdit(button) {
 
 function togglePasswordEdit() {
     const changePasswordDiv = document.querySelector('.change-password');
+    const toggleEditPasswordButton = document.getElementById('editPasswordBtn');
     const passwordInputs = changePasswordDiv.querySelectorAll('input');
 
     changePasswordDiv.classList.toggle('hidden');
+    if(toggleEditPasswordButton.innerText === 'Manter Senha'){
+        toggleEditPasswordButton.innerText = 'Alterar Senha'
+    } else {
+        toggleEditPasswordButton.innerText = 'Manter Senha';
+    }
 
     passwordInputs.forEach(input => {
-        input.classList.remove('pointer-events-none');
-        input.classList.add('input-bordered');
-        input.readOnly = false;
-        input.required = true;
+        input.classList.toggle('pointer-events-none');
+        input.classList.toggle('input-bordered');
+        input.readOnly = !input.readOnly;
+        input.required = !input.required;
     });
 }
