@@ -54,6 +54,18 @@ public class Cart extends Writable {
     public int getItemsQuantity() { return itemsQuantity; }
 
     @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) return true;
+        if (!(obj instanceof Cart cart)) return false;
+        return ownerEmail.equals(cart.ownerEmail);
+    }
+
+    @Override
+    public int hashCode() {
+        return ownerEmail.hashCode();
+    }
+
+    @Override
     public Csv toCSV() {
         return new Csv(
                 new String[]{"id", "ownerEmail", "totalPrice"},

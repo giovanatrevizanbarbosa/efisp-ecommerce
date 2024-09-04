@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.LinkedList;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -26,8 +27,8 @@ public class HomeServlet extends HttpServlet {
         ProductController productController = new ProductController();
         DepartmentController departmentController = new DepartmentController();
 
-        List<ProductDTO> products = productController.getAll();
-        List<DepartmentDTO> departments = departmentController.getAll();
+        LinkedList<ProductDTO> products = new LinkedList<>(productController.getAll());
+        LinkedList<DepartmentDTO> departments = new LinkedList<>(departmentController.getAll());
 
         String search = req.getParameter("search");
 
@@ -42,6 +43,7 @@ public class HomeServlet extends HttpServlet {
 
         req.setAttribute("search", search);
         req.setAttribute("products", products);
+        req.setAttribute("departments", departments);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
         dispatcher.forward(req, resp);
