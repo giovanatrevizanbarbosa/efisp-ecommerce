@@ -6,24 +6,29 @@ import efisp.efispecommerce.models.entitys.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestProduct {
     Brand brand;
     Department department;
     Product product;
+    UUID id;
 
     @BeforeEach
     public void Initialize() {
-        brand = new Brand(1L, "Nvidia");
-        department = new Department(1L, "Hardware", "Hardware department");
-        product = new Product(1L, "GeForce GTX1660", 800, brand, "GPU", department, 10);
+        brand = new Brand(UUID.randomUUID(), "Nvidia");
+        department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
+
+        id = UUID.randomUUID();
+        product = new Product(id, "GeForce GTX1660", 800, brand, "GPU", department, 10, "photo");
     }
 
     @Test
     public void TestProductGetId() {
-        int expected = 1;
-        int actual = Math.toIntExact(product.getId());
+        var expected = id;
+        var actual = product.getId();
 
         assertEquals(expected, actual);
     }

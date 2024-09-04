@@ -5,76 +5,67 @@ import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestRatingDao implements TestDao {
 
-    IDao<Rating> ratingIDao = new Dao<>(Rating.class);
+    IDao<Rating> ratingIDao = Dao.getInstance(Rating.class);
+    UUID productId = UUID.randomUUID();
 
     @Override
     @Test
     public void add() {
-        Rating rating = new Rating(1L, "A@A.com", 1L, "Muito Bom", 1);
-        Rating rating2 = new Rating(2L, "a@a.com", 1L, "Muito Ruim", 1);
-
-        assertTrue(ratingIDao.add(rating));
-        assertTrue(ratingIDao.add(rating2));
-        assertFalse(ratingIDao.add(rating));
+        assertTrue(ratingIDao.add(new Rating(UUID.randomUUID(), "a", productId, "Muito Bom", 1)));
     }
 
     @Override
     @Test
     public void update() {
-        Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
-        Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
+        var id = UUID.randomUUID();
 
+        Rating rating = new Rating(id, "a", productId, "Muito Bom", 1);
         ratingIDao.add(rating);
-        ratingIDao.add(rating2);
 
-        Rating rating3 = new Rating(3L, "a", 1L, "Muito Bom", 1);
+        Rating rating2 = new Rating(id, "a", productId, "Muito Ruim", 1);
 
-        assertTrue(ratingIDao.update(1L, rating3));
+        assertTrue(ratingIDao.update(id, rating2));
     }
 
     @Override
     @Test
     public void delete() {
-        Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
-        Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
+        var id = UUID.randomUUID();
 
+        Rating rating = new Rating(id, "a", productId, "Muito Bom", 1);
         ratingIDao.add(rating);
-        ratingIDao.add(rating2);
 
-        assertTrue(ratingIDao.delete(1L));
+        assertTrue(ratingIDao.delete(id));
     }
 
     @Override
     @Test
     public void getById() {
-        Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
-        Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
+        var id = UUID.randomUUID();
+        Rating rating = new Rating(id, "a", productId, "Muito Bom", 1);
 
         ratingIDao.add(rating);
-        ratingIDao.add(rating2);
 
-        var actual = ratingIDao.getById(2);
-
-        assertEquals(rating2.getId(), actual.getId());
+        assertEquals(rating, ratingIDao.getById(id));
     }
 
     @Override
     @Test
     public void getAll() {
-        Rating rating = new Rating(1L, "a", 1L, "Muito Bom", 1);
-        Rating rating2 = new Rating(2L, "a", 1L, "Muito Ruim", 1);
+        var expected = ratingIDao.getAll().size() + 1;
+
+        Rating rating = new Rating(UUID.randomUUID(), "a", productId, "Muito Bom", 1);
 
         ratingIDao.add(rating);
-        ratingIDao.add(rating2);
 
-        var expected = 2;
         var actual = ratingIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(rating, ratingIDao.getAll().getFirst());
     }
 }

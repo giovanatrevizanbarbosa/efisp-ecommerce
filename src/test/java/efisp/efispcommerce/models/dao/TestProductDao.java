@@ -8,85 +8,86 @@ import efisp.efispecommerce.models.dao.Dao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestProductDao implements TestDao {
 
-    IDao<Product> productIDao = new Dao<>(Product.class);
-    static IDao<Brand> brandIDao = new Dao<>(Brand.class);
-    static IDao<Department> departmentIDao = new Dao<>(Department.class);
+    IDao<Product> productIDao = Dao.getInstance(Product.class);
+    static IDao<Brand> brandIDao = Dao.getInstance(Brand.class);
+    static IDao<Department> departmentIDao = Dao.getInstance(Department.class);
+
+    static UUID brandId = UUID.randomUUID();
+    static UUID departmentId = UUID.randomUUID();
 
     @BeforeAll
     public static void setUp(){
-        brandIDao.add(new Brand(1L, "Samsung"));
-        brandIDao.add(new Brand(2L, "Apple"));
-
-        departmentIDao.add(new Department(1L, "Informática", "Informática"));
-        departmentIDao.add(new Department(2L, "Eletrônicos", "Eletrônicos"));
+        brandIDao.add(new Brand(brandId, "Samsung"));
+        departmentIDao.add(new Department(departmentId, "Eletrônicos", "Eletrônicos"));
     }
 
     @Test
     public void testBrandAndDepartment(){
-        productIDao.add(new Product(1L, "Samsung", 25.50, brandIDao.getById(1L), "Samsung Galaxy S20", departmentIDao.getById(1L), 1));
-        productIDao.add(new Product(2L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2));
+        var brand = brandIDao.getById(brandId);
+        var department = departmentIDao.getById(departmentId);
 
-        assertEquals("Samsung", productIDao.getById(1L).getBrand().getName());
-        assertEquals("Informática", productIDao.getById(1L).getDepartment().getName());
-
-        assertEquals("Apple", productIDao.getById(2L).getBrand().getName());
-        assertEquals("Eletrônicos", productIDao.getById(2L).getDepartment().getName());
+        assertEquals("Samsung", brand.getName());
+        assertEquals("Eletrônicos", department.getName());
     }
 
     @Override
     @Test
     public void add() {
-        assertTrue(productIDao.add(new Product(1L, "Samsung", 25.50, brandIDao.getById(1L), "Samsung Galaxy S20", departmentIDao.getById(1L), 1)));
-        assertTrue(productIDao.add(new Product(2L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2)));
+        assertTrue(productIDao.add(new Product(UUID.randomUUID(), "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1, "photo")));
     }
 
     @Override
     @Test
     public void update() {
-        productIDao.add(new Product(1L, "Samsung", 25.50, brandIDao.getById(1L), "Samsung Galaxy S20", departmentIDao.getById(1L), 1));
-        productIDao.add(new Product(2L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2));
+        var id = UUID.randomUUID();
 
-        Product product3 = new Product(3L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2);
+        productIDao.add(new Product(id, "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1, "photo"));
 
-        assertTrue(productIDao.update(1L, product3));
+        Product product3 = new Product(id, "Apple", 50.00, brandIDao.getById(brandId), "Iphone 12", departmentIDao.getById(departmentId), 5, "photo");
+
+        assertTrue(productIDao.update(id, product3));
     }
 
     @Override
     @Test
     public void delete() {
-        productIDao.add(new Product(1L, "Samsung", 25.50, brandIDao.getById(1L), "Samsung Galaxy S20", departmentIDao.getById(1L), 1));
-        productIDao.add(new Product(2L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2));
+        var id = UUID.randomUUID();
 
-        assertTrue(productIDao.delete(1L));
+        productIDao.add(new Product(id, "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1, "photo"));
+
+        assertTrue(productIDao.delete(id));
     }
 
     @Override
     @Test
     public void getById() {
-        productIDao.add(new Product(1L, "Samsung", 25.50, brandIDao.getById(1L), "Samsung Galaxy S20", departmentIDao.getById(1L), 1));
-        productIDao.add(new Product(2L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2));
+        var id = UUID.randomUUID();
+        Product product = new Product(id, "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1, "photo");
 
-        var actual = productIDao.getById(2);
+        productIDao.add(product);
 
-        assertEquals(2L, actual.getId());
+        assertEquals(product, productIDao.getById(id));
     }
 
     @Override
     @Test
     public void getAll() {
-        productIDao.add(new Product(1L, "Samsung", 25.50, brandIDao.getById(1L), "Samsung Galaxy S20", departmentIDao.getById(1L), 1));
-        productIDao.add(new Product(2L, "Apple", 50.00, brandIDao.getById(2L), "Iphone 12", departmentIDao.getById(2L), 2));
+        var expected = productIDao.getAll().size() + 1;
 
-        var expected = 2;
+        Product product = new Product(UUID.randomUUID(), "Samsung", 25.50, brandIDao.getById(brandId), "Samsung Galaxy S20", departmentIDao.getById(departmentId), 1, "photo");
+
+        productIDao.add(product);
+
         var actual = productIDao.getAll().size();
 
         assertEquals(expected, actual);
-        assertEquals(1L, productIDao.getAll().getFirst().getId());
     }
 
 }

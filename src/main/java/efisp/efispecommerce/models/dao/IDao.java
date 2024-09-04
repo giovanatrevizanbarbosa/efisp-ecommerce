@@ -1,6 +1,7 @@
 package efisp.efispecommerce.models.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Interface that defines the methods that a repository must implement.
@@ -21,21 +22,21 @@ public interface IDao<T> {
      * @param newValue The new object.
      * @return True if the object was updated successfully, false otherwise.
      */
-    boolean update(long id, Writable newValue);
+    boolean update(UUID id, Writable newValue);
 
     /**
      * Deletes an object from the repository.
      * @param id The id of the object to be deleted.
      * @return True if the object was deleted successfully, false otherwise.
      */
-    boolean delete(long id);
+    boolean delete(UUID id);
 
     /**
      * Gets an object from the repository by its id.
      * @param id The id of the object to be retrieved.
      * @return The object with the given id or null if it doesn't exist.
      */
-    T getById(long id);
+    T getById(UUID id);
 
     /**
      * Gets all the objects in the repository.

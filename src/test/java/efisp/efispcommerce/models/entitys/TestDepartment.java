@@ -4,6 +4,8 @@ import efisp.efispecommerce.models.entitys.Department;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestDepartment {
@@ -11,7 +13,7 @@ public class TestDepartment {
 
     @BeforeEach
     public void Initialize() {
-        department = new Department(1L, "Hardware", "Hardwares department");
+        department = new Department(UUID.randomUUID(), "Hardware", "Hardwares department");
     }
 
     @Test

@@ -3,35 +3,29 @@ package efisp.efispecommerce.dto;
 import efisp.efispecommerce.models.entitys.Item;
 
 import java.util.Map;
+import java.util.UUID;
 
-public class CartDTO {
-    private final Long id;
-    private final String ownerEmail;
-    //Map<ProductId, Item>
-    private final Map<Long, Item> items;
-    private final double totalPrice;
+/**
+ * @param id Cart's id
+ * @param ownerEmail Cart's owner email
+ * @param items Cart's items
+ */
 
-
-    public CartDTO(Long id, String ownerEmail, Map<Long, Item> items) {
-        this.id = id;
-        this.ownerEmail = ownerEmail;
-        this.items = items;
-        this.totalPrice = 0;
+// Map<ProductId, Item>
+public record CartDTO(UUID id, String ownerEmail, Map<UUID, Item> items){
+    public double totalPrice(){
+        double total = 0;
+        for (Item item : items.values()) {
+            total += item.getProduct().getPrice() * item.getQuantity();
+        }
+        return total;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getOwnerEmail() {
-        return ownerEmail;
-    }
-
-    public Map<Long, Item> getItems() {
-        return items;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
+    public int totalItems(){
+        int total = 0;
+        for (Item item : items.values()) {
+            total += item.getQuantity();
+        }
+        return total;
     }
 }

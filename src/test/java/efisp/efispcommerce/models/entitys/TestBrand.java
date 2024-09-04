@@ -4,6 +4,8 @@ import efisp.efispecommerce.models.entitys.Brand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestBrand {
@@ -11,7 +13,7 @@ public class TestBrand {
 
     @BeforeEach
     public void Initialize(){
-        brand = new Brand(1L, "Nvidia");
+        brand = new Brand(UUID.randomUUID(), "Nvidia");
     }
 
     @Test

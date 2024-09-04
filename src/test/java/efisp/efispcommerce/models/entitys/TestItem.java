@@ -1,11 +1,10 @@
 package efisp.efispcommerce.models.entitys;
 
-import efisp.efispecommerce.models.entitys.Brand;
-import efisp.efispecommerce.models.entitys.Department;
-import efisp.efispecommerce.models.entitys.Item;
-import efisp.efispecommerce.models.entitys.Product;
+import efisp.efispecommerce.models.entitys.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,10 +14,11 @@ public class TestItem {
 
     @BeforeEach
     public void Initialize() {
-        Brand brand = new Brand(1L, "Nvidia");
-        Department department = new Department(1L, "Hardware", "Hardware department");
-        product = new Product(1L, "GeForce GTX1660", 800, brand, "GPU", department, 10);
-        item = new Item(1L, 1L, product, 1);
+        Brand brand = new Brand(UUID.randomUUID(), "Nvidia");
+        Department department = new Department(UUID.randomUUID(), "Hardware", "Hardware department");
+        product = new Product(UUID.randomUUID(), "GeForce GTX1660", 800, brand, "GPU", department, 10, "photo");
+
+        item = new Item(UUID.randomUUID(), UUID.randomUUID(), product, 1);
     }
 
     @Test

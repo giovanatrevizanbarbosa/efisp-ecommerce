@@ -3,13 +3,15 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Item extends Writable {
     //identifier
     private final Product product;
-    private final Long cartId;
+    private final UUID cartId;
     private int quantity;
 
-    public Item(Long id, Long cartId, Product product, int quantity) {
+    public Item(UUID id, UUID cartId, Product product, int quantity) {
         super(id);
         this.cartId = cartId;
         this.product = product;
@@ -29,7 +31,7 @@ public class Item extends Writable {
             this.quantity = quantity;
     }
 
-    public Long getCartId() {
+    public UUID getCartId() {
         return cartId;
     }
 

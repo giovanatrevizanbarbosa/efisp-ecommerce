@@ -3,10 +3,12 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Brand extends Writable {
     private final String name;
 
-    public Brand(Long id, String name) {
+    public Brand(UUID id, String name) {
         super(id);
         this.name = name;
     }

@@ -3,12 +3,14 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Department extends Writable {
     //identifier
     private final String name;
     private final String description;
 
-    public Department(Long id, String name, String description) {
+    public Department(UUID id, String name, String description) {
         super(id);
         this.name = name;
         this.description = description;

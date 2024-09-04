@@ -3,6 +3,9 @@ package efisp.efispcommerce.models.entitys;
 import efisp.efispecommerce.models.entitys.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestAddress {
@@ -10,7 +13,7 @@ public class TestAddress {
 
     @BeforeEach
     public void Initialize(){
-        address = new Address(1L, "Rua Yoki", 700, "Araraquara", "SP", "14800200");
+        address = new Address(UUID.randomUUID(), "Rua Yoki", "700", "Araraquara", "SP", "14800200");
     }
 
     @Test
@@ -23,8 +26,8 @@ public class TestAddress {
 
     @Test
     public void TestAddressGetNumber() {
-        int expected = 700;
-        int actual = address.getNumber();
+        var expected = "700";
+        var actual = address.getNumber();
 
         assertEquals(expected, actual);
     }

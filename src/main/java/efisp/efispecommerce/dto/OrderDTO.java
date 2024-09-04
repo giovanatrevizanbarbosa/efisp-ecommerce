@@ -1,40 +1,15 @@
 package efisp.efispecommerce.dto;
 
-import efisp.efispecommerce.models.entitys.Address;
-import efisp.efispecommerce.models.entitys.Cart;
-import efisp.efispecommerce.models.entitys.User;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
-public class OrderDTO {
-    private final Long id;
-    private final User user;
-    private final Cart cart;
-    private final PaymentMethod paymentMethod;
-    private final Address address;
+import java.util.UUID;
 
-    public OrderDTO(Long id, User user, Cart cart, PaymentMethod paymentMethod, Address address) {
-        this.id = id;
-        this.user = user;
-        this.cart = cart;
-        this.paymentMethod = paymentMethod;
-        this.address = address;
-    }
-
-    public Long getId() { return id; }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
+/**
+ * @param id Order's id
+ * @param user Order's user
+ * @param cart Order's cart
+ * @param paymentMethod Order's payment method
+ * @param address Order's address
+ */
+public record OrderDTO(UUID id, UserDTO user, CartDTO cart, PaymentMethod paymentMethod, AddressDTO address) {
 }

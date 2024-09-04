@@ -3,14 +3,16 @@ package efisp.efispecommerce.models.entitys;
 import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 
+import java.util.UUID;
+
 public class Address extends Writable {
     private final String street;
-    private final Integer number;
+    private final String number;
     private final String city;
     private final String state;
     private final String zip;
 
-    public Address(Long id, String street, Integer number, String city, String state, String zip) {
+    public Address(UUID id, String street, String number, String city, String state, String zip) {
         super(id);
         this.street = street;
         this.number = number;
@@ -23,7 +25,7 @@ public class Address extends Writable {
         return street;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -43,7 +45,7 @@ public class Address extends Writable {
     public Csv toCSV() {
         return new Csv(
             new String[]{"id", "street", "number", "city", "state", "zip"},
-            new String[]{getId().toString(), street, number.toString(), city, state, zip}
+            new String[]{getId().toString(), street, number, city, state, zip}
         );
     }
 }
