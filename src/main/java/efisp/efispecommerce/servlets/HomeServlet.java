@@ -42,7 +42,7 @@ public class HomeServlet extends HttpServlet {
                         .toList();
             }
         }
-
+        req.setAttribute("products", products);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
         dispatcher.forward(req, resp);
     }
