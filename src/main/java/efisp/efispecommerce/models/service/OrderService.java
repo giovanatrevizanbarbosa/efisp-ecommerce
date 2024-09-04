@@ -4,6 +4,7 @@ import efisp.efispecommerce.dto.OrderDTO;
 import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.entitys.Order;
+import efisp.efispecommerce.models.enums.PaymentMethod;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,16 +26,13 @@ public class OrderService {
                 , order.getPaymentMethod(), addressService.toDTO(order.getAddress()));
     }
 
-    public boolean addOrder(OrderDTO orderDTO) {
+    public boolean add(OrderDTO orderDTO) {
         return dao.add(toEntity(orderDTO));
     }
 
-    public List<OrderDTO> getOrders() {
-        List<OrderDTO> orderDTOs = new LinkedList<>();
-        for (Order order : dao.getAll()) {
-            orderDTOs.add(toDTO(order));
-        }
-        return orderDTOs;
+
+    public List<OrderDTO> getAll() {
+        return dao.getAll().stream().map(this::toDTO).toList();
     }
 
 
@@ -58,4 +56,25 @@ public class OrderService {
 
         return userOrders;
     }
+
+    public boolean update(UUID id, OrderDTO orderDto) {
+        return dao.update(id, toEntity(orderDto));
+    }
+
+    public boolean delete(UUID id) {
+        return dao.delete(id);
+    }
+
+    public OrderDTO getById(UUID id) {
+        return toDTO(dao.getById(id));
+    }
+
+    public List<OrderDTO> getByPaymentMethod(String paymentMethod) {
+        return dao.getAll().stream().filter(p -> p.getPaymentMethod().equals(PaymentMethod.valueOf(paymentMethod))).map(this::toDTO).toList();
+    }
+
+    public List<OrderDTO> getByAddress(String address) {
+        return dao.getAll().stream().filter(p -> p.getAddress().getStreet().contains(address)).map(this::toDTO).toList();
+    }
+
 }
