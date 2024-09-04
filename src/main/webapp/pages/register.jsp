@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -26,25 +26,29 @@
                             <span class="label-text">Nome</span>
                         </label>
                         <input type="text" name="name" placeholder="nome" class="input input-bordered" required />
+                        <span id="error-name" class="text-error hidden"></span>
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
                         <input type="email" name="email" placeholder="email" class="input input-bordered" required />
+                        <span id="error-email" class="text-error hidden"></span>
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Senha</span>
                         </label>
                         <input type="password" name="password" placeholder="senha" class="input input-bordered" required />
+                        <span id="error-password" class="text-error hidden"></span>
                     </div>
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Confirmação de Senha</span>
                         </label>
-                        <input type="password" name="confirm-password" placeholder="confirme sua senha" class="input input-bordered"
+                        <input type="password" name="confirmPassword" placeholder="confirme sua senha" class="input input-bordered"
                                required />
+                        <span id="error-confirmPassword" class="text-error hidden"></span>
                     </div>
                     <div class="form-control mt-6 space-y-2">
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
@@ -55,6 +59,7 @@
         </div>
     </main>
 
+    <script defer src="./scripts/validateUserRegister.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
