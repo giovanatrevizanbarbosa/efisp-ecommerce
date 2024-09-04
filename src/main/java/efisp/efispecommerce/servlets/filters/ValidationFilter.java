@@ -14,9 +14,9 @@ public class ValidationFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpSession session = httpRequest.getSession(false);
 
-            if(session == null || session.getAttribute("user") == null) {
+            if(session == null || session.getAttribute("userId") == null) {
                 HttpServletResponse httpResponse = (HttpServletResponse)response;
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/pages/login.jsp");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             } else {
                 chain.doFilter(request, response);
             }
