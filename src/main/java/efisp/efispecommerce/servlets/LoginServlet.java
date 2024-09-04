@@ -1,6 +1,8 @@
 package efisp.efispecommerce.servlets;
 
+import efisp.efispecommerce.controllers.AdmController;
 import efisp.efispecommerce.controllers.UserController;
+import efisp.efispecommerce.dto.AdmDTO;
 import efisp.efispecommerce.dto.UserDTO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -19,18 +21,27 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        UserController controller = new UserController();
-        UserDTO userDto = controller.authenticate(email, password);
+        HttpSession session = req.getSession();
+        session.setMaxInactiveInterval(30 * 60);
 
-        if(userDto != null){
-            HttpSession session = req.getSession();
-            session.setMaxInactiveInterval(30 * 60);
-            session.setAttribute("user", userDto);
+        AdmController admController = new AdmController();
+        AdmDTO admDTO = admController.authenticate(email, password);
+        if (admDTO != null) {
+            session.setAttribute("user", admDTO);
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
-            req.setAttribute("result", "loginError");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/login.jsp");
-            dispatcher.forward(req, resp);
+            UserController userController = new UserController();
+            UserDTO userDto = userController.authenticate(email, password);
+
+            if(userDto != null){
+                session.setAttribute("user", userDto);
+                req.getRequestDispatcher("/home").forward(req, resp);
+            } else {
+                session.invalidate();
+                req.setAttribute("result", "loginError");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/login.jsp");
+                dispatcher.forward(req, resp);
+            }
         }
     }
 
