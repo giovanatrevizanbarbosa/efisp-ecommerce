@@ -2,24 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="navbar bg-base-300">
-    <div class="navbar-start dropdown dropdown-hover">
-        <div tabindex="0" role="button" class="btn m-1">Departamentos</div>
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-            <c:choose>
-                <c:when test="${fn:length(departamentos) > 0}">
-                    <c:forEach var="item" items="${departamentos}" varStatus="index">
-                        <li><a href="${pageContext.request.contextPath}/departamentos/${item.id}">item.name</a></li>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <li><a>Nenhum departamento registrado no momento.</a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
-    </div>
-    <div class="navbar-center">
+    <div class="navbar-start">
         <a href="home" class="btn btn-ghost text-xl">E-fisp</a>
     </div>
+    <c:if test="${fn:contains(pageContext.request.requestURI, '/pages/home.jsp')}">
+        <div class="navbar-center dropdown dropdown-hover">
+            <div tabindex="0" role="button" class="btn m-1">Departamentos</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <c:choose>
+                    <c:when test="${fn:length(departments) > 0}">
+                        <c:forEach var="item" items="${departments}" varStatus="index">
+                            <li><a href="${pageContext.request.contextPath}/departments/${item.name()}">${item.name()}</a></li>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a>Nenhum departamento registrado no momento.</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+            <c:choose>
+                <c:when test="${}">
+                    <a href="add-product" class="btn btn-primary text-xl">Adicionar Produto</a>
+                </c:when>
+            </c:choose>
+        </div>
+    </c:if>
     <div class="navbar-end flex items-center gap-2">
         <form action="home" method="get" class="input input-bordered flex items-center gap-2 min-w-28 m-0">
             <input type="text" name="search" placeholder="Pesquisar" class="grow" value="${search}"/>
