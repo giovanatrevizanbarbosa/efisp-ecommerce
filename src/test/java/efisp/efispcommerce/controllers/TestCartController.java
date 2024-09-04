@@ -9,14 +9,18 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCartController {
     CartController controller;
+    CartDTO cartDto;
 
     @BeforeEach
     public void Initialize() {
-         controller = new CartController();
+        var items = new HashMap<UUID, Item>();
+        cartDto = new CartDTO(UUID.randomUUID(), "gi.trevizan.barbosa@gmail.com", items);
+        controller = new CartController();
+        controller.addCart(cartDto);
     }
 
     @Test
@@ -28,5 +32,11 @@ public class TestCartController {
         var result = controller.addCart(cartDto);
 
         assertTrue(result);
+    }
+
+    @Test
+    public void testGetCartByOwnerEmail(){
+        var result = controller.getCartByOwnerEmail("gi.trevizan.barbosa@gmail.com");
+        assertEquals(cartDto, result);
     }
 }

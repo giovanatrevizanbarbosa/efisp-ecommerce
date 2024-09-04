@@ -2,9 +2,9 @@ package efisp.efispcommerce.controllers;
 
 import efisp.efispecommerce.controllers.AdmController;
 import efisp.efispecommerce.controllers.ProductController;
-import efisp.efispecommerce.dto.AdmDTO;
-import efisp.efispecommerce.dto.ProductDTO;
-import efisp.efispecommerce.dto.TitleDTO;
+import efisp.efispecommerce.dto.*;
+import efisp.efispecommerce.models.service.BrandService;
+import efisp.efispecommerce.models.service.DepartmentService;
 import efisp.efispecommerce.models.service.TitleService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +22,12 @@ public class TestProductController {
     public static void setUp() {
         var admController = new AdmController();
         var titleService = new TitleService();
+
+        var brandController = new BrandService();
+        brandController.add(new BrandDTO(UUID.randomUUID(), "Samsung"));
+
+        var departmentController = new DepartmentService();
+        departmentController.add(new DepartmentDTO(UUID.randomUUID(), "Informática", "Tecnologia e equipamentos"));
 
         var titleDTO = new TitleDTO(UUID.randomUUID(), "CEO", 1);
         titleService.add(titleDTO);
