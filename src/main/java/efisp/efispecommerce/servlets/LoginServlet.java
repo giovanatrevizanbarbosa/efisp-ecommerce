@@ -21,6 +21,7 @@ public class LoginServlet extends HttpServlet {
 
         UserController controller = new UserController();
         UserDTO userDto = controller.authenticate(email, password);
+
         if(userDto != null){
             HttpSession session = req.getSession();
             session.setMaxInactiveInterval(30 * 60);
@@ -28,7 +29,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("userId", userDto.id());
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
-            resp.sendRedirect(req.getContextPath() + "/login");
+            req.setAttribute("result", "loginError");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/login.jsp");
+            dispatcher.forward(req, resp);
         }
     }
 
