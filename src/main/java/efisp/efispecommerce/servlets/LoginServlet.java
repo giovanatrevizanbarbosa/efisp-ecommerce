@@ -1,11 +1,14 @@
 package efisp.efispecommerce.servlets;
 
+import efisp.efispecommerce.controllers.UserController;
+import efisp.efispecommerce.dto.UserDTO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -13,7 +16,20 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect(req.getContextPath() + "/home");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+
+        UserController controller = new UserController();
+        UserDTO userDto = controller.authenticate(email, password);
+        if(userDto != null){
+            HttpSession session = req.getSession();
+            session.setMaxInactiveInterval(30 * 60);
+            session.setAttribute("userEmail", userDto.email());
+            session.setAttribute("userId", userDto.id());
+            req.getRequestDispatcher("/home").forward(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/login");
+        }
     }
 
     @Override
