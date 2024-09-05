@@ -43,6 +43,10 @@ public class ProductController {
         return service.getByBrand(brand);
     }
 
+    public List<ProductDTO> getOutOfStock() {
+        return service.getOutOfStock();
+    }
+
     public List<ProductDTO> getByDepartment(String department) {
         return service.getByDepartment(department);
     }

@@ -4,6 +4,7 @@ import efisp.efispecommerce.dto.ItemDTO;
 import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.entitys.Item;
+import efisp.efispecommerce.models.entitys.Product;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,5 +44,25 @@ public class ItemService {
 
     public List<ItemDTO> getItemsByCartId(UUID cartId) {
         return items.getAll().stream().filter(i -> i.getCartId().equals(cartId)).map(this::toDTO).toList();
+    }
+
+    public void checkout(UUID id, UUID orderId) {
+        ProductService productService = new ProductService();
+
+        List<ItemDTO> itemDTOS = getItemsByCartId(id);
+
+
+        for (ItemDTO item : itemDTOS) {
+            ItemDTO updatedItem = new ItemDTO(item.id(), item.productDTO(), orderId, item.quantity());
+            updateItem(item.id(), updatedItem);
+        }
+
+        for (ItemDTO item : itemDTOS) {
+            Product product = productService.toEntity(item.productDTO());
+            Product updatedProduct = new Product(product.getId(), product.getName(), product.getPrice(), product.getBrand(), product.getDescription(), product.getDepartment(), product.getStock() - item.quantity(), product.getPhoto());
+            productService.update(product.getId(), productService.toDTO(updatedProduct));
+        }
+
+
     }
 }

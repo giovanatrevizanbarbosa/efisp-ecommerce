@@ -47,5 +47,9 @@ public class CartController {
         return service.getAll();
     }
 
+    public boolean checkout(UUID id, UUID orderId) {
+        return service.checkout(id, orderId);
+    }
+
 
 }

@@ -4,19 +4,20 @@ import efisp.efispecommerce.models.dao.Writable;
 import efisp.efispecommerce.models.dao.csv.Csv;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Order extends Writable {
     //identifier
     private final User user;
-    private Cart cart;
+    private List<Item> items;
     private PaymentMethod paymentMethod;
     private Address address;
 
-    public Order(UUID id, User user, Cart cart, PaymentMethod method, Address address) {
+    public Order(UUID id, User user, List<Item> items, PaymentMethod method, Address address) {
         super(id);
         this.user = user;
-        this.cart = cart;
+        this.items = items;
         this.paymentMethod = method;
         this.address = address;
     }
@@ -26,13 +27,13 @@ public class Order extends Writable {
         return user;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setCart(Cart cart) {
-        if (cart != null)
-            this.cart = cart;
+    public void setItems(List<Item> items) {
+        if (items != null)
+            this.items = items;
     }
 
     public PaymentMethod getPaymentMethod() {
@@ -56,8 +57,8 @@ public class Order extends Writable {
     @Override
     public Csv toCSV() {
         return new Csv(
-                new String[]{"id", "userEmail", "cartId", "paymentMethod", "addressId"},
-                new String[]{getId().toString(), user.getEmail(), String.valueOf(cart.getId()), paymentMethod.toString(), address.getId().toString()}
+                new String[]{"id", "userEmail", "paymentMethod", "addressId"},
+                new String[]{getId().toString(), user.getEmail(), paymentMethod.toString(), address.getId().toString()}
         );
     }
 }

@@ -1,5 +1,6 @@
 package efisp.efispecommerce.servlets;
 
+import efisp.efispecommerce.controllers.OrderController;
 import efisp.efispecommerce.controllers.UserController;
 import efisp.efispecommerce.dto.UserDTO;
 import efisp.efispecommerce.models.Encoder;
@@ -41,6 +42,12 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        OrderController orderController = new OrderController();
+        HttpSession session = req.getSession(false);
+        UserDTO user = (UserDTO) req.getSession(false).getAttribute("user");
+
+        session.setAttribute("orders", orderController.getUserOrders(user.id()));
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/profile.jsp");
         dispatcher.forward(req, resp);
     }
