@@ -31,12 +31,14 @@
                     <span class="text-sm text-gray-400">À vista no Pix e Boleto</span>
                 </div>
 
-                <div class="mt-8">
-                    <form action="product-details" method="post">
-                        <input type="hidden" name="product-id" value="product-id">
-                        <button type="submit" class="btn btn-primary w-full">Adicionar ao Carrinho</button>
-                    </form>
-                </div>
+                <c:if test="${admin == null}">
+                    <div class="mt-8">
+                            <form action="product-details" method="post">
+                                <input type="hidden" name="product-id" value="product-id">
+                                <button type="submit" class="btn btn-primary w-full">Adicionar ao Carrinho</button>
+                            </form>
+                    </div>
+                </c:if>
 
                 <div class="mt-12">
                     <h2 class="text-2xl font-semibold mb-4">Especificações do Produto</h2>
