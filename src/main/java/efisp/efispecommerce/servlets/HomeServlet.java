@@ -30,23 +30,31 @@ public class HomeServlet extends HttpServlet {
         List<ProductDTO> products = new LinkedList<>(productController.getAll());
         List<DepartmentDTO> departments = new LinkedList<>(departmentController.getAll());
 
+        String department = req.getParameter("department");
         String search = req.getParameter("search");
 
-        if (search != null) {
-            if (!search.trim().isEmpty()) {
-                LinkedList<ProductDTO> list = new LinkedList<>();
-                for (ProductDTO product : products) {
-                    if (product.name().toUpperCase().contains(search.toUpperCase()) ||
-                            product.brand().toUpperCase().contains(search.toUpperCase())) {
-                        list.add(product);
+        DepartmentDTO departmentDTO = departmentController.getByName(department);
+
+        if(departmentDTO != null) {
+            products = new LinkedList<>(productController.getByDepartment(departmentDTO.name()));
+
+            if (search != null) {
+                if (!search.trim().isEmpty()) {
+                    LinkedList<ProductDTO> list = new LinkedList<>();
+                    for (ProductDTO product : products) {
+                        if (product.name().toUpperCase().contains(search.toUpperCase()) ||
+                                product.brand().toUpperCase().contains(search.toUpperCase())) {
+                            list.add(product);
+                        }
                     }
+                    products = list;
                 }
-                products = list;
             }
         }
 
         req.setAttribute("search", search);
         req.setAttribute("products", products);
+        req.setAttribute("department", department);
         req.setAttribute("departments", departments);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
