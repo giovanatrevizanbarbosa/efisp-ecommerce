@@ -6,6 +6,11 @@ import efisp.efispecommerce.controllers.ItemController;
 import efisp.efispecommerce.controllers.OrderController;
 import efisp.efispecommerce.dto.*;
 import efisp.efispecommerce.models.enums.PaymentMethod;
+import efisp.efispecommerce.controllers.ItemController;
+import efisp.efispecommerce.dto.CartDTO;
+import efisp.efispecommerce.dto.ItemDTO;
+import efisp.efispecommerce.dto.UserDTO;
+import efisp.efispecommerce.models.EmailSender;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,12 +23,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.List;
 
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CartController cartController = new CartController();
+        ItemController itemController = new ItemController();
         HttpSession session = req.getSession(false);
         UserDTO user = (UserDTO) session.getAttribute("user");
 
@@ -36,6 +43,20 @@ public class CheckoutServlet extends HttpServlet {
         var paymentMethod = PaymentMethod.valueOf(req.getParameter("payment-method"));
 
         var cart = (CartDTO) session.getAttribute("cart");
+      
+        List<ItemDTO> cartItems = itemController.getItemsByCartId(cartDTO.id());
+
+        String items = "";
+        for (ItemDTO item : cartItems) {
+             items += "Produto: " + item.productDTO().name() + "\n"
+                    + "Quantidade: " + item.quantity() + "\n"
+                    + "Preço: " + item.productDTO().price() + "\n";
+        }
+
+        if(user != null) {
+            EmailSender emailSender = new EmailSender();
+            emailSender.sendEmail(user.email(), "E-fisp - Pedido realizado com sucesso!", items);
+        }
 
         OrderController orderController = new OrderController();
         AddressController addressController = new AddressController();
@@ -51,10 +72,7 @@ public class CheckoutServlet extends HttpServlet {
         cartGenerate(req, resp);
 
         session.setAttribute("cart", cartController.getCartByOwnerEmail(user.email()));
-        req.getRequestDispatcher("/home").forward(req, resp);
-
-        // efetivar compra
-        // enviar email para usuário
+        req.getRequestDispatcher(req.getContextPath() + "/home").forward(req, resp);
     }
 
     @Override

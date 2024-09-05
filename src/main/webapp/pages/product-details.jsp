@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${product.name} - Efisp</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/images/logo.png" rel="icon" type="image/x-icon">
 </head>
 <body>
     <jsp:include page="../components/navbar.jsp"/>
@@ -31,12 +32,14 @@
                     <span class="text-sm text-gray-400">À vista no Pix e Boleto</span>
                 </div>
 
-                <div class="mt-8">
-                    <form action="product-details" method="post">
-                        <input type="hidden" name="product-id" value="product-id">
-                        <button type="submit" class="btn btn-primary w-full">Adicionar ao Carrinho</button>
-                    </form>
-                </div>
+                <c:if test="${admin == null}">
+                    <div class="mt-8">
+                            <form action="product-details" method="post">
+                                <input type="hidden" name="product-id" value="product-id">
+                                <button type="submit" class="btn btn-primary w-full">Adicionar ao Carrinho</button>
+                            </form>
+                    </div>
+                </c:if>
 
                 <div class="mt-12">
                     <h2 class="text-2xl font-semibold mb-4">Especificações do Produto</h2>

@@ -12,7 +12,7 @@
                 <c:choose>
                     <c:when test="${fn:length(departments) > 0}">
                         <c:forEach var="department" items="${departments}" varStatus="index">
-                            <li><a href="${pageContext.request.contextPath}/departments?name=${department.name()}">${department.name()}</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home?department=${department.name()}">${department.name()}</a></li>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>

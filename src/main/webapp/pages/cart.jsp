@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-
+    <link href="${pageContext.request.contextPath}/images/logo.png" rel="icon" type="image/x-icon">
     <title>Carrinho - Efisp</title>
 </head>
 <body>
@@ -66,6 +66,7 @@
 
                 <c:choose>
                     <c:when test="${fn:length(cartItems) > 0}">
+                        <input type="hidden" name="cartItems" value="${cartItems}">
                         <button type="submit" class="btn btn-primary w-full">Fechar Pedido</button>
                     </c:when>
                     <c:otherwise>
