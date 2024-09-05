@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
@@ -29,7 +30,7 @@ public class CartServlet extends HttpServlet {
             cartDTO = cartController.getCartById(cartDTO.id());
 
             double subtotal = cartDTO.totalPrice();
-            double shipping = 10;
+            double shipping = Double.parseDouble(String.format(Locale.US,"%.2f", subtotal * 0.1));
             double total = subtotal + shipping;
 
             session.setAttribute("subtotal", subtotal);

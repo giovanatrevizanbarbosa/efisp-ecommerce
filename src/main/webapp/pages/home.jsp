@@ -14,9 +14,9 @@
 <body>
     <jsp:include page="../components/navbar.jsp"/>
     <main>
+        <h1 class="text-3xl font-bold my-12 text-center">Produtos em Destaque</h1>
         <c:choose>
             <c:when test="${fn:length(products) > 0}">
-                <h1 class="text-3xl font-bold my-12 text-center">Produtos em Destaque</h1>
                  <div class="flex flex-wrap justify-center gap-8">
                     <c:forEach var="product" items="${products}" varStatus="index">
                         <section class="card card-compact bg-base-200 w-80 shadow-xl">

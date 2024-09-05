@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/cart", "/checkout", "/profile", "/add-item"},
-        filterName = "Authorization")
-public class ValidationFilter implements Filter {
+        filterName = "UserAuthorization")
+public class UserValidationFilter implements Filter {
         @Override
         public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
             HttpServletRequest httpRequest = (HttpServletRequest) request;

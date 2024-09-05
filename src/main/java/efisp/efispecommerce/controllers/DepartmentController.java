@@ -30,7 +30,7 @@ public class DepartmentController {
         return service.getById(id);
     }
 
-    public Department getByName(String name) {
+    public DepartmentDTO getByName(String name) {
         return service.getDepartmentByName(name);
     }
 

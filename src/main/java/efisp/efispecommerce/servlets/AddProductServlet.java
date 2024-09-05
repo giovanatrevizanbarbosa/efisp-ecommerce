@@ -9,6 +9,7 @@ import efisp.efispecommerce.dto.DepartmentDTO;
 import efisp.efispecommerce.dto.ProductDTO;
 import efisp.efispecommerce.models.ImageUploader;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.UUID;
 
+@MultipartConfig
 @WebServlet("/add-product")
 public class AddProductServlet extends HttpServlet {
 
@@ -44,11 +46,9 @@ public class AddProductServlet extends HttpServlet {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         String price = req.getParameter("price");
-        String departmentId = req.getParameter("departmentId");
-        String brandId = req.getParameter("brandId");
+        String departmentId = req.getParameter("department");
+        String brandId = req.getParameter("brand");
         int stock = Integer.parseInt(req.getParameter("quantity"));
-        String photo = req.getParameter("photo");
-
 
         String imagePath = null;
         try {
@@ -63,6 +63,11 @@ public class AddProductServlet extends HttpServlet {
 
         ProductDTO productDTO = new ProductDTO(UUID.randomUUID(), name, Double.parseDouble(price), brandDTO.name(), description ,departmentDTO.name(), stock, imagePath);
 
-        productController.add(productDTO, admDTO);
+        if(productController.add(productDTO, admDTO)){
+            req.getRequestDispatcher(req.getContextPath() + "/home").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("/pages/add-product.jsp").forward(req, resp);
+        }
+
     }
 }

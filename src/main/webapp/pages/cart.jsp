@@ -64,7 +64,16 @@
                     <p>R$ ${total}</p>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full">Fechar Pedido</button>
+                <c:choose>
+                    <c:when test="${fn:length(cartItems) > 0}">
+                        <button type="submit" class="btn btn-primary w-full">Fechar Pedido</button>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="flex flex-col items-center justify-center">
+                            <p class="text-center text-xl mt-8">Seu carrinho ainda está vazio. Adicione mais itens nele!</p>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </form>
         </div>
     </main>

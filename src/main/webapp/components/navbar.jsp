@@ -11,8 +11,8 @@
             <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                 <c:choose>
                     <c:when test="${fn:length(departments) > 0}">
-                        <c:forEach var="item" items="${departments}" varStatus="index">
-                            <li><a href="${pageContext.request.contextPath}/departments/${item.name()}">${item.name()}</a></li>
+                        <c:forEach var="department" items="${departments}" varStatus="index">
+                            <li><a href="${pageContext.request.contextPath}/departments?name=${department.name()}">${department.name()}</a></li>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
@@ -95,7 +95,7 @@
                 <c:if test="${admin == null}">
                 <li><a href="${pageContext.request.contextPath}/history">Histórico</a></li>
                 </c:if>
-                <li><a href="${pageContext.request.contextPath}/login">Sair</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
             </ul>
         </div>
     </div>

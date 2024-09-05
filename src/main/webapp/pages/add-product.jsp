@@ -29,33 +29,33 @@
   </c:if>
   <div class="hero-content flex-col lg:flex-row">
     <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-      <form action="add-product" method="post" class="card-body">
+      <form action="add-product" enctype="multipart/form-data" method="post" class="card-body">
         <div class="form-control">
           <label class="label">
             <span class="label-text">Nome</span>
           </label>
-          <input type="text" name="name" placeholder="nome" class="input input-bordered" required />
+          <input required type="text" name="name" placeholder="nome" class="input input-bordered" required />
           <span id="error-name" class="text-error hidden"></span>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Descrição</span>
           </label>
-          <input type="text" name="description" placeholder="descrição" class="input input-bordered" required />
+          <input required type="text" name="description" placeholder="descrição" class="input input-bordered" required />
           <span id="error-description" class="text-error hidden"></span>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Preço</span>
           </label>
-          <input type="number" name="price" placeholder="preço" class="input input-bordered" required />
+          <input required type="number" name="price" placeholder="preço" class="input input-bordered" required />
           <span id="error-price" class="text-error hidden"></span>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Quantidade</span>
           </label>
-          <input type="number" name="quantity" placeholder="quantidade" class="input input-bordered" required />
+          <input required type="number" name="quantity" placeholder="quantidade" class="input input-bordered" required />
           <span id="error-quantity" class="text-error hidden"></span>
         </div>
         <div class="form-control">
@@ -83,7 +83,7 @@
           <label class="label">
             <span class="label-text">Imagem</span>
           </label>
-          <input type="file" name="photo" id="photo" class="file-input file-input-bordered w-full" />
+          <input required type="file" name="photo" id="photo" class="file-input file-input-bordered w-full" />
           <span id="error-image" class="text-error hidden"></span>
         </div>
 
