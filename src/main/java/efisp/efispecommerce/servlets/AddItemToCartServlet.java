@@ -31,15 +31,16 @@ public class AddItemToCartServlet extends HttpServlet {
                 CartController cartController = new CartController();
 
                 ItemDTO itemDto = new ItemDTO(UUID.randomUUID(), productDto, cartDto.id(), 1);
-                if(cartController.addItemToCart(itemDto)){
-                    cartDto = cartController.getCartById(cartDto.id());
-                    session.setAttribute("cart", cartDto);
-                    req.getRequestDispatcher("/cart").forward(req, resp);
-                }
+                cartController.addItemToCart(itemDto);
+                cartDto = cartController.getCartById(cartDto.id());
+                session.setAttribute("cart", cartDto);
+                req.getRequestDispatcher("/cart").forward(req, resp);
+                return;
             }
         } else {
             req.setAttribute("result", "addItemToCartError");
         }
+
         req.getRequestDispatcher("/cart").forward(req, resp);
     }
 

@@ -17,6 +17,7 @@ public class UserValidationFilter implements Filter {
             if(session == null || session.getAttribute("user") == null ) {
                 HttpServletResponse httpResponse = (HttpServletResponse)response;
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+                return;
             } else {
                 chain.doFilter(request, response);
             }

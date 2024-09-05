@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setMaxInactiveInterval(30 * 60);
+        session.setMaxInactiveInterval(30 * 60 * 60);
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");

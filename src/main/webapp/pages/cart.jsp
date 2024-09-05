@@ -17,7 +17,7 @@
     <main class="m-4 sm:m-8 sm:mx-auto max-w-4xl p-4 sm:p-8">
         <div class="breadcrumbs text-sm">
             <ul>
-                <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+                <li><a href="home">Home</a></li>
                 <li>Carrinho</li>
             </ul>
         </div>

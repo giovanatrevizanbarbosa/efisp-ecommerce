@@ -62,9 +62,6 @@
                             <span class="label-text">Senha</span>
                         </label>
                         <input type="password" name="password" placeholder="senha" class="input input-bordered" required />
-                        <label class="label">
-                            <a href="#" class="label-text-alt link link-hover">Esqueceu a senha?</a>
-                        </label>
                     </div>
                     <div class="form-control mt-6 space-y-2">
                         <button type="submit" class="btn btn-primary">Entrar</button>
