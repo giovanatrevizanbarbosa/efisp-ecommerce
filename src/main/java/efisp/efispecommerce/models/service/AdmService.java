@@ -36,6 +36,7 @@ public class AdmService {
     }
 
     private AdmDTO toDTO(Administrator administrator) {
+        if (administrator == null) return null;
         return new AdmDTO(
                 administrator.getId(),
                 administrator.getName(),

@@ -17,17 +17,17 @@ public class ProductController {
     }
 
     public boolean add(ProductDTO productDto, AdmDTO admDto) {
-        if (admController.authenticate(admDto.email(), admDto.password()) == null) return false;
+        if (admController.get(admDto.id()) == null) return false;
         return service.add(productDto);
     }
 
     public boolean update(UUID id, ProductDTO productDto, AdmDTO admDto) {
-        if (admController.authenticate(admDto.email(), admDto.password()) == null) return false;
+        if (admController.get(admDto.id()) == null) return false;
         return service.update(id, productDto);
     }
 
     public boolean delete(UUID id, AdmDTO admDto) {
-        if (admController.authenticate(admDto.email(), admDto.password()) == null) return false;
+        if (admController.get(admDto.id()) == null) return false;
         return service.delete(id);
     }
 
