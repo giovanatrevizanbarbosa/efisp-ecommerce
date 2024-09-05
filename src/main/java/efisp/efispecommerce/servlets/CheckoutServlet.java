@@ -73,7 +73,7 @@ public class CheckoutServlet extends HttpServlet {
 
         assert user != null;
         session.setAttribute("cart", cartController.getCartByOwnerEmail(user.email()));
-        req.getRequestDispatcher(req.getContextPath() + "/home").forward(req, resp);
+        req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class CheckoutServlet extends HttpServlet {
         }
 
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/checkout.jsp");
         dispatcher.forward(req, resp);
     }
 
