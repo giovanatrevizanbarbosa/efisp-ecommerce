@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${product.name} - Efisp</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/images/logo.png" rel="icon" type="image/x-icon">
 </head>
 <body>
     <jsp:include page="../components/navbar.jsp"/>
