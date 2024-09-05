@@ -26,11 +26,11 @@
                 <p class="text-gray-400 mb-6">${product.description()}</p>
 
                 <div class="flex flex-col gap-4">
-                    <span class="text-2xl font-bold text-secondary">R$ ${product.price()}</span>
+                    <span class="text-2xl font-bold text-secondary">${String.format('R$ %.2f', product.price())}</span>
                     <span class="text-sm text-gray-400">À vista no Pix e Boleto</span>
                 </div>
 
-                <c:if test="${admin == null}">
+                <c:if test="${admin != null}">
                     <div class="mt-8">
                         <input type="hidden" name="product-id" value="product-id">
                         <a href="${pageContext.request.contextPath}/add-item?id=${product.id()}"

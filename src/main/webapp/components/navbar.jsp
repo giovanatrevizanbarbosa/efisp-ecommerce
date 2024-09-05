@@ -68,7 +68,7 @@
                         <c:choose>
                             <c:when test="${not empty cart.totalItems()}">
                                 <span class="text-lg font-bold">${cart.totalItems()} itens</span>
-                                <span class="text-info">Subtotal: R$ ${cart.totalPrice()}</span>
+                                <span class="text-info">Subtotal: ${String.format('R$ %.2f', cart.totalPrice())}</span>
                             </c:when>
                             <c:otherwise>
                                 <span class="text-lg font-bold">Ainda não há itens</span>
