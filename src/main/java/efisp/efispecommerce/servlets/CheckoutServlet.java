@@ -44,7 +44,7 @@ public class CheckoutServlet extends HttpServlet {
 
         var cart = (CartDTO) session.getAttribute("cart");
       
-        List<ItemDTO> cartItems = itemController.getItemsByCartId(cartDTO.id());
+        List<ItemDTO> cartItems = itemController.getItemsByCartId(cart.id());
 
         String items = "";
         for (ItemDTO item : cartItems) {
@@ -71,6 +71,7 @@ public class CheckoutServlet extends HttpServlet {
         cartController.checkout(cart.id(), orderId);
         cartGenerate(req, resp);
 
+        assert user != null;
         session.setAttribute("cart", cartController.getCartByOwnerEmail(user.email()));
         req.getRequestDispatcher(req.getContextPath() + "/home").forward(req, resp);
     }

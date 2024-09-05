@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -47,7 +48,6 @@
                                             </c:if>
                                         </div>
                                     </div>
-                                </div>
                             </a>
                         </section>
                     </c:forEach>
