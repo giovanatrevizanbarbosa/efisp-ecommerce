@@ -90,7 +90,7 @@ public class CheckoutServlet extends HttpServlet {
         }
 
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/checkout.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
         dispatcher.forward(req, resp);
     }
 
