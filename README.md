@@ -32,22 +32,25 @@ Este projeto faz parte do trabalho final da disciplina de Desenvolvimento Orient
 ### Imagens
 
 #### Página de Login
-![Login]()
+![Login](https://github.com/user-attachments/assets/75f0e635-1dad-42a1-9b4c-c27ecc79f999)
 
 #### Página de Cadastro
-![Register]()
+![Register](https://github.com/user-attachments/assets/fb2b7443-12fa-4398-a499-1eecf2ba59c7)
 
 #### Página Inicial
-![Home]()
+![Home](https://github.com/user-attachments/assets/ed330958-527c-40b7-a802-4bfd32b69f81)
 
 #### Carrinho de Compras
-![Cart]()
+![Cart](https://github.com/user-attachments/assets/e565b731-6470-4b9b-aa62-6d9acba2ef42)
+
+#### Confirmação de Compra
+![PaymentPage](https://github.com/user-attachments/assets/e2044d67-dea8-409f-8de4-f7476e62ed62)
 
 #### Perfil do Usuário
 ![Profile]()
 
 #### Detalhes do Produto
-![ProductDetails]()
+![ProductDetails](https://github.com/user-attachments/assets/c6fea241-ecd2-4596-8ccb-96c829c98bc4)
 
 ### Vídeo
 
