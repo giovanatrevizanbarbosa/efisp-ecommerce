@@ -18,12 +18,13 @@ public class CartController {
         return service.addCart(cartDto);
     }
 
-    public boolean addItemToCart(UUID cartId, ItemDTO itemDto) {
-        return service.addItemToCart(cartId, itemDto);
+    public boolean addItemToCart(ItemDTO itemDto) {
+
+        return service.addItemToCart(itemDto);
     }
 
-    public boolean removeItemFromCart(UUID cartId, ItemDTO itemDto) {
-        return service.removeItemFromCart(cartId, itemDto.id());
+    public boolean removeItemFromCart(ItemDTO itemDto) {
+        return service.removeItemFromCart(itemDto.id());
     }
 
     public boolean updateCart(UUID id, CartDTO cartDto) {

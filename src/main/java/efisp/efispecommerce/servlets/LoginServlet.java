@@ -16,23 +16,23 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-
         HttpSession session = req.getSession();
         session.setMaxInactiveInterval(30 * 60);
+
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
 
         AdmController admController = new AdmController();
         AdmDTO admDTO = admController.authenticate(email, password);
         if (admDTO != null) {
             session.setAttribute("user", admDTO);
+            session.setAttribute("admin", admDTO);
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
             UserController userController = new UserController();
@@ -42,13 +42,12 @@ public class LoginServlet extends HttpServlet {
                 CartController cartController = new CartController();
                 CartDTO cartDto = cartController.getCartByOwnerEmail(email);
 
-                if(cartDto != null){
-                    cartController.deleteCart(cartDto.id());
+                if(cartDto == null){
+                    cartDto = new CartDTO(UUID.randomUUID(), userDto.email(), new HashMap<>());
+                    cartController.addCart(cartDto);
                 }
-                cartDto = new CartDTO(UUID.randomUUID(), userDto.email(), new HashMap<>());
-                cartController.addCart(cartDto);
-                session.setAttribute("cart", cartDto);
 
+                session.setAttribute("cart", cartDto);
                 session.setAttribute("user", userDto);
                 req.getRequestDispatcher("/home").forward(req, resp);
             } else {

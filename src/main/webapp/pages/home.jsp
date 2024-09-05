@@ -14,25 +14,26 @@
 <body>
     <jsp:include page="../components/navbar.jsp"/>
     <main>
+        <h1 class="text-3xl font-bold my-12 text-center">Produtos em Destaque</h1>
         <c:choose>
             <c:when test="${fn:length(products) > 0}">
-                <h1 class="text-3xl font-bold mb-12">Produtos em Destaque</h1>
                  <div class="flex flex-wrap justify-center gap-8">
                     <c:forEach var="product" items="${products}" varStatus="index">
                         <section class="card card-compact bg-base-200 w-80 shadow-xl">
-                            <a href="${pageContext.request.contextPath}/product-details?id=${product.id()}">
+                            <a href="${pageContext.request.contextPath}/product-details">
                                 <figure>
                                     <img class="rounded-t-lg w-full object-cover"
                                          src="${product.photo()}"
                                          alt="${product.name()}" />
                                 </figure>
-                                <div class="card-body">
-                                    <h2 class="card-title line-clamp-2">${product.name()}</h2>
-                                    <div class="card-actions flex justify-between items-center mt-4">
-                                        <span class="text-xl font-semibold text-secondary">${product.price()}</span>
-                                        <a href="cart" class="btn btn-primary">Adicionar no carrinho</a>
+                                    <div class="card-body">
+                                        <h2 class="card-title line-clamp-2">${product.name()}</h2>
+                                        <div class="card-actions flex justify-between items-center mt-4">
+                                            <span class="text-xl font-semibold text-secondary">${product.price()}</span>
+                                            <a href="${pageContext.request.contextPath}/add-item?id=${product.id()}"
+                                               class="btn btn-primary">Adicionar no carrinho</a>
+                                        </div>
                                     </div>
-                                </div>
                             </a>
                         </section>
                     </c:forEach>

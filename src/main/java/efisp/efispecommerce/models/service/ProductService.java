@@ -20,7 +20,7 @@ public class ProductService {
 
     protected Product toEntity(ProductDTO productDTO){
         Brand brand = brandService.getByName(productDTO.brand());
-        Department department = departmentService.getDepartmentByName(productDTO.department());
+        Department department = departmentService.toEntity(departmentService.getDepartmentByName(productDTO.department()));
 
         return new Product(productDTO.id(), productDTO.name(), productDTO.price()
                 ,brand, productDTO.description(), department, productDTO.stock(), productDTO.photo());

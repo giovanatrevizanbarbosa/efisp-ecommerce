@@ -46,8 +46,12 @@ public class TestCartDao implements TestDao {
     @Override
     @Test
     public void add() {
-        assertTrue(cartRepo.add(new Cart(UUID.randomUUID(), "a@a.com")));
-        assertTrue(cartRepo.add(new Cart(UUID.randomUUID(), "b@b.com")));
+
+        Dao.getInstance(User.class).add(new User(UUID.randomUUID(), "igor", "daoCartTest@2gamilc.om", "123456"));
+        Dao.getInstance(User.class).add(new User(UUID.randomUUID(), "igor", "daoCartTest@1gamilc.om", "123456"));
+
+        assertTrue(cartRepo.add(new Cart(UUID.randomUUID(), "daoCartTest@2gamilc.om")));
+        assertTrue(cartRepo.add(new Cart(UUID.randomUUID(), "daoCartTest@1gamilc.om")));
     }
 
     @Override
@@ -72,19 +76,25 @@ public class TestCartDao implements TestDao {
     @Test
     public void getById() {
         var id = UUID.randomUUID();
-        cartRepo.add(new Cart(id, "a@a.com"));
 
-        assertEquals("a@a.com", cartRepo.getById(id).getOwnerEmail());
+        Dao.getInstance(User.class).add(new User(UUID.randomUUID(), "igor", "fasbnahbfashbf@gmai.com", "123456"));
+
+        assertTrue(cartRepo.add(new Cart(id, "fasbnahbfashbf@gmai.com")));
+        assertEquals("fasbnahbfashbf@gmai.com", cartRepo.getById(id).getOwnerEmail());
     }
 
     @Override
     @Test
     public void getAll(){
 
+        Dao.getInstance(User.class).add(new User(UUID.randomUUID(), "igor", "fasbnahbffashbf@gmai.com", "123456"));
+        Dao.getInstance(User.class).add(new User(UUID.randomUUID(), "igor", "fasbnahbfadshbf@gmai.com", "123456"));
+
+
         int size = cartRepo.getAll().size() + 2;
 
-        cartRepo.add(new Cart(UUID.randomUUID(), "a@a.com"));
-        cartRepo.add(new Cart(UUID.randomUUID(), "b@b.com"));
+        cartRepo.add(new Cart(UUID.randomUUID(), "fasbnahbffashbf@gmai.com"));
+        cartRepo.add(new Cart(UUID.randomUUID(), "fasbnahbfadshbf@gmai.com"));
 
         assertEquals(size, cartRepo.getAll().size());
     }

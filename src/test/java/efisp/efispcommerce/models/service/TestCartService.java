@@ -1,11 +1,13 @@
 package efisp.efispcommerce.models.service;
 
 import efisp.efispecommerce.dto.CartDTO;
+import efisp.efispecommerce.dto.UserDTO;
 import efisp.efispecommerce.models.entitys.Brand;
 import efisp.efispecommerce.models.entitys.Department;
 import efisp.efispecommerce.models.entitys.Item;
 import efisp.efispecommerce.models.entitys.Product;
 import efisp.efispecommerce.models.service.CartService;
+import efisp.efispecommerce.models.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +23,11 @@ public class TestCartService {
 
     @BeforeEach
     public void setUp() {
+        UserService userService = new UserService();
+
         cartService = new CartService();
-        String ownerEmail = "gi.trevizan.barbosa@gmail.com";
+        String ownerEmail = "gi.trevizan.barbosaa@gmail.com";
+        userService.addUser(new UserDTO(UUID.randomUUID(), "Gi", ownerEmail, "123"));
         Map<UUID, Item> items = new HashMap<>();
 
         Brand brand = new Brand(UUID.randomUUID(),"Dell");

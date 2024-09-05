@@ -45,4 +45,12 @@ public class TitleService {
     }
 
 
+    public TitleDTO getByName(String name) {
+        for (Title title : dao.getAll()) {
+            if (title.getName().equals(name)) {
+                return toDTO(title);
+            }
+        }
+        return null;
+    }
 }

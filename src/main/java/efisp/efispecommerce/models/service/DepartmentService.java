@@ -11,7 +11,7 @@ public class DepartmentService {
 
     private final Dao<Department> dao = Dao.getInstance(Department.class);
 
-    private Department toEntity(DepartmentDTO department){
+    Department toEntity(DepartmentDTO department){
         return new Department(department.id(), department.name(), department.description());
     }
 
@@ -19,8 +19,8 @@ public class DepartmentService {
         return new DepartmentDTO(department.getId(), department.getName(), department.getDescription());
     }
 
-    public Department getDepartmentByName(String department) {
-        return dao.getAll().stream().filter(d -> d.getName().equals(department)).findFirst().orElse(null);
+    public DepartmentDTO getDepartmentByName(String department) {
+        return dao.getAll().stream().filter(d -> d.getName().equals(department)).findFirst().map(this::toDTO).orElse(null);
     }
 
     public boolean add(DepartmentDTO department) {
