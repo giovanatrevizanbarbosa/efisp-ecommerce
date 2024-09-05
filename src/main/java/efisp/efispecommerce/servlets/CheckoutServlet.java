@@ -73,7 +73,7 @@ public class CheckoutServlet extends HttpServlet {
 
         assert user != null;
         session.setAttribute("cart", cartController.getCartByOwnerEmail(user.email()));
-        req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/home").forward(req, resp);
     }
 
     @Override
