@@ -50,7 +50,7 @@ public class AddProductServlet extends HttpServlet {
         String brandId = req.getParameter("brand");
         int stock = Integer.parseInt(req.getParameter("quantity"));
 
-        String imagePath = null;
+        String imagePath;
         try {
             Part filePart = req.getPart("photo");
             imagePath = ImageUploader.upload(req, filePart, "products");
@@ -64,7 +64,7 @@ public class AddProductServlet extends HttpServlet {
         ProductDTO productDTO = new ProductDTO(UUID.randomUUID(), name, Double.parseDouble(price), brandDTO.name(), description ,departmentDTO.name(), stock, imagePath);
 
         if(productController.add(productDTO, admDTO)){
-            req.getRequestDispatcher(req.getContextPath() + "/home").forward(req, resp);
+            req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("/pages/add-product.jsp").forward(req, resp);
         }
