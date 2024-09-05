@@ -64,7 +64,7 @@ public class AddProductServlet extends HttpServlet {
         ProductDTO productDTO = new ProductDTO(UUID.randomUUID(), name, Double.parseDouble(price), brandDTO.name(), description ,departmentDTO.name(), stock, imagePath);
 
         if(productController.add(productDTO, admDTO)){
-            req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
+            req.getRequestDispatcher("/home").forward(req, resp);
         } else {
             req.getRequestDispatcher("/pages/add-product.jsp").forward(req, resp);
         }
