@@ -8,7 +8,7 @@ public enum Util {
     RESOURCES_PATH_FOR_TEST(new Object() {
         String evaluate() {
             try {
-                return Paths.get(Util.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().getParent().resolve("resources").resolve("database").toString();
+                return Paths.get(Util.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().getParent().resolve("resources").resolve("testDatabase").toString();
             } catch (URISyntaxException e) {
                 System.out.println(e.getMessage());
             }

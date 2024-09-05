@@ -107,7 +107,7 @@
                                             <div class="card-body">
                                                 <h2 class="card-title line-clamp-2">${item.product.getName()}</h2>
                                                 <div class="card-actions flex justify-between items-center mt-4">
-                                                    <span class="text-xl font-semibold text-secondary">R$ ${item.product.getPrice()}</span>
+                                                    <span class="text-xl font-semibold text-secondary">${String.format('R$ %.2f', item.product.getPrice())}</span>
                                                 </div>
                                             </div>
                                         </a>

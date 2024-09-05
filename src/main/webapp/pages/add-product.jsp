@@ -21,7 +21,7 @@
       <div>
         <button class="btn btn-ghost message-alert-button">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
           </svg>
         </button>
       </div>
@@ -34,28 +34,28 @@
           <label class="label">
             <span class="label-text">Nome</span>
           </label>
-          <input required type="text" name="name" placeholder="nome" class="input input-bordered" required />
+          <input required type="text" name="name" placeholder="nome" class="input input-bordered" />
           <span id="error-name" class="text-error hidden"></span>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Descrição</span>
           </label>
-          <input required type="text" name="description" placeholder="descrição" class="input input-bordered" required />
+          <input required type="text" name="description" placeholder="descrição" class="input input-bordered"  />
           <span id="error-description" class="text-error hidden"></span>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Preço</span>
           </label>
-          <input required type="number" name="price" placeholder="preço" class="input input-bordered" required />
+          <input required type="number" step="0.01" name="price" placeholder="preço" class="input input-bordered"/>
           <span id="error-price" class="text-error hidden"></span>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Quantidade</span>
           </label>
-          <input required type="number" name="quantity" placeholder="quantidade" class="input input-bordered" required />
+          <input required type="number" name="quantity" placeholder="quantidade" class="input input-bordered" />
           <span id="error-quantity" class="text-error hidden"></span>
         </div>
         <div class="form-control">
