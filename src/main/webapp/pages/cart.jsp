@@ -66,6 +66,7 @@
 
                 <c:choose>
                     <c:when test="${fn:length(cartItems) > 0}">
+                        <input type="hidden" name="cartItems" value="${cartItems}">
                         <button type="submit" class="btn btn-primary w-full">Fechar Pedido</button>
                     </c:when>
                     <c:otherwise>
