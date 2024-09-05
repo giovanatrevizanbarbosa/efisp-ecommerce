@@ -26,7 +26,7 @@
                 <p class="text-gray-400 mb-6">${product.description()}</p>
 
                 <div class="flex flex-col gap-4">
-                    <span class="text-2xl font-bold text-secondary">R$ ${product.price()}</span>
+                    <span class="text-2xl font-bold text-secondary">${String.format('R$ %.2f', product.price())}</span>
                     <span class="text-sm text-gray-400">À vista no Pix e Boleto</span>
                 </div>
 

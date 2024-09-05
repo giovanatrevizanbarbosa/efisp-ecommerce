@@ -54,18 +54,21 @@ public class CheckoutServlet extends HttpServlet {
                     .append("<hr>");
         }
 
-        itemsBuilder.append("<p><strong>Total:</strong> R$").append(cart.totalPrice()).append("</p>")
+
+        itemsBuilder.append("<p><strong>Subtotal:</strong> R$").append(cart.totalPrice()).append("</p>")
+                .append("<p><strong>Frete:</strong> R$").append(String.format("%.2f", cart.totalPrice() * 0.1)).append("</p>")
+                .append("<p><strong>Total:</strong> R$").append(String.format("%.2f", cart.totalPrice() + (cart.totalPrice() * 0.1))).append("</p>")
                 .append("<p><strong>Total de Itens:</strong> ").append(cart.totalItems()).append("</p>")
-                .append("<p><strong>Forma de Pagamento:</strong> ").append(paymentMethod).append("</p>");
+                .append("<p><strong>Forma de Pagamento:</strong> ").append(paymentMethod.getValue()).append("</p>");
 
         String items = itemsBuilder.toString();
 
-        String emailBody = "<!DOCTYPE html><html><head><style>body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0; } .container { width: 80%; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); } h1 { color: #4CAF50; margin-bottom: 20px; } p { font-size: 16px; margin: 0 0 10px; } .section { margin-bottom: 20px; padding: 15px; border-radius: 8px; background-color: #f9f9f9; } .section h2 { color: #4CAF50; margin: 0 0 10px; } .order-details { border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; } .order-details p { margin: 5px 0; } .footer { margin-top: 20px; font-size: 12px; color: #666; text-align: center; } hr { border: 0; border-top: 1px solid #ddd; margin: 10px 0; }</style></head><body><div class='container'><h1>Obrigado pelo seu pedido!</h1><p>Olá " + user.name() + ",</p><p>Seu pedido foi realizado com sucesso e está sendo processado. Abaixo estão os detalhes:</p><div class='section'><h2>Endereço de Entrega</h2><p><strong>Rua:</strong> " + street + "</p><p><strong>Número:</strong> " + number + "</p><p><strong>Cidade:</strong> " + city + "</p><p><strong>CEP:</strong> " + zipcode + "</p><p><strong>Estado:</strong> " + state + "</p></div><div class='section'><h2>Método de Pagamento</h2><strong>" + paymentMethod + "</strong></div><div class='section'><h2>Produto(s):</h2><div class='order-details'>" + items + "<p><strong>Total:</strong> R$" + cart.totalPrice() + "</p><p><strong>Total de Itens:</strong> " + cart.totalItems() + "</p></div></div><p>Atenciosamente,<br/>Equipe E-fisp</p><div class='footer'>Este é um e-mail automático. Por favor, não responda.</div></div></body></html>";
+        String emailBody = "<!DOCTYPE html><html><head><style>body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0; } .container { width: 80%; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); } h1 { color: #4CAF50; margin-bottom: 20px; } p { font-size: 16px; margin: 0 0 10px; } .section { margin-bottom: 20px; padding: 15px; border-radius: 8px; background-color: #f9f9f9; } .section h2 { color: #4CAF50; margin: 0 0 10px; } .order-details { border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; } .order-details p { margin: 5px 0; } .footer { margin-top: 20px; font-size: 12px; color: #666; text-align: center; } hr { border: 0; border-top: 1px solid #ddd; margin: 10px 0; }</style></head><body><div class='container'><h1>Obrigado pelo seu pedido!</h1><p>Olá " + user.name() + ",</p><p>Seu pedido foi realizado com sucesso e está sendo processado. Abaixo estão os detalhes:</p><div class='section'><h2>Endereço de Entrega</h2><p><strong>Rua:</strong> " + street + "</p><p><strong>Número:</strong> " + number + "</p><p><strong>Cidade:</strong> " + city + "</p><p><strong>CEP:</strong> " + zipcode + "</p><p><strong>Estado:</strong> " + state + "</p></div><div class='section'><h2>Método de Pagamento</h2><strong>" + paymentMethod.getValue() + "</strong></div><div class='section'><h2>Produto(s):</h2><div class='order-details'>" + items + "</p><p><strong>Total de Itens:</strong> " + cart.totalItems() + "</p></div></div><p>Atenciosamente,<br/>Equipe E-fisp</p><div class='footer'>Este é um e-mail automático. Por favor, não responda.</div></div></body></html>";
 
-        if(user != null) {
-            EmailSender emailSender = new EmailSender();
-            emailSender.sendEmail(user.email(), "E-fisp - Pedido realizado com sucesso!", emailBody);
-        }
+
+        EmailSender emailSender = new EmailSender();
+        emailSender.sendEmail(user.email(), "E-fisp - Pedido realizado com sucesso!", emailBody);
+
 
         OrderController orderController = new OrderController();
         AddressController addressController = new AddressController();
@@ -80,7 +83,6 @@ public class CheckoutServlet extends HttpServlet {
         cartController.checkout(cart.id(), orderId);
         cartGenerate(req, resp);
 
-        assert user != null;
         session.setAttribute("cart", cartController.getCartByOwnerEmail(user.email()));
         req.getRequestDispatcher("/home").forward(req, resp);
     }
