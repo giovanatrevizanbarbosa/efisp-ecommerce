@@ -5,7 +5,6 @@ import efisp.efispecommerce.controllers.ProductController;
 import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.dto.ItemDTO;
 import efisp.efispecommerce.dto.ProductDTO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,16 +31,9 @@ public class AddItemToCartServlet extends HttpServlet {
                 CartController cartController = new CartController();
 
                 ItemDTO itemDto = new ItemDTO(UUID.randomUUID(), productDto, cartDto.id(), 1);
-                if(cartController.addItemToCart(cartDto.id(), itemDto)){
-
-                    double subtotal = cartDto.totalPrice();
-                    double shipping = subtotal * 0.01;
-                    double total = subtotal + shipping;
-
-                    session.setAttribute("subtotal", subtotal);
-                    session.setAttribute("shipping", shipping);
-                    session.setAttribute("total", total);
-
+                if(cartController.addItemToCart(itemDto)){
+                    cartDto = cartController.getCartById(cartDto.id());
+                    session.setAttribute("cart", cartDto);
                     req.getRequestDispatcher("/cart").forward(req, resp);
                 }
             }

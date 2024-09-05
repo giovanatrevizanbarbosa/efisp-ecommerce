@@ -5,6 +5,7 @@ import efisp.efispecommerce.dto.ItemDTO;
 import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.entitys.Cart;
+import efisp.efispecommerce.models.entitys.Item;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,13 @@ public class CartService {
     private final ItemService itemService = new ItemService();
 
     Cart toEntity(CartDTO cartDTO){
-        return new Cart(cartDTO.id(), cartDTO.ownerEmail());
+        Cart cart = new Cart(cartDTO.id(), cartDTO.ownerEmail());
+
+        for (Item item : cartDTO.items().values()) {
+            cart.getItems().put(item.getId(), item);
+        }
+
+        return cart;
     }
 
     CartDTO toDTO(Cart cart){
@@ -52,17 +59,28 @@ public class CartService {
         return null;
     }
 
-    public boolean addItemToCart(UUID id, ItemDTO itemDTO) {
-        Cart cart = dao.getById(id);
-        itemService.addItem(itemDTO);
-        cart.insertItem(itemService.toEntity(itemDTO));
-        return dao.update(id, cart);
+    public boolean addItemToCart(ItemDTO itemDTO) {
+        CartDTO cartDTO = getCartById(itemDTO.cartId());
+        if (cartDTO == null) {
+            return false;
+        }
+
+        cartDTO.items().put(itemDTO.id(), itemService.toEntity(itemDTO));
+        dao.update(cartDTO.id(), toEntity(cartDTO));
+
+        return itemService.addItem(itemDTO);
     }
 
-    public boolean removeItemFromCart(UUID id, UUID itemId) {
-        Cart cart = dao.getById(id);
-        itemService.deleteItem(itemId);
-        cart.removeItem(itemId);
-        return dao.update(id, cart);
+    public boolean removeItemFromCart(UUID itemId) {
+        CartDTO cartDTO = getCartById(itemService.getItemById(itemId).cartId());
+        if (cartDTO == null) {
+            return false;
+        }
+
+        cartDTO.items().remove(itemId);
+        dao.update(cartDTO.id(), toEntity(cartDTO));
+
+
+        return itemService.deleteItem(itemId);
     }
 }

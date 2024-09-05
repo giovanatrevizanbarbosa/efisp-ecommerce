@@ -41,20 +41,12 @@ public class LoginServlet extends HttpServlet {
                 CartController cartController = new CartController();
                 CartDTO cartDto = cartController.getCartByOwnerEmail(email);
 
-                if(cartDto != null){
-//                    ItemController itemController = new ItemController();
-//                    List<ItemDTO> cartItems = itemController.getItemsByCartId(cartDto.id());
-//                    if(cartItems != null && !cartItems.isEmpty()){
-//                        for(ItemDTO item : cartItems){
-//                            cartController.removeItemFromCart(cartDto.id(), item.id());
-//                        }
-//                    }
-                    cartController.deleteCart(cartDto.id());
+                if(cartDto == null){
+                    cartDto = new CartDTO(UUID.randomUUID(), userDto.email(), new HashMap<>());
+                    cartController.addCart(cartDto);
                 }
-                cartDto = new CartDTO(UUID.randomUUID(), userDto.email(), new HashMap<>());
-                cartController.addCart(cartDto);
-                session.setAttribute("cart", cartDto);
 
+                session.setAttribute("cart", cartDto);
                 session.setAttribute("user", userDto);
                 req.getRequestDispatcher("/home").forward(req, resp);
             } else {

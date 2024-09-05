@@ -1,5 +1,6 @@
 package efisp.efispecommerce.servlets;
 
+import efisp.efispecommerce.controllers.CartController;
 import efisp.efispecommerce.controllers.ItemController;
 import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.dto.ItemDTO;
@@ -19,12 +20,21 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+        CartController cartController = new CartController();
 
         CartDTO cartDTO = (CartDTO) session.getAttribute("cart");
-        System.out.println(cartDTO);
         if(cartDTO != null){
             ItemController itemController = new ItemController();
             List<ItemDTO> cartItems = itemController.getItemsByCartId(cartDTO.id());
+            cartDTO = cartController.getCartById(cartDTO.id());
+
+            double subtotal = cartDTO.totalPrice();
+            double shipping = 10;
+            double total = subtotal + shipping;
+
+            session.setAttribute("subtotal", subtotal);
+            session.setAttribute("shipping", shipping);
+            session.setAttribute("total", total);
 
             req.setAttribute("cart", cartDTO);
             req.setAttribute("cartItems", cartItems);

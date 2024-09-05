@@ -14,7 +14,7 @@ public class ItemService {
     private final ProductService productService = new ProductService();
 
     protected Item toEntity(ItemDTO itemDTO) {
-        return new Item(itemDTO.id(), itemDTO.cardId(), productService.toEntity(itemDTO.productDTO()), itemDTO.quantity());
+        return new Item(itemDTO.id(), itemDTO.cartId(), productService.toEntity(itemDTO.productDTO()), itemDTO.quantity());
     }
 
     protected ItemDTO toDTO(Item item) {

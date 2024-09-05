@@ -13,17 +13,10 @@ public class ItemController {
          service = new ItemService();
     }
 
-    public boolean addItem(ItemDTO itemDTO) {
-        return service.addItem(itemDTO);
-    }
-
     public boolean updateItem(UUID id, ItemDTO itemDTO) {
         return service.updateItem(id, itemDTO);
     }
 
-    public boolean deleteItem(UUID id) {
-        return service.deleteItem(id);
-    }
 
     public ItemDTO getItemById(UUID id) {
         return service.getItemById(id);

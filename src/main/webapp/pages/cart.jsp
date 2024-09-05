@@ -37,13 +37,6 @@
                             </div>
                         </div>
                         <div class="flex flex-col sm:flex-row items-center w-full sm:w-auto space-y-2 sm:space-y-0 sm:space-x-4">
-                            <select name="quantity" id="quantity" class="input input-bordered w-24">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
                             <form action="remove-item" method="post">
                                 <input type="hidden" name="itemId" value="${cartItem.id()}">
                                 <button type="submit" class="btn btn btn-sm btn-ghost text-red-600">Remover</button>
@@ -68,7 +61,7 @@
                 </div>
                 <div class="flex justify-between font-bold text-xl">
                     <p>Pedido total:</p>
-                    <p>R$ ${(cart.totalPrice() * 0.01) + cart.totalPrice()}</p>
+                    <p>R$ ${total}</p>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-full">Fechar Pedido</button>
