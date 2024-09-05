@@ -36,7 +36,7 @@ public class ImageUploader {
         String fileNameWithUUID = fileNameWithoutExtension + "-" + randomImageId + "." + extension;
 
         String uploadFilePath = Util.IMAGES_PATH.value() + File.separator + UPLOAD_DIR + File.separator + directory;
-        String serverFilePath = req.getServletContext().getRealPath("/resources/") + UPLOAD_DIR + File.separator + directory;
+        String serverFilePath = req.getServletContext().getRealPath("/") + UPLOAD_DIR + File.separator + directory;
 
         File uploadDir = new File(uploadFilePath);
         File serverUploadDir = new File(serverFilePath);
@@ -54,7 +54,7 @@ public class ImageUploader {
         Files.copy(filePart.getInputStream()
                 , Paths.get(serverFilePath, fileNameWithUUID));
 
-        return "resources/images/" + directory + "/" + fileNameWithUUID;
+        return "images/" + directory + "/" + fileNameWithUUID;
     }
 
     private static String removeImageExtension(String fileName) {

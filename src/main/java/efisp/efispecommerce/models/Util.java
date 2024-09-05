@@ -39,7 +39,7 @@ public enum Util {
             try {
                 return Paths.get(Util.class.getProtectionDomain().getCodeSource().getLocation().toURI())
                         .getParent().getParent().getParent().getParent()
-                        .resolve("resources").toString();
+                        .resolve("src/main/webapp").toString();
             } catch (URISyntaxException e) {
                 System.out.println(e.getMessage());
             }
