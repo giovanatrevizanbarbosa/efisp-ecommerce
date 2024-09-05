@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
         AdmDTO admDTO = admController.authenticate(email, password);
         if (admDTO != null) {
             session.setAttribute("user", admDTO);
+            session.setAttribute("admin", admDTO);
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
             UserController userController = new UserController();

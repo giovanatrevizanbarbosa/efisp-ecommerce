@@ -26,11 +26,11 @@ public class DepartmentController {
         return service.delete(id);
     }
 
-    public DepartmentDTO getDepartmentById(UUID id) {
+    public DepartmentDTO getById(UUID id) {
         return service.getById(id);
     }
 
-    public Department getDepartmentByName(String name) {
+    public Department getByName(String name) {
         return service.getDepartmentByName(name);
     }
 
