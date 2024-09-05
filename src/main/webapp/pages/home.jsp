@@ -32,7 +32,7 @@
                  <div class="flex flex-wrap justify-center gap-8">
                     <c:forEach var="product" items="${products}" varStatus="index">
                         <section class="card card-compact bg-base-200 w-80 shadow-xl">
-                            <a href="${pageContext.request.contextPath}/product-details">
+                            <a href="${pageContext.request.contextPath}/product-details?id=${product.id()}">
                                 <figure>
                                     <img class="rounded-t-lg w-full object-cover"
                                          src="${product.photo()}"
