@@ -45,7 +45,7 @@ Este projeto faz parte do trabalho final da disciplina de Desenvolvimento Orient
 
 #### Confirmação de Compra
 ![Checkout1](https://i.imgur.com/jpc4o8f.png)
-![Checkout2](https://i.imgur.com/qBpvRAP.png)
+![Checkout2](https://i.imgur.com/IVpZRF6.png)
 
 #### Perfil do Usuário
 ![Profile](https://i.imgur.com/xndhXPs.png)
