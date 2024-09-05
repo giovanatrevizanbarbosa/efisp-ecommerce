@@ -1,6 +1,7 @@
 package efisp.efispecommerce.models.service;
 
 import efisp.efispecommerce.dto.CartDTO;
+import efisp.efispecommerce.dto.ItemDTO;
 import efisp.efispecommerce.models.dao.Dao;
 import efisp.efispecommerce.models.dao.IDao;
 import efisp.efispecommerce.models.entitys.Cart;
@@ -51,14 +52,16 @@ public class CartService {
         return null;
     }
 
-    public boolean addItemToCart(UUID id, UUID itemId) {
+    public boolean addItemToCart(UUID id, ItemDTO itemDTO) {
         Cart cart = dao.getById(id);
-        cart.insertItem(itemService.toEntity(itemService.getItemById(itemId)));
+        itemService.addItem(itemDTO);
+        cart.insertItem(itemService.toEntity(itemDTO));
         return dao.update(id, cart);
     }
 
     public boolean removeItemFromCart(UUID id, UUID itemId) {
         Cart cart = dao.getById(id);
+        itemService.deleteItem(itemId);
         cart.removeItem(itemId);
         return dao.update(id, cart);
     }

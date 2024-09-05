@@ -1,6 +1,7 @@
 package efisp.efispecommerce.controllers;
 
 import efisp.efispecommerce.dto.CartDTO;
+import efisp.efispecommerce.dto.ItemDTO;
 import efisp.efispecommerce.models.service.CartService;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class CartController {
         return service.addCart(cartDto);
     }
 
-    public boolean addItemToCart(UUID cartId, UUID itemId) {
-        return service.addItemToCart(cartId, itemId);
+    public boolean addItemToCart(UUID cartId, ItemDTO itemDto) {
+        return service.addItemToCart(cartId, itemDto);
     }
 
-    public boolean removeItemFromCart(UUID cartId, UUID itemId) {
-        return service.removeItemFromCart(cartId, itemId);
+    public boolean removeItemFromCart(UUID cartId, ItemDTO itemDto) {
+        return service.removeItemFromCart(cartId, itemDto.id());
     }
 
     public boolean updateCart(UUID id, CartDTO cartDto) {
