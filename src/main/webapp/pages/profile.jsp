@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-
+    <link href="${pageContext.request.contextPath}/images/logo.png" rel="icon" type="image/x-icon">
     <title>Perfil - E-fisp</title>
 </head>
 <body>
@@ -74,6 +74,7 @@
                         </div>
                     </div>
 
+                <c:if test="${admin == null}" >
                     <div class="form-control mt-6">
                         <button type="button"
                                 onclick="toggleEdit(this)"
@@ -81,6 +82,7 @@
                         <button type="submit" id="submitEdit"
                                 class="btn btn-success mt-4 status-reseter-button hidden">Salvar</button>
                     </div>
+                </c:if>
                 </form>
             </div>
         </div>
@@ -89,27 +91,32 @@
             <div class="collapse bg-base-200">
                 <input type="checkbox" />
                 <div class="collapse-title text-2xl font-semibold text-center">Histórico de Compras</div>
-                <div class="collapse-content">
-                    <div class="w-full max-w-xs">
-                        <div class="w-full max-w-lg shadow-xl mb-8">
-                            <section class="card card-compact bg-base-200 shadow-xl">
-                                <a href="#">
-                                    <figure>
-                                        <img class="rounded-t-lg w-full object-cover"
-                                             src="https://www.kabum.com.br/_next/image?url=https%3A%2F%2Fimages.kabum.com.br%2Fprodutos%2Ffotos%2F522531%2Fplaca-de-video-rtx-4060-asus-dual-o8g-evo-nvidia-geforce-8gb-gddr6-g-sync-ray-tracing-90yv0jc7-m0na00_1711036187_g.jpg&w=640&q=100"
-                                             alt="Placa de vídeo RTX 4060 ASUS Dual 8G EVO OC" />
-                                    </figure>
-                                    <div class="card-body">
-                                        <h2 class="card-title line-clamp-2">Placa de vídeo RTX 4060 ASUS Dual 8G EVO OC NVIDIA GeForce</h2>
-                                        <div class="card-actions flex justify-between items-center mt-4">
-                                            <span class="text-xl font-semibold text-secondary">R$ 2.099,99</span>
+                <div class="collapse-content flex gap-5">
+
+                                <c:forEach var="order" items="${orders}">
+                                    <c:forEach var="item" items="${order.items()}">
+                                    <div class="w-full max-w-xs">
+                                        <div class="w-full max-w-lg shadow-xl mb-8">
+                                    <section class="card card-compact bg-base-200 shadow-xl">
+                                        <a href="#">
+                                            <figure>
+                                                <img class="rounded-t-lg w-full object-cover"
+                                                     src="${item.product.getPhoto()}"
+                                                     alt="${item.product.getName()}" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title line-clamp-2">${item.product.getName()}</h2>
+                                                <div class="card-actions flex justify-between items-center mt-4">
+                                                    <span class="text-xl font-semibold text-secondary">${String.format('R$ %.2f', item.product.getPrice())}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </section>
                                         </div>
                                     </div>
-                                </a>
-                            </section>
+                                    </c:forEach>
+                                </c:forEach>
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </c:if>

@@ -8,6 +8,7 @@ import efisp.efispecommerce.models.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +24,7 @@ public class TestOrder {
         user = new User(UUID.randomUUID(), "Cauã", "caua@gmail.com", "Password123");
         cart = new Cart(UUID.randomUUID(), "caua@gmail.com");
         address = new Address(UUID.randomUUID(), "Rua Yoki", "700", "Araraquara", "SP", "14800200");
-        order = new Order(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        order = new Order(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
     }
 
     @Test
@@ -34,30 +35,6 @@ public class TestOrder {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void TestOrderGetCart() {
-        Cart expected = cart;
-        Cart actual = order.getCart();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void TestOrderSetCart() {
-        Cart expected = new Cart(UUID.randomUUID(), "igor@gmail.com");
-        order.setCart(expected);
-        Cart actual = order.getCart();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void TestOrderSetCartNotNull() {
-        order.setCart(null);
-        Cart actual = order.getCart();
-
-        assertNotNull(actual);
-    }
 
     @Test
     public void TestOrderGetPaymentMethod() {

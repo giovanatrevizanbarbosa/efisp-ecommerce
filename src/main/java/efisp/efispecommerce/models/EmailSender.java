@@ -14,7 +14,7 @@ public class EmailSender {
 
     public EmailSender() throws IOException {
         Properties props = new Properties();
-        String configFilePath = Util.CONFIG_FILE.value() + "/config.properties";  // Construa o caminho completo
+        String configFilePath = Util.CONFIG_FILE.value() + "/config.properties";
         try (FileInputStream input = new FileInputStream(configFilePath)) {
             props.load(input);
         }
@@ -44,7 +44,14 @@ public class EmailSender {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject(subject);
-            message.setText(body);
+
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(body, "text/html");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+
+            message.setContent(multipart);
 
             Transport.send(message);
         } catch (MessagingException e) {

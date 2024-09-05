@@ -13,16 +13,16 @@ import java.util.UUID;
 public class OrderService {
     private final IDao<Order> dao = Dao.getInstance(Order.class);
     private final UserService userService = new UserService();
-    private final CartService cartService = new CartService();
+    private final ItemService cartService = new ItemService();
     private final AddressService addressService = new AddressService();
 
     private Order toEntity(OrderDTO orderDTO) {
-        return new Order(orderDTO.id(), userService.toEntity(orderDTO.user()), cartService.toEntity(orderDTO.cart())
+        return new Order(orderDTO.id(), userService.toEntity(orderDTO.user()), orderDTO.items()
                 , orderDTO.paymentMethod(), addressService.toEntity(orderDTO.address()));
     }
 
     private OrderDTO toDTO(Order order) {
-        return new OrderDTO(order.getId(), userService.toDTO(order.getUser()), cartService.toDTO(order.getCart())
+        return new OrderDTO(order.getId(), userService.toDTO(order.getUser()), order.getItems()
                 , order.getPaymentMethod(), addressService.toDTO(order.getAddress()));
     }
 

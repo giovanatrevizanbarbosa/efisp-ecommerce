@@ -32,7 +32,11 @@ public class ProductService {
     }
 
     public List<ProductDTO> getAll() {
-        return dao.getAll().stream().map(this::toDTO).toList();
+        return dao.getAll().stream().filter(p -> p.getStock() > 0).map(this::toDTO).toList();
+    }
+
+    public List<ProductDTO> getOutOfStock() {
+        return dao.getAll().stream().filter(p -> p.getStock() == 0).map(this::toDTO).toList();
     }
 
     public boolean add(ProductDTO productDto) {

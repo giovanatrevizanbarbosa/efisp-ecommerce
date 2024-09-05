@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-
+    <link href="${pageContext.request.contextPath}/images/logo.png" rel="icon" type="image/x-icon">
     <title>Carrinho - Efisp</title>
 </head>
 <body>
@@ -49,7 +49,7 @@
 
         <div class="mt-8">
             <div class="divider mb-6"></div>
-            <form action="checkout" method="post" class="space-y-4">
+            <form action="checkout" method="get" class="space-y-4">
                 <h2 class="text-xl font-semibold">Detalhes do pedido</h2>
                 <div class="flex justify-between">
                     <p>Subtotal</p>
