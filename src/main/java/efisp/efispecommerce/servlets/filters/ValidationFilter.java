@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/cart", "/checkout", "/profile"},
+@WebFilter(urlPatterns = {"/cart", "/checkout", "/profile", "/add-item"},
         filterName = "Authorization")
 public class ValidationFilter implements Filter {
         @Override
@@ -14,7 +14,7 @@ public class ValidationFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpSession session = httpRequest.getSession(false);
 
-            if(session == null || session.getAttribute("user") == null) {
+            if(session == null || session.getAttribute("user") == null ) {
                 HttpServletResponse httpResponse = (HttpServletResponse)response;
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             } else {

@@ -16,18 +16,17 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-
         HttpSession session = req.getSession();
         session.setMaxInactiveInterval(30 * 60);
+
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
 
         AdmController admController = new AdmController();
         AdmDTO admDTO = admController.authenticate(email, password);
@@ -43,6 +42,13 @@ public class LoginServlet extends HttpServlet {
                 CartDTO cartDto = cartController.getCartByOwnerEmail(email);
 
                 if(cartDto != null){
+//                    ItemController itemController = new ItemController();
+//                    List<ItemDTO> cartItems = itemController.getItemsByCartId(cartDto.id());
+//                    if(cartItems != null && !cartItems.isEmpty()){
+//                        for(ItemDTO item : cartItems){
+//                            cartController.removeItemFromCart(cartDto.id(), item.id());
+//                        }
+//                    }
                     cartController.deleteCart(cartDto.id());
                 }
                 cartDto = new CartDTO(UUID.randomUUID(), userDto.email(), new HashMap<>());
