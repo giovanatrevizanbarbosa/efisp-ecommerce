@@ -83,4 +83,15 @@ public class CartService {
 
         return itemService.deleteItem(itemId);
     }
+
+    public boolean checkout(UUID id, UUID orderId) {
+        CartDTO cartDTO = getCartById(id);
+        if (cartDTO == null) {
+            return false;
+        }
+
+        itemService.checkout(id, orderId);
+
+        return deleteCart(id);
+    }
 }

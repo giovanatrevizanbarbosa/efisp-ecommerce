@@ -42,9 +42,15 @@
                     </div>
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">Endereço</span>
+                            <span class="label-text">Rua</span>
                         </label>
-                        <input type="text" name="address" class="input input-bordered w-full" placeholder="Endereço" required />
+                        <input type="text" name="street" class="input input-bordered w-full" placeholder="Rua" required />
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Número</span>
+                        </label>
+                        <input type="text" name="number" class="input input-bordered w-full" placeholder="Número" required />
                     </div>
                     <div class="form-control">
                         <label class="label">
@@ -58,20 +64,25 @@
                         </label>
                         <input type="text" name="zipcode" class="input input-bordered w-full" placeholder="CEP" required />
                     </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Estado</span>
+                        </label>
+                        <input type="text" name="state" class="input input-bordered w-full" placeholder="Estado" required />
+                    </div>
                 </div>
             </section>
 
             <section class="bg-base-200 p-6 rounded-lg shadow-md">
                 <h2 class="text-xl font-semibold mb-4">2. Método de Pagamento</h2>
                 <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="payment-method">
                         <span class="label-text">Selecione um método de pagamento</span>
                     </label>
-                    <select name="payment-method" class="select select-bordered w-full" required>
-                        <option value="credit-card">Cartão de Crédito</option>
-                        <option value="debit-card">Cartão de Débito</option>
-                        <option value="boleto">Boleto Bancário</option>
-                        <option value="pix" selected>PIX</option>
+                    <select id="payment-method" name="payment-method" class="select select-bordered w-full" required>
+                        <option value="CreditCard">Cartão de Crédito</option>
+                        <option value="FetLock">Boleto Bancário</option>
+                        <option value="Pix" selected>PIX</option>
                     </select>
                 </div>
             </section>
@@ -79,30 +90,20 @@
             <section class="bg-base-200 p-6 rounded-lg shadow-md">
                 <h2 class="text-xl font-semibold mb-4">3. Revisar Itens</h2>
                 <ul class="space-y-4">
-                    <li class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img
-                                    src="https://www.kabum.com.br/_next/image?url=https%3A%2F%2Fimages.kabum.com.br%2Fprodutos%2Ffotos%2F522531%2Fplaca-de-video-rtx-4060-asus-dual-o8g-evo-nvidia-geforce-8gb-gddr6-g-sync-ray-tracing-90yv0jc7-m0na00_1711036187_g.jpg&w=640&q=100"
-                                    alt="Produto" class="w-20 h-20 object-cover rounded-md">
-                            <div>
-                                <h2 class="text-lg font-semibold">Placa de vídeo RTX 4060 ASUS</h2>
-                                <p class="text-gray-400">R$ 50,00</p>
+                    <c:forEach var="cartItem" items="${cartItems}">
+                        <li class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <img
+                                    src="${cartItem.productDTO().photo()}"
+                                    alt="Produto ${cartItem.productDTO().name()}" class="w-20 h-20 object-cover rounded-md">
+                                <div>
+                                    <h2 class="text-lg font-semibold">${cartItem.productDTO().name()}</h2>
+                                    <p class="text-gray-400">R$ ${cartItem.productDTO().price()}</p>
+                                </div>
                             </div>
-                        </div>
-                        <p>2 unidade(s)</p>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img
-                                    src="https://www.kabum.com.br/_next/image?url=https%3A%2F%2Fimages.kabum.com.br%2Fprodutos%2Ffotos%2F522531%2Fplaca-de-video-rtx-4060-asus-dual-o8g-evo-nvidia-geforce-8gb-gddr6-g-sync-ray-tracing-90yv0jc7-m0na00_1711036187_g.jpg&w=640&q=100"
-                                    alt="Produto" class="w-20 h-20 object-cover rounded-md">
-                            <div>
-                                <h2 class="text-lg font-semibold">Placa de vídeo RTX 4060 ASUS</h2>
-                                <p class="text-gray-400">R$ 50,00</p>
-                            </div>
-                        </div>
-                        <p>1 unidade(s)</p>
-                    </li>
+                            <p>${cartItem.quantity()} unidade(s)</p>
+                        </li>
+                    </c:forEach>
                 </ul>
 
                 <div class="divider"></div>
@@ -111,15 +112,15 @@
                     <h2 class="text-xl font-semibold">Detalhes do pedido</h2>
                     <div class="flex justify-between">
                         <p>Subtotal</p>
-                        <p>R$ 99,90</p>
+                        <p>R$ ${subtotal}</p>
                     </div>
                     <div class="flex justify-between">
                         <p>Frete</p>
-                        <p>R$ 10,00</p>
+                        <p>R$ ${shipping}</p>
                     </div>
                     <div class="flex justify-between font-bold text-xl">
                         <p>Pedido total:</p>
-                        <p>R$ 109,90</p>
+                        <p>R$ ${total}</p>
                     </div>
                 </div>
 

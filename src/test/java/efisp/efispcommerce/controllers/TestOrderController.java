@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -42,7 +43,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         var result = controller.add(orderDto);
 
@@ -64,7 +65,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 
@@ -88,7 +89,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 
@@ -112,7 +113,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 
@@ -136,7 +137,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 
@@ -160,7 +161,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 
@@ -184,7 +185,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 
@@ -208,7 +209,7 @@ public class TestOrderController {
         var address = new AddressDTO(UUID.randomUUID(), "Rua", "123", "Cidaede", "Estado", "12345-123");
         addressDao.add(address);
 
-        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, cart, PaymentMethod.CreditCard, address);
+        OrderDTO orderDto = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), PaymentMethod.CreditCard, address);
 
         controller.add(orderDto);
 

@@ -30,8 +30,10 @@
                                         <h2 class="card-title line-clamp-2">${product.name()}</h2>
                                         <div class="card-actions flex justify-between items-center mt-4">
                                             <span class="text-xl font-semibold text-secondary">${product.price()}</span>
+                                            <c:if test="${admin == null}" >
                                             <a href="${pageContext.request.contextPath}/add-item?id=${product.id()}"
                                                class="btn btn-primary">Adicionar no carrinho</a>
+                                            </c:if>
                                         </div>
                                     </div>
                             </a>

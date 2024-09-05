@@ -4,11 +4,14 @@ import efisp.efispecommerce.dto.AddressDTO;
 import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.dto.OrderDTO;
 import efisp.efispecommerce.dto.UserDTO;
+import efisp.efispecommerce.models.entitys.Item;
 import efisp.efispecommerce.models.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,20 +20,20 @@ public class TestOrderDTO {
 
     private OrderDTO orderDTO;
     private UserDTO user;
-    private CartDTO cart;
+    private List<Item> items;
     private PaymentMethod paymentMethod;
     private AddressDTO address;
 
     @BeforeEach
     public void setUp() {
         user = new UserDTO(UUID.randomUUID(), "Giovana", "gi.trevizan.barbosa@gmail.com", "senha1234");
-        cart = new CartDTO(UUID.randomUUID(), "gi.trevizan.barbosa@gmail.com", new HashMap<>());
+        items = new LinkedList<>();
 
         paymentMethod = PaymentMethod.CreditCard;
         address = new AddressDTO(UUID.randomUUID(),"123 Main St", "10A", "Springfield", "62701", "USA");
 
 
-        orderDTO = new OrderDTO(UUID.randomUUID(), user, cart, paymentMethod, address);
+        orderDTO = new OrderDTO(UUID.randomUUID(), user, items, paymentMethod, address);
     }
 
     @Test
@@ -46,11 +49,11 @@ public class TestOrderDTO {
     @Test
     public void getCartReturnsCorrectCart() {
         // Given
-        CartDTO expectedCart = cart;
+        List<Item> items = new LinkedList<>();
         // When
-        CartDTO actualCart = orderDTO.cart();
+        List<Item> actualCart = orderDTO.items();
         // Then
-        assertEquals(expectedCart, actualCart);
+        assertEquals(items, actualCart);
     }
 
     @Test

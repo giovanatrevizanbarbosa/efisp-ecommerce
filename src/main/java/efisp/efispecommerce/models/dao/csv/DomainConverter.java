@@ -109,19 +109,19 @@ public class DomainConverter {
 
     public static Order getOrderFromCsv(Csv csv){
         IDao<User> userCsvReaderWriter = Dao.getInstance(User.class);
-        IDao<Cart> cartCsvReaderWriter = Dao.getInstance(Cart.class);
+        IDao<Item> cartCsvReaderWriter = Dao.getInstance(Item.class);
         IDao<Address> addressCsvReaderWriter = Dao.getInstance(Address.class);
 
         String[] data = csv.getData();
 
         List<User> users = userCsvReaderWriter.getAll();
-        List<Cart> carts = cartCsvReaderWriter.getAll();
+        List<Item> items = cartCsvReaderWriter.getAll();
         List<Address> addresses = addressCsvReaderWriter.getAll();
 
         User user = users.stream().filter(u -> u.getEmail().equals(data[1])).findFirst().orElse(null);
-        Cart cart = carts.stream().filter(c -> c.getId().equals(UUID.fromString(data[2]))).findFirst().orElse(null);
-        Address address = addresses.stream().filter(a -> a.getId().equals(UUID.fromString(data[4]))).findFirst().orElse(null);
+        List<Item> itemsFiltered = items.stream().filter(i -> i.getCartId().equals(UUID.fromString(data[0]))).toList();
+        Address address = addresses.stream().filter(a -> a.getId().equals(UUID.fromString(data[3]))).findFirst().orElse(null);
 
-        return new Order(UUID.fromString(data[0]), user, cart, PaymentMethod.valueOf(data[3]), address);
+        return new Order(UUID.fromString(data[0]), user, itemsFiltered, PaymentMethod.valueOf(data[2]), address);
     }
 }

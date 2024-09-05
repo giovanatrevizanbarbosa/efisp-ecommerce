@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.UUID;
 
 import static efisp.efispecommerce.models.enums.PaymentMethod.Pix;
@@ -36,7 +37,7 @@ public class TestOrderService {
         cartDAO.addCart(cart);
         addressDAO.add(address);
 
-        orderDTO = new OrderDTO(UUID.randomUUID(), user, cart, Pix, address);
+        orderDTO = new OrderDTO(UUID.randomUUID(), user, new LinkedList<>(), Pix, address);
 
         orderService = new OrderService();
     }

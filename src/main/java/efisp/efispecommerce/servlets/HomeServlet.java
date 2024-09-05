@@ -1,19 +1,25 @@
 package efisp.efispecommerce.servlets;
 
+import efisp.efispecommerce.controllers.CartController;
 import efisp.efispecommerce.controllers.DepartmentController;
 import efisp.efispecommerce.controllers.ProductController;
+import efisp.efispecommerce.dto.CartDTO;
 import efisp.efispecommerce.dto.DepartmentDTO;
 import efisp.efispecommerce.dto.ProductDTO;
+import efisp.efispecommerce.dto.UserDTO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -52,4 +58,6 @@ public class HomeServlet extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
         dispatcher.forward(req, resp);
     }
+
+
 }

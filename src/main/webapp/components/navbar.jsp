@@ -51,7 +51,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <c:if test="${admin != null}">
+                        <c:if test="${admin == null}">
                             <c:choose>
                                 <c:when test="${not empty cart.totalItems()}">
                                     <span class="badge badge-sm indicator-item">${cart.totalItems()}</span>
@@ -90,13 +90,19 @@
                     <span class="text-xl">${fn:toUpperCase(fn:substring(user.name(), 0, 1))}</span>
                 </div>
             </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li><a href="${pageContext.request.contextPath}/profile" class="justify-between">Perfil</a></li>
-                <c:if test="${admin == null}">
-                <li><a href="${pageContext.request.contextPath}/history">Histórico</a></li>
-                </c:if>
-                <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
-            </ul>
+            <c:if test="${user == null}">
+                <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a href="${pageContext.request.contextPath}/login">Entrar</a></li>
+                    <li><a href="${pageContext.request.contextPath}/register">Registrar</a></li>
+                </ul>
+            </c:if>
+            <c:if test="${user != null}">
+                <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a href="${pageContext.request.contextPath}/profile" class="justify-between">Perfil</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
+                </ul>
+            </c:if>
+
         </div>
     </div>
 </div>
