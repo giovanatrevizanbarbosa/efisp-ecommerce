@@ -30,7 +30,7 @@
                     <span class="text-sm text-gray-400">À vista no Pix e Boleto</span>
                 </div>
 
-                <c:if test="${admin != null}">
+                <c:if test="${admin == null}">
                     <div class="mt-8">
                         <input type="hidden" name="product-id" value="product-id">
                         <a href="${pageContext.request.contextPath}/add-item?id=${product.id()}"

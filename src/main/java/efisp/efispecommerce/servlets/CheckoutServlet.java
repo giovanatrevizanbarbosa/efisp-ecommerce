@@ -57,7 +57,7 @@ public class CheckoutServlet extends HttpServlet {
 
         itemsBuilder.append("<p><strong>Subtotal:</strong> R$").append(cart.totalPrice()).append("</p>")
                 .append("<p><strong>Frete:</strong> R$").append(String.format("%.2f", cart.totalPrice() * 0.1)).append("</p>")
-                .append("<p><strong>Total:</strong> R$").append(cart.totalPrice() + (cart.totalPrice() * 0.1)).append("</p>")
+                .append("<p><strong>Total:</strong> R$").append(String.format("%.2f", cart.totalPrice() + (cart.totalPrice() * 0.1))).append("</p>")
                 .append("<p><strong>Total de Itens:</strong> ").append(cart.totalItems()).append("</p>")
                 .append("<p><strong>Forma de Pagamento:</strong> ").append(paymentMethod.getValue()).append("</p>");
 
